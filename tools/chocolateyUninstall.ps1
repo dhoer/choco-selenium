@@ -13,7 +13,6 @@ Try {
 } Catch {
   Write-Debug $name service is not found
 }
- -ErrorAction SilentlyContinue
 
 $rules = Get-NetFirewallRule
 if ($rules.DisplayName.Contains($name)) {Remove-NetFirewallRule -DisplayName $name}
