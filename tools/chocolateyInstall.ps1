@@ -10,7 +10,7 @@ $seleniumDir   = "$toolsLocation\selenium"
 $seleniumPath  = "$seleniumDir\selenium-server-standalone.jar"
 $pp            = Get-PackageParameters
 
-getPackageParameterDefaults($pp)
+getDefaults($pp)
 
 If (!(Test-Path $seleniumDir)) {
   New-Item $seleniumDir -ItemType directory
@@ -117,7 +117,7 @@ function getConfig ($pp) {
   }
 }
 
-function getPackageParameterDefaults ($pp) {
+function getDefaults ($pp) {
   if ($pp["role"] -eq $null -or $pp["role"] -eq '') { $pp["role"] = 'standalone' }
   if ($pp["username"] -eq $null -or $pp["username"] -eq '') { $pp["username"] = "$env:UserName" }
   if ($pp["port"] -eq $null -or $pp["port"] -eq '') {
