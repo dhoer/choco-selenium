@@ -12,7 +12,7 @@
       Temp desc
     </description>
     <dependencies>
-        <dependency id="nssm" version="2.24-*" />
+        <dependency id="nssm" version="2.24.*" />
     </dependencies>
   </metadata>
   <files>
