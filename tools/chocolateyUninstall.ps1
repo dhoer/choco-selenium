@@ -8,14 +8,12 @@ if ($pp["role"] -eq $null -or $pp["role"] -eq '') { $pp["role"] = 'standalone' }
 
 $name = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
 
-Try {
-  nssm remove $name confirm
-} Catch {
-  Write-Debug $name service is not found
-}
-
 $rules = Get-NetFirewallRule
 if ($rules.DisplayName.Contains($name)) {Remove-NetFirewallRule -DisplayName $name}
+
+if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and (Test-Path $pp["log"])) {
+  Remove-Item $pp["log"]  -Force
+}
 
 if (Test-Path $seleniumDir) {
   $seleniumPath  = "$seleniumDir\selenium-server-standalone.jar"
@@ -43,7 +41,7 @@ $menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Progra
 $shortcutDir = "$menuPrograms\Selenium"
 
 if (Test-Path $shortcutDir) {
-  shortcutFilePath = "$menuPrograms\Selenium\Selenium Server $($pp["role"]).lnk"
+  shortcutFilePath = "$menuPrograms\Selenium\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
   If (Test-Path $shortcutFile) {
     Remove-Item $shortcutFile -Force
   }

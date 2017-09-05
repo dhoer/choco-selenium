@@ -10,37 +10,15 @@ $checksumType  = 'md5'
 $toolsLocation = Get-ToolsLocation
 $seleniumDir   = "$toolsLocation\selenium"
 $seleniumPath  = "$seleniumDir\selenium-server-standalone.jar"
-$pp            = Get-PackageParameters
+$pp            = Get-SeleniumConfigDefaults
+$name          = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
 
-if ($pp["role"] -eq $null -or $pp["role"] -eq '') { $pp["role"] = 'standalone' }
-if ($pp["username"] -eq $null -or $pp["username"] -eq '') { $pp["username"] = "$env:UserName" }
-if ($pp["port"] -eq $null -or $pp["port"] -eq '') {
-  if ($pp["role"] -eq 'node') { $pp["port"] = 5555 } else { $pp["port"] = 4444 }
-}
-if ($pp["debug"] -eq $null -or $pp["debug"] -eq '') { $pp["debug"] = $false }
-if ($pp["browserTimeout"] -eq $null -or $pp["browserTimeout"] -eq '') { $pp["browserTimeout"] = 0 }
-if ($pp["enablePassThrough"] -eq $null -or $pp["enablePassThrough"] -eq '') { $pp["enablePassThrough"] = $true }
-if ($pp["timeout"] -eq $null -or $pp["timeout"] -eq '') { $pp["timeout"] = 1800 }
-if ($pp["capabilityMatcher"] -eq $null -or $pp["capabilityMatcher"] -eq '') { $pp["capabilityMatcher"] = 'org.openqa.grid.internal.utils.DefaultCapabilityMatcher' }
-if ($pp["cleanUpCycle"] -eq $null -or $pp["cleanUpCycle"] -eq '') { $pp["cleanUpCycle"] = 5000 }
-if ($pp["newSessionWaitTimeout"] -eq $null -or $pp["newSessionWaitTimeout"] -eq '') { $pp["newSessionWaitTimeout"] = -1 }
-if ($pp["servlets"] -eq $null -or $pp["servlets"] -eq '') { $pp["servlets"] = @() }
-if ($pp["throwOnCapabilityNotPresent"] -eq $null -or $pp["throwOnCapabilityNotPresent"] -eq '') { $pp["throwOnCapabilityNotPresent"] = $true }
-if ($pp["withoutServlets"] -eq $null -or $pp["withoutServlets"] -eq '') { $pp["withoutServlets"] = @() }
-if ($pp["hub"] -eq $null -or $pp["hub"] -eq '') { $pp["hub"] = 'http://localhost:4444' }
-if ($pp["downPollingLimit"] -eq $null -or $pp["downPollingLimit"] -eq '') { $pp["downPollingLimit"] = 2 }
-if ($pp["maxSession"] -eq $null -or $pp["maxSession"] -eq '') { $pp["maxSession"] = 5 }
-if ($pp["nodePolling"] -eq $null -or $pp["nodePolling"] -eq '') { $pp["nodePolling"] = 5000 }
-if ($pp["nodeStatusCheckTimeout"] -eq $null -or $pp["nodeStatusCheckTimeout"] -eq '') { $pp["nodeStatusCheckTimeout"] = 5000 }
-if ($pp["proxy"] -eq $null -or $pp["proxy"] -eq '') { $pp["proxy"] = 'org.openqa.grid.selenium.proxy.DefaultRemoteProxy' }
-if ($pp["register"] -eq $null -or $pp["register"] -eq '') { $pp["register"] = $true }
-if ($pp["registerCycle"] -eq $null -or $pp["registerCycle"] -eq '') { $pp["registerCycle"] = 5000 }
-if ($pp["unregisterIfStillDownAfter"] -eq $null -or $pp["unregisterIfStillDownAfter"] -eq '') { $pp["unregisterIfStillDownAfter"] = 60000 }
-if ($pp["capabilities"] -eq $null -or $pp["capabilities"] -eq '') { $pp["capabilities"] = @() }
-if ($pp["autostart"] -eq $null -or $pp["autostart"] -eq '') { $pp["autostart"] = $true }
-
-If (!(Test-Path $seleniumDir)) {
+if (!(Test-Path $seleniumDir)) {
   New-Item $seleniumDir -ItemType directory
+}
+
+if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {
+  New-Item -ItemType "file" -Path $pp["log"]
 }
 
 # https://chocolatey.org/docs/helpers-get-chocolatey-web-file
@@ -48,48 +26,61 @@ Get-ChocolateyWebFile $packageName $seleniumPath $url -checksum $checksum -check
 
 Write-Host -ForegroundColor Green Added selenium-server-standalone.jar to $seleniumDir
 
-$menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
+$config = Get-SeleniumConfig($pp)
 
-$config = Get-SeleniumConfig($pp) | ConvertTo-Json -Depth 10
+Write-Debug "Selenium configuration: $config"
 
-Write-Debug "This would be the $($pp["role"]) configuration: $config"
+$configPath = "$seleniumDir/$($pp["role"])config.json"
+if ($pp["role"] -ne 'standalone') {
+  $config | ConvertTo-Json -Depth 10 | Set-Content $configPath
+}
 
-$configPath = "$seleniumDir/$($pp["role"]).json"
-$config | Set-Content $configPath
+if ($pp["role"] -eq 'hub') {
+  $options = "-hubConfig ""$configPath"""
+} elseif ($pp["role"] -eq 'node' ) {
+  $options = "-nodeConfig ""$configPath"""
+} else {
+  $keys = $config.keys
+  foreach ($key in $keys) {
 
-$servicename = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
-
-nssm install "$servicename" java -jar "$seleniumPath" -role $pp["role"] $(Get-SeleniumConfigSwitch($pp)) "$configPath" $pp['args']
-
-if ($pp["logdir"] -ne $null -and $pp["logdir"] -ne '') {
-  If (!(Test-Path $pp["logdir"])) {
-    New-Item $pp["logdir"] -ItemType directory
+  $options += " -$key "
+    if ($config[$key] -is [String]) {
+      $options += """$config[$key]"""
+    } else {
+      $options += $config[$key]
+    }
   }
-  nssm set $servicename AppStdout "$($pp["logdir"])/$($pp["role"]).out"
-  nssm set $servicename AppStderr "$($pp["logdir"])/$($pp["role"]).err"
-  nssm set $servicename AppStdoutCreationDisposition 4
-  nssm set $servicename AppStderrCreationDisposition 4
-  nssm set $servicename AppRotateFiles 1
-  nssm set $servicename AppRotateOnline 0
-  nssm set $servicename AppRotateSeconds 86400
-  nssm set $servicename AppRotateBytes 1048576
 }
 
-if ($pp["autostart"] -eq $true) {
-  nssm set $servicename Start SERVICE_AUTO_START
-}
+$cmd = "java $($pp["args"]) -jar ""$seleniumPath"" -role $($pp["role"]) $options"
+$cmdPath = "$seleniumDir/$($pp["role"]).cmd"
+$cmd | Set-Content $cmdPath
 
-if ($pp["role"] -ne 'hub') {
-  nssm reset "$servicename" ObjectName
-  nssm set "$servicename" Type SERVICE_INTERACTIVE_PROCESS
-}
+Write-Debug "Selenium command: $cmd"
 
 $rules = Get-NetFirewallRule
 $par = @{
-    DisplayName = "$servicename"
+    DisplayName = "$name"
     LocalPort = $pp["port"]
     Direction="Inbound"
     Protocol ="TCP"
     Action = "Allow"
 }
 if (-not $rules.DisplayName.Contains($par.DisplayName)) {New-NetFirewallRule @par}
+
+Write-Debug "Selenium firewall: $par"
+
+$menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
+
+$menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
+$shortcutArgs = @{
+  shortcutFilePath = "$menuPrograms\Selenium\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
+  targetPath       = $cmdPath
+  iconLocation     = "$toolsDir\icon.ico"
+}
+
+Install-ChocolateyShortcut @shortcutArgs
+
+if ($pp["autostart"] -eq $true) {
+  # nssm set $name Start SERVICE_AUTO_START
+}
