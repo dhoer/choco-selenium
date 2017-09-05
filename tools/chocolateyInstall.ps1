@@ -8,7 +8,9 @@ $checksumType  = 'md5'
 $toolsLocation = Get-ToolsLocation
 $seleniumDir   = "$toolsLocation\selenium"
 $seleniumPath  = "$seleniumDir\selenium-server-standalone.jar"
-$pp            = Set-PackageParameterDefaults
+$pp            = Get-PackageParameters
+
+getPackageParameterDefaults($pp)
 
 If (!(Test-Path $seleniumDir)) {
   New-Item $seleniumDir -ItemType directory
@@ -115,9 +117,7 @@ function getConfig ($pp) {
   }
 }
 
-function Set-PackageParameterDefaults {
-  $pp = Get-PackageParameters
-
+function getPackageParameterDefaults ($pp) {
   if ($pp["role"] -eq $null -or $pp["role"] -eq '') { $pp["role"] = 'standalone' }
   if ($pp["username"] -eq $null -or $pp["username"] -eq '') { $pp["username"] = "$env:UserName" }
   if ($pp["port"] -eq $null -or $pp["port"] -eq '') {
@@ -144,6 +144,4 @@ function Set-PackageParameterDefaults {
   if ($pp["unregisterIfStillDownAfter"] -eq $null -or $pp["unregisterIfStillDownAfter"] -eq '') { $pp["unregisterIfStillDownAfter"] = 60000 }
   if ($pp["capabilities"] -eq $null -or $pp["capabilities"] -eq '') { $pp["capabilities"] = @() }
   if ($pp["autostart"] -eq $null -or $pp["autostart"] -eq '') { $pp["autostart"] = $true }
-
-  return $pp
 }
