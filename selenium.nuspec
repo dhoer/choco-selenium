@@ -9,7 +9,7 @@
     <tags>selenium</tags>
     <summary>Installs and Configures Selenium on Windows</summary>
     <description>
-
+      Temp desc
     </description>
     <dependencies>
         <dependency id="nssm" version="2.24-*" />
