@@ -84,7 +84,12 @@ if ($pp["role"] -ne 'hub') {
   nssm set "$servicename" Type SERVICE_INTERACTIVE_PROCESS
 }
 
-# open windows firewall
-if (-Not (netsh advfirewall firewall show rule name="$servicename" > $null)) {
-  netsh advfirewall firewall add rule name="$servicename" protocol=TCP dir=in profile=any localport=$($pp["port"]) remoteip=any localip=any action=allow
+$rules = Get-NetFirewallRule
+$par = @{
+    DisplayName = "$servicename"
+    LocalPort = $pp["port"]
+    Direction="Inbound"
+    Protocol ="TCP"
+    Action = "Allow"
 }
+if (-not $rules.DisplayName.Contains($par.DisplayName)) {New-NetFirewallRule @par}

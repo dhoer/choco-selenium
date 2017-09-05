@@ -7,6 +7,9 @@ $seleniumDir = "$toolsLocation\selenium"
 $servicename = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
 nssm remove $servicename confirm
 
+$rules = Get-NetFirewallRule
+if ($rules.DisplayName.Contains($servicename)) {Remove-NetFirewallRule -DisplayName $servicename}
+
 if ($pp["role"] -eq $null -or $pp["role"] -eq '') { $pp["role"] = 'standalone' }
 
 if (Test-Path $seleniumDir) {
