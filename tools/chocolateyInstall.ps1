@@ -36,8 +36,8 @@ if ($pp["logdir"] -ne $null -and $pp["logdir"] -ne '') {
   If (!(Test-Path $pp["logdir"])) {
     New-Item $pp["logdir"] -ItemType directory
   }
-  nssm set $servicename AppStdout "$($pp(["log"]).out"
-  nssm set $servicename AppStderr "$($pp(["log"]).err"
+  nssm set $servicename AppStdout "$($pp(["logdir"])/$($pp(["role"]).out"
+  nssm set $servicename AppStderr "$($pp(["logdir"])/$($pp(["role"]).err"
   nssm set $servicename AppStdoutCreationDisposition 4
   nssm set $servicename AppStderrCreationDisposition 4
   nssm set $servicename AppRotateFiles 1
