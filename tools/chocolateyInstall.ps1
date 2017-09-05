@@ -50,7 +50,7 @@ if ($pp["autostart"] -eq $true) {
   nssm set $servicename Start SERVICE_AUTO_START
 }
 
-if ($pp["role"] -ne 'hub')
+if ($pp["role"] -ne 'hub') {
   nssm reset "$servicename" ObjectName
   nssm set "$servicename" Type SERVICE_INTERACTIVE_PROCESS
 }
