@@ -7,7 +7,13 @@ $seleniumDir = "$toolsLocation\selenium"
 if ($pp["role"] -eq $null -or $pp["role"] -eq '') { $pp["role"] = 'standalone' }
 
 $name = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
-nssm remove $name confirm -ErrorAction SilentlyContinue
+
+Try {
+  nssm remove $name confirm
+} Catch {
+  Write-Debug $name service is not found
+}
+ -ErrorAction SilentlyContinue
 
 $rules = Get-NetFirewallRule
 if ($rules.DisplayName.Contains($name)) {Remove-NetFirewallRule -DisplayName $name}
