@@ -4,6 +4,9 @@ $pp = Get-PackageParameters
 $toolsLocation = Get-ToolsLocation
 $seleniumDir = "$toolsLocation\selenium"
 
+$servicename = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
+nssm remove $servicename confirm
+
 if ($pp["role"] -eq $null -or $pp["role"] -eq '') { $pp["role"] = 'standalone' }
 
 if (Test-Path $seleniumDir) {

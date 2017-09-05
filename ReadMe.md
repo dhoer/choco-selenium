@@ -3,6 +3,13 @@
 Install and configure selenium hub, node or standalone roles as a
 service.
 
+The selenium-server-standalone.jar file is located in <Get-ToolsLocation>/selenium directory.
+
+Depends on nssm --pre version.
+
+Other dependences
+
+
 ## Quick Start
 
 Install standalone service that writes to log file
@@ -29,9 +36,10 @@ These parameters are available on all roles:
 
 - `/role` - Options are `hub`, `node`, or `standalone`.
     Default: `standalone`.
-- `/log` - The filename to use for logging. If omitted, will log
-    to STDOUT. Default `''`.
-- `/jvm_options` - JVM options, e.g., -Xms2G -Xmx2G. Default: `''`.
+- `/logdir` - The log directory to write <role>.out and <role>.err log
+    files. If omitted, will log to STDOUT/STDERR. Default `''`.
+- `/args` - Arguments to pass to Java, e.g., -Xms2G -Xmx2G.
+    Default: `''`.
 - `/debug` - Enables LogLevel.FINE. Default: `false`.
 - `/service` - Enable or disable hub service. Create or remove startup
     script for standalone and node services.  Default: `enable`.
