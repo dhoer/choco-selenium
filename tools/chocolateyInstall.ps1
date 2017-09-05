@@ -1,5 +1,7 @@
 ﻿$ErrorActionPreference = 'Stop'; # stop on all errors
-$toolsDir              = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
+
+$toolsDir = Split-Path $MyInvocation.MyCommand.Definition
+. $toolsDir\helpers.ps1
 
 $packageName   = $env:ChocolateyPackageName
 $url           = 'https://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar'
@@ -48,7 +50,7 @@ Write-Host -ForegroundColor Green Added selenium-server-standalone.jar to $selen
 
 $menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
 
-$config = getConfig($pp) | ConvertTo-Json -Depth 10
+$config = Get-SeleniumConfig($pp) | ConvertTo-Json -Depth 10
 
 Write-Debug "This would be the $($pp["role"]) configuration: $config"
 
@@ -57,7 +59,7 @@ $config | Set-Content $configPath
 
 $servicename = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
 
-nssm install "$servicename" java -jar "$seleniumPath" -role $pp["role"] $(getConfigSwitch($pp)) "$configPath" $pp['args']
+nssm install "$servicename" java -jar "$seleniumPath" -role $pp["role"] $(Get-SeleniumConfigSwitch($pp)) "$configPath" $pp['args']
 
 if ($pp["logdir"] -ne $null -and $pp["logdir"] -ne '') {
   If (!(Test-Path $pp["logdir"])) {
@@ -85,59 +87,4 @@ if ($pp["role"] -ne 'hub') {
 # open windows firewall
 if (!(netsh advfirewall firewall show rule name="$($pp["role"])" > nul)) {
   netsh advfirewall firewall add rule name="$($pp["role"])" protocol=TCP dir=in profile=any localport=$pp["port"] remoteip=any localip=any action=allow
-}
-
-function getConfigSwitch ($pp) {
-  if ($pp["role"] -eq 'hub') {
-    return "-hubConfig"
-  } elseif ($pp["role"] -eq 'node' ) {
-    return "-nodeConfig"
-  } else {
-    return "-standaloneConfig"
-  }
-}
-
-function getConfig ($pp) {
-  if ($pp["role"] -eq 'hub') {
-    return  @{
-      role                        = "hub"
-      port                        = $pp["port"]
-      newSessionWaitTimeout       = $pp["newSessionWaitTimeout"]
-      capabilityMatcher           = $pp["capabilityMatcher"]
-      throwOnCapabilityNotPresent = $pp["throwOnCapabilityNotPresent"]
-      servcleanUpCyclelets        = $pp["cleanUpCycle"]
-      browserTimeout              = $pp["browserTimeout"]
-      timeout                     = $pp["timeout"]
-      debug                       = $pp["debug"]
-      servlets                    = $pp["servlets"]
-      withoutServlets             = $pp["withoutServlets"]
-    }
-  } elseif ($pp["role"] -eq 'node' ) {
-    return @{
-      role                       = "node"
-      port                       = $pp["port"]
-      hub                        = $pp["hub"]
-      proxy                      = $pp["proxy"]
-      maxSession                 = $pp["maxSession"]
-      register                   = $pp["register"]
-      registerCycle              = $pp["registerCycle"]
-      nodeStatusCheckTimeout     = $pp["nodeStatusCheckTimeout"]
-      nodePolling                = $pp["nodePolling"]
-      unregisterIfStillDownAfter = $pp["unregisterIfStillDownAfter"]
-      downPollingLimit           = $pp["downPollingLimit"]
-      debug                      = $pp["debug"]
-      servlets                   = $pp["servlets"]
-      withoutServlets            = $pp["withoutServlets"]
-      capabilities               = $pp["capabilities"]
-    }
-  } else {
-    return @{
-      role              = "standalone"
-      port              = $pp["port"]
-      browserTimeout    = $pp["browserTimeout"]
-      timeout           = $pp["timeout"]
-      debug             = $pp["debug"]
-      enablePassThrough = $pp["enablePassThrough"]
-    }
-  }
 }
