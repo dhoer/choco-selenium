@@ -85,6 +85,6 @@ if ($pp["role"] -ne 'hub') {
 }
 
 # open windows firewall
-if (-Not (netsh advfirewall firewall show rule name="$servicename" > nul)) {
+if (-Not (netsh advfirewall firewall show rule name="$servicename" > $null)) {
   netsh advfirewall firewall add rule name="$servicename" protocol=TCP dir=in profile=any localport=$pp["port"] remoteip=any localip=any action=allow
 }
