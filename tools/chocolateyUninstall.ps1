@@ -6,11 +6,11 @@ $seleniumDir = "$toolsLocation\selenium"
 
 if ($pp["role"] -eq $null -or $pp["role"] -eq '') { $pp["role"] = 'standalone' }
 
-$servicename = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
-nssm remove $servicename confirm
+$name = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
+nssm remove $name confirm -ErrorAction SilentlyContinue
 
 $rules = Get-NetFirewallRule
-if ($rules.DisplayName.Contains($servicename)) {Remove-NetFirewallRule -DisplayName $servicename}
+if ($rules.DisplayName.Contains($name)) {Remove-NetFirewallRule -DisplayName $name}
 
 if (Test-Path $seleniumDir) {
   $seleniumPath  = "$seleniumDir\selenium-server-standalone.jar"
