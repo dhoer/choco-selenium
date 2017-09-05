@@ -42,17 +42,16 @@ if ($pp["role"] -eq 'hub') {
 } else {
   $keys = $config.keys
   foreach ($key in $keys) {
-
-  $options += " -$key "
-    if ($config[$key] -is [String]) {
-      $options += """$config[$key]"""
+    $options += " -$key "
+    if ($config[$key] -is [String] -and $config[$key] -ne 'role') {
+      $options += """$($config[$key])"" "
     } else {
-      $options += $config[$key]
+      $options += "$config[$key] "
     }
   }
 }
 
-$cmd = "java $($pp["args"]) -jar ""$seleniumPath"" -role $($pp["role"]) $options"
+$cmd = "java $($pp["args"]) -jar ""$seleniumPath"" $options"
 $cmdPath = "$seleniumDir/$($pp["role"]).cmd"
 $cmd | Set-Content $cmdPath
 
