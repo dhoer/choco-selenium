@@ -28,7 +28,8 @@ $capabilites = @(
     seleniumProtocol = "WebDriver"
   }
 )
-choco install -y nssm jdk8 firefox selenium-gecko-driver
+choco install -y nssm --pre
+choco install -y jdk8 firefox selenium-gecko-driver
 choco install -y selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
 ```
 
@@ -44,9 +45,11 @@ Verify standalone server is available by opening http://localhost:4444/ and navi
 Install hub as a Windows service that will autostart on reboot
 
 ```
-choco install -y nssm jdk8
+choco install -y nssm --pre
+choco install -y jdk8
 choco install -y selenium --params "'/role:hub /service /autostart'"
 ```
+
 
 ### Node
 
@@ -69,7 +72,8 @@ $capabilites = @(
     }
   }
 )
-choco install -y nssm jdk8 googlechrome selenium-chrome-driver
+choco install -y nssm --pre
+choco install -y jdk8 googlechrome selenium-chrome-driver
 choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart'"
 ```
 
