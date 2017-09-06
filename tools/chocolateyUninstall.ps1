@@ -49,7 +49,7 @@ if (Test-Path $seleniumDir) {
     Remove-Item $cmdPath -Force
   }
 
-  $capabilitiesPath = "$toolsDir\$($pp["role"])capabilities.json"
+  $capabilitiesPath = "$toolsDir\capabilities.json"
   if (Test-Path $capabilitiesPath) {
     Remove-Item $capabilitiesPath -Force
   }
