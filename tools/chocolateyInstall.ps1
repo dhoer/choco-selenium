@@ -62,7 +62,8 @@ $cmd = "java $cmdParams"
 Write-Debug "Selenium command: $cmd"
 
 if ($pp["service"] -eq $true) {
-  nssm install $name $cmd
+  nssm install $name java
+  nssm set AppParameters $cmdParams
   nssm set $name AppDirectory $seleniumDir
   if ($pp["autostart"] -eq $true) {
     nssm set $name Start SERVICE_AUTO_START
