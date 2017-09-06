@@ -65,6 +65,14 @@ $capabilities =
   }
 )
 $capabilities = '[{"seleniumProtocol":"WebDriver","browserName":"chrome","maxInstances":5}]'
+
+[Capabilities [{seleniumProtocol=WebDriver, browserName=chrome, maxInstances=5}], Capabilities [{seleniu
+mProtocol=WebDriver, browserName=firefox, maxInstances=5}], Capabilities [{seleniumProtocol=WebDriver, browserName=inter
+net explorer, maxInstances=1}]]
+
+$capabilities = '[{"seleniumProtocol":"WebDriver","browserName":"chrome","maxInstances":5}]'
+
+
 choco install -y nssm --pre
 choco install -y jdk8 googlechrome selenium-chrome-driver
 choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilities:$capabilities'"

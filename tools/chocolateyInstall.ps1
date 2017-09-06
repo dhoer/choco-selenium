@@ -24,54 +24,14 @@ if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {
 # https://chocolatey.org/docs/helpers-get-chocolatey-web-file
 Get-ChocolateyWebFile $packageName $seleniumPath $url -checksum $checksum -checksumType $checksumType
 
-  $config = @{}
-
-  $config["role"] = $pp["role"]
-  $config["port"] = $pp["port"]
-  $config["browserTimeout"] = $pp["browserTimeout"]
-  $config["timeout"] = $pp["timeout"]
-  $config["debug"] = $pp["debug"]
-  $config["enablePassThrough"] = $pp["enablePassThrough"]
-
-  if ($pp["jettyMaxThreads"] -ne $null -and $pp["jettyMaxThreads"] -ne '') { $config["jettyMaxThreads"] = $pp["jettyMaxThreads"] }
-  if ($pp["log"] -ne $null -and $pp["log"] -ne '') { $config["log"] = $pp["log"] }
-
-  if ($pp["role"] -eq 'hub') {
-    $config["newSessionWaitTimeout"] = $pp["newSessionWaitTimeout"]
-    $config["capabilityMatcher"] = $pp["capabilityMatcher"]
-    $config["maxSession"] = $pp["maxSession"]
-    $config["newSessionWaitTimeout"] = $pp["newSessionWaitTimeout"]
-    $config["throwOnCapabilityNotPresent"] = $pp["throwOnCapabilityNotPresent"]
-    $config["servlets"] = $pp["servlets"]
-    $config["withoutServlets"] = $pp["withoutServlets"]
-
-    if ($pp["prioritizer"] -ne $null -and $pp["prioritizer"] -ne '') { $config["prioritizer"] = $pp["prioritizer"] }
-  } elseif ($pp["role"] -eq 'node' ) {
-    $config["cleanUpCycle"] = $pp["cleanUpCycle"]
-    $config["downPollingLimit"] = $pp["downPollingLimit"]
-    $config["hub"] = $pp["hub"]
-    $config["maxSession"] = $pp["maxSession"]
-    $config["nodePolling"] = $pp["nodePolling"]
-    $config["nodeStatusCheckTimeout"] = $pp["nodeStatusCheckTimeout"]
-    $config["proxy"] = $pp["proxy"]
-    $config["register"] = $pp["register"]
-    $config["registerCycle"] = $pp["registerCycle"]
-    $config["unregisterIfStillDownAfter"] = $pp["unregisterIfStillDownAfter"]
-    $config["capabilities"] = $pp["capabilities"]
-  }
-
-Write-Debug "Selenium pp cap: $($pp["capabilities"])"
-Write-Debug "Selenium config cap: $($config["capabilities"])"
-
-
-$configJson = $config | ConvertTo-Json -Depth 99
+$config = Get-SeleniumConfig ($pp)
 $configPath = "$seleniumDir\$($pp["role"])config.json"
 
 if ($pp["role"] -ne 'standalone') {
-   $configJson | Set-Content $configPath
+   $config | ConvertTo-Json -Depth 99 | Set-Content $configPath
 }
 
-Write-Debug "Selenium configuration: $configJson"
+Write-Debug "Selenium configuration: $config"
 
 if ($pp["role"] -eq 'hub') {
   $options = "-role hub -hubConfig ""$configPath"""
