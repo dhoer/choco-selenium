@@ -57,17 +57,20 @@ and navigating to Selenium Grid Hub console.
 Install node as a startup script that will autostart on logon
 
 ```
-$capabilities = @(
+$capabilities =
   @{
     browserName      = "chrome"
     maxInstances     = 5
     seleniumProtocol = "WebDriver"
   }
 )
+$capabilities = '[{"seleniumProtocol":"WebDriver","browserName":"chrome","maxInstances":5}]'
 choco install -y nssm --pre
 choco install -y jdk8 googlechrome selenium-chrome-driver
 choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilities:$capabilities'"
 ```
+
+
 
 ## Usage
 
