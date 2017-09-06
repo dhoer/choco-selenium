@@ -57,7 +57,7 @@ if ($pp["role"] -eq 'hub') {
 }
 
 $cmd = "java $($pp["args"]) -jar ""$seleniumPath"" $options"
-$cmdPath = "$seleniumDir/$($pp["role"]).cmd"
+$cmdPath = "$seleniumDir/$($pp["role"])start.cmd"
 # todo logrotate files if log passed Add-Content
 $cmd | Set-Content $cmdPath
 
@@ -73,15 +73,17 @@ if ($pp["service"] -eq $true) {
     shortcutFilePath = "$menuPrograms\Selenium\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
     targetPath       = $cmdPath
     iconLocation     = "$toolsDir\icon.ico"
+    workDirectory    = $seleniumDir
   }
   Install-ChocolateyShortcut @shortcutArgs
 
   if ($pp["autostart"] -eq $true) {
-    $starup = [environment]::GetFolderPath([environment+specialfolder]::Programs)
+    $startup = "$env:SystemDrive\Users\$($pp["username"])\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
     $shortcutArgs = @{
-      shortcutFilePath = "$menuPrograms\Selenium\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
+      shortcutFilePath = "$startup\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
       targetPath       = $cmdPath
       iconLocation     = "$toolsDir\icon.ico"
+      workDirectory    = $seleniumDir
     }
     Install-ChocolateyShortcut @shortcutArgs
   }
