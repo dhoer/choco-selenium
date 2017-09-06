@@ -60,7 +60,7 @@ Get-ChocolateyWebFile $packageName $seleniumPath $url -checksum $checksum -check
     $config["capabilities"] = $pp["capabilities"]
   }
 
-$configJson = ConvertTo-Json -Depth 99 $config
+$configJson = ConvertTo-Json $config -Depth 99
 $configPath = "$seleniumDir\$($pp["role"])config.json"
 
 if ($pp["role"] -ne 'standalone') {
