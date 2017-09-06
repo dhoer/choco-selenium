@@ -50,6 +50,8 @@ choco install -y jdk8
 choco install -y selenium --params "'/role:hub /service /autostart'"
 ```
 
+Selenium hub server should be started automatically.
+Verify hub server is available by opening http://localhost:4444/ and navigating to Selenium Grid Hub console.
 
 ### Node
 
@@ -62,19 +64,10 @@ $capabilites = @(
     maxInstances     = 5
     seleniumProtocol = "WebDriver"
   }
-  @{
-    alwaysMatch = @{
-      "moz:firefoxOptions" = @{
-        log = @{
-          level = "trace"
-        }
-      }
-    }
-  }
 )
 choco install -y nssm --pre
 choco install -y jdk8 googlechrome selenium-chrome-driver
-choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart'"
+choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilities:$capabilities'"
 ```
 
 ## Usage
