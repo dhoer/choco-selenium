@@ -27,6 +27,8 @@ function Get-SeleniumConfigDefaults {
   if ($pp["register"] -eq $null -or $pp["register"] -eq '') { $pp["register"] = $true }
   if ($pp["registerCycle"] -eq $null -or $pp["registerCycle"] -eq '') { $pp["registerCycle"] = 5000 }
   if ($pp["unregisterIfStillDownAfter"] -eq $null -or $pp["unregisterIfStillDownAfter"] -eq '') { $pp["unregisterIfStillDownAfter"] = 60000 }
+
+Write-Debug "Selenium configuration: $($pp["capabilities"])"
   if ($pp["capabilities"] -eq $null -or $pp["capabilities"] -eq '') { $pp["capabilities"] = @() } else { $pp["capabilities"] = $pp["capabilities"] | ConvertFrom-Json }
 
   return $pp
