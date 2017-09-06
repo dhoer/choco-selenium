@@ -19,7 +19,7 @@ if (!(Test-Path $seleniumDir)) {
 }
 
 $capabilitiesPath = "$toolsDir\$($pp["role"])capabilities.json"
-if (!(Test-Path $capabilitiesPath)) {
+if (!(Test-Path $capabilitiesPath) -and $pp["role"] -eq 'hub') {
   Copy-Item $capabilitiesPath $seleniumDir
 }
 

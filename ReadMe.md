@@ -2,8 +2,8 @@
 
 Installs selenium standalone, hub, or node roles.
 
-The selenium-server-standalone.jar, *config.json, and *.cmd files are
-located in <Get-ToolsLocation>/selenium directory.
+The selenium-server-*.jar, *capabilites.json, *config.json, and *.cmd
+files are located in <Get-ToolsLocation>\selenium directory.
 
 ## Prerequisites
 
@@ -147,7 +147,7 @@ These parameters are available on all roles:
 
 - `/capabilitiesJson` - The JSON file containing capabilities of
     browsers supported.
-    Default: `<Get-ToolsLocation>/selenium/capabilities.json`.
+    Default: `<Get-ToolsLocation>\selenium\<role>capabilities.json`.
 - `/hub` - The url that will be used to post the registration request.
     This option takes precedence over -hubHost and -hubPort options.
     Default: `http://localhost:4444`.
