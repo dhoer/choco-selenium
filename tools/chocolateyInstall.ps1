@@ -27,8 +27,8 @@ if ($pp["role"] -eq 'node') {
       Copy-Item $capabilitiesPath $pp["capabilitiesJson"]
     }
   }
-  $capHash = Get-Content -Raw -Path $pp["capabilitiesJson"]
-  $pp["capabilities"] =  $capHash | ConvertFrom-Json
+  # https://stackoverflow.com/a/38212718/4548096
+  $pp["capabilities"] = Get-Content -Path $pp["capabilitiesJson"] | ConvertFrom-Json | % { $_ }
 }
 
 if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {
