@@ -41,7 +41,7 @@ $menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Progra
 $shortcutDir = "$menuPrograms\Selenium"
 
 if (Test-Path $shortcutDir) {
-  $shortcutFilePath = "$menuPrograms\Selenium\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
+  $shortcutFile = "$shortcutDir\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
   If (Test-Path $shortcutFile) {
     Remove-Item $shortcutFile -Force
   }

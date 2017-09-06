@@ -58,6 +58,7 @@ if ($pp["role"] -eq 'hub') {
 
 $cmd = "java $($pp["args"]) -jar ""$seleniumPath"" $options"
 $cmdPath = "$seleniumDir/$($pp["role"]).cmd"
+# todo logrotate files if log passed Add-Content
 $cmd | Set-Content $cmdPath
 
 Write-Debug "Selenium command: $cmd"

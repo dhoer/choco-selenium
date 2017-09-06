@@ -23,14 +23,24 @@ $capabilites = @(
     seleniumProtocol = "WebDriver"
   }
 )
-choco install jdk8 firefox selenium-gecko-driver
+choco install -y jdk8 firefox selenium-gecko-driver
+choco install -y selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
+```
+
+```
+$capabilites = @(
+  @{
+    browserName      = "chrome"
+    maxInstances     = 5
+    seleniumProtocol = "WebDriver"
+  }
+)
+choco install jdk8 googlechrome selenium-chrome-driver
 choco install selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
 ```
 
-
-Start the standalone server by navigating to and clicking on Start > Selenium > Selenium Standalone.
-
-Verify server is available by opening http://localhost:4444/wd/hub/static/resource/hub.html.
+Start the standalone server under Start > Selenium > Selenium Standalone.
+Verify standalone servier is available by opening http://localhost:4444/ and navigating to Selenium Standalone console.
 
 ### Hub
 
