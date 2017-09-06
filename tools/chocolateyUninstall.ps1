@@ -34,12 +34,12 @@ if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and (Test-Path $pp["log"])) {
 }
 
 if (Test-Path $seleniumDir) {
-  $seleniumPath  = "$seleniumDir\selenium-server-standalone.jar"
+  $seleniumPath  = "$seleniumDir\selenium-server-$($pp["role"]).jar"
   if (Test-Path $seleniumPath) {
     Remove-Item $seleniumPath -Force
   }
 
-  $configPath = "$seleniumDir/$($pp["role"]).json"
+  $configPath = "$seleniumDir/$($pp["role"])config.json"
   if (Test-Path $configPath) {
     Remove-Item $configPath -Force
   }
@@ -47,6 +47,11 @@ if (Test-Path $seleniumDir) {
   $cmdPath = "$seleniumDir/$($pp["role"]).cmd"
   if (Test-Path $cmdPath) {
     Remove-Item $cmdPath -Force
+  }
+
+  $capabilitiesPath = "$toolsDir\$($pp["role"])capabilities.json"
+  if (Test-Path $capabilitiesPath) {
+    Remove-Item $capabilitiesPath -Force
   }
 
   $directoryInfo = Get-ChildItem $seleniumDir | Measure-Object

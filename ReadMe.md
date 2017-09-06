@@ -18,25 +18,18 @@ This package depends on the Non-Sucking Service Manager (NSSM).
 
 ### Standalone
 
-Install standalone server to use port 4445, have firefox capability,
+Install standalone server to use port 4445, default capabilities,
 and write to a log file.
 
 ```
-$capabilities = @(
-  @{
-    browserName      = "firefox"
-    maxInstances     = 5
-    seleniumProtocol = "WebDriver"
-  }
-)
 choco install -y nssm --pre
-choco install -y jdk8 firefox selenium-gecko-driver
-choco install -y selenium --params "'/port:4445 /capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
+choco install -y jdk8 firefox selenium-gecko-driver googlechrome selenium-chrome-driver
+choco install -y selenium --params "'/port:4445 /log:""C:/tools/selenium/log/selenium-standalone.log""'"
 ```
 
 Start the standalone server Start > Selenium > Selenium Standalone.
-Verify standalone server is available by opening http://localhost:4445/
-and navigating to Selenium Standalone console.
+Verify standalone server is available by opening Selenium Standalone
+console http://localhost:4445/.
 
 ### Hub
 
@@ -49,8 +42,8 @@ choco install -y selenium --params "'/role:hub /service /autostart'"
 ```
 
 Selenium hub server should be started automatically.
-Verify hub server is available by opening http://localhost:4444/
-and navigating to Selenium Grid Hub console.
+Verify hub server is available by opening Selenium Grid Hub console
+http://localhost:4444/.
 
 ### Node
 
@@ -64,20 +57,15 @@ $capabilities =
     seleniumProtocol = "WebDriver"
   }
 )
-$capabilities = '[{"seleniumProtocol":"WebDriver","browserName":"chrome","maxInstances":5}]'
-
-[Capabilities [{seleniumProtocol=WebDriver, browserName=chrome, maxInstances=5}], Capabilities [{seleniu
-mProtocol=WebDriver, browserName=firefox, maxInstances=5}], Capabilities [{seleniumProtocol=WebDriver, browserName=inter
-net explorer, maxInstances=1}]]
-
-$capabilities = '[{"seleniumProtocol":"WebDriver","browserName":"chrome","maxInstances":5}]'
-
 
 choco install -y nssm --pre
 choco install -y jdk8 googlechrome selenium-chrome-driver
-choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilities:$capabilities'"
+choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:'"
 ```
 
+Selenium hub server should be started automatically.
+Verify node server is available by opening Selenium Grid Hub console
+http://localhost:4444/ seeing node attached.
 
 
 ## Usage
@@ -157,7 +145,9 @@ These parameters are available on all roles:
 
 #### Node
 
-- `/capabilites` - The capabilities of browser supported.
+- `/capabilitiesJson` - The JSON file containing capabilities of
+    browsers supported.
+    Default: `<Get-ToolsLocation>/selenium/capabilities.json`.
 - `/hub` - The url that will be used to post the registration request.
     This option takes precedence over -hubHost and -hubPort options.
     Default: `http://localhost:4444`.

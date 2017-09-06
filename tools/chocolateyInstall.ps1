@@ -9,12 +9,18 @@ $checksum      = '3dd4cad1d343f9d1cb1302ef1b3cec98'
 $checksumType  = 'md5'
 $toolsLocation = Get-ToolsLocation
 $seleniumDir   = "$toolsLocation\selenium"
-$seleniumPath  = "$seleniumDir\selenium-server-standalone.jar"
+
 $pp            = Get-SeleniumConfigDefaults
 $name          = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
+$seleniumPath  = "$seleniumDir\selenium-server-$($pp["role"]).jar"
 
 if (!(Test-Path $seleniumDir)) {
   New-Item $seleniumDir -ItemType directory
+}
+
+$capabilitiesPath = "$toolsDir\$($pp["role"])capabilities.json"
+if (!(Test-Path $capabilitiesPath)) {
+  Copy-Item $capabilitiesPath $seleniumDir
 }
 
 if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {

@@ -28,8 +28,11 @@ function Get-SeleniumConfigDefaults {
   if ($pp["registerCycle"] -eq $null -or $pp["registerCycle"] -eq '') { $pp["registerCycle"] = 5000 }
   if ($pp["unregisterIfStillDownAfter"] -eq $null -or $pp["unregisterIfStillDownAfter"] -eq '') { $pp["unregisterIfStillDownAfter"] = 60000 }
 
-Write-Debug "Selenium configuration: $($pp["capabilities"])"
-  if ($pp["capabilities"] -eq $null -or $pp["capabilities"] -eq '') { $pp["capabilities"] = @() } else { $pp["capabilities"] = $pp["capabilities"] | ConvertFrom-Json }
+  $toolsDir = Split-Path $MyInvocation.MyCommand.Definition
+  if ($pp["capabilitiesJson"] -eq $null -or $pp["capabilitiesJson"] -eq '') {
+    $pp["capabilitiesJson"] = $toolsDir\capabilities.json
+  }
+  $pp["capabilities"] = Get-Content -Raw -Path $pp["capabilitiesFile"] | ConvertFrom-Json
 
   return $pp
 }

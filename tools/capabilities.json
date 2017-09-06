@@ -1,0 +1,17 @@
+[
+  {
+    "browserName": "firefox",
+    "maxInstances": 5,
+    "seleniumProtocol": "WebDriver"
+  },
+  {
+    "browserName": "chrome",
+    "maxInstances": 5,
+    "seleniumProtocol": "WebDriver"
+  },
+  {
+    "browserName": "internet explorer",
+    "maxInstances": 1,
+    "seleniumProtocol": "WebDriver"
+  }
+]
