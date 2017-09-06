@@ -24,8 +24,6 @@ if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {
 # https://chocolatey.org/docs/helpers-get-chocolatey-web-file
 Get-ChocolateyWebFile $packageName $seleniumPath $url -checksum $checksum -checksumType $checksumType
 
-Write-Host -ForegroundColor Green Added selenium-server-standalone.jar to $seleniumDir
-
 $config = Get-SeleniumConfig($pp)
 
 Write-Debug "Selenium configuration: $config"
@@ -64,16 +62,14 @@ Write-Debug "Selenium command: $cmd"
 $rules = Get-NetFirewallRule
 $par = @{
     DisplayName = "$name"
-    LocalPort = $pp["port"]
-    Direction="Inbound"
-    Protocol ="TCP"
-    Action = "Allow"
+    LocalPort   = $pp["port"]
+    Direction   = "Inbound"
+    Protocol    = "TCP"
+    Action      = "Allow"
 }
 if (-not $rules.DisplayName.Contains($par.DisplayName)) {New-NetFirewallRule @par}
 
 Write-Debug "Selenium firewall: $par"
-
-$menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
 
 $menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
 $shortcutArgs = @{
@@ -81,7 +77,6 @@ $shortcutArgs = @{
   targetPath       = $cmdPath
   iconLocation     = "$toolsDir\icon.ico"
 }
-
 Install-ChocolateyShortcut @shortcutArgs
 
 if ($pp["autostart"] -eq $true) {

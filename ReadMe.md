@@ -16,14 +16,13 @@ Java, Browser(s), Browser WebDriver(s) must be installed prior to install.
 Install and configure standalone server to use chrome and write to a log file.
 
 ```
-$capabilites = @[
+$capabilites = @(
   @{
-    browserName = "firefox"
-    maxInstances = 5
-    version = "55.0.3"
-    seleniumProtocol = "WebDriver
+    browserName      = "firefox"
+    maxInstances     = 5
+    seleniumProtocol = "WebDriver"
   }
-]
+)
 choco install jdk8 firefox selenium-gecko-driver
 choco install selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
 ```
