@@ -25,13 +25,14 @@ if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {
 Get-ChocolateyWebFile $packageName $seleniumPath $url -checksum $checksum -checksumType $checksumType
 
 $config = Get-SeleniumConfig($pp)
+$configJson = $config | ConvertTo-Json -Depth 99
 $configPath = "$seleniumDir\$($pp["role"])config.json"
 
 if ($pp["role"] -ne 'standalone') {
-  $config | ConvertTo-Json -Depth 99 | Set-Content $configPath
+   $configJson | Set-Content $configPath
 }
 
-Write-Debug "Selenium configuration: $($config | ConvertTo-Json -Depth 99)"
+Write-Debug "Selenium configuration: $configJson"
 
 if ($pp["role"] -eq 'hub') {
   $options = "-role hub -hubConfig ""$configPath"""
