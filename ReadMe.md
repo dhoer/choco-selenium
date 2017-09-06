@@ -43,7 +43,7 @@ choco install -y selenium --params "'/role:hub /service /autostart'"
 
 Selenium hub server should be started automatically.
 Verify hub server is available by opening Selenium Grid Hub console
-http://localhost:4444/.
+http://localhost:4444/grid/console.
 
 ### Node
 

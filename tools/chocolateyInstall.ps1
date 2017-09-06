@@ -27,7 +27,8 @@ if ($pp["role"] -eq 'node') {
       Copy-Item $capabilitiesPath $pp["capabilitiesJson"]
     }
   }
-  $pp["capabilities"] = Get-Content -Raw -Path $pp["capabilitiesJson"] | ConvertFrom-Json
+  $capHash = Get-Content -Raw -Path $pp["capabilitiesJson"]
+  $pp["capabilities"] =  $capHash | ConvertFrom-Json
 }
 
 if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {
