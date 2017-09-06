@@ -39,14 +39,18 @@ if ($pp["role"] -eq 'hub') {
   $options = "-hubConfig ""$configPath"""
 } elseif ($pp["role"] -eq 'node' ) {
   $options = "-nodeConfig ""$configPath"""
-} else {
+} else { # standalone
   $keys = $config.keys
   foreach ($key in $keys) {
-    $options += " -$key "
-    if ($config[$key] -is [String] -and $config[$key] -ne 'role') {
-      $options += """$($config[$key])"" "
+    if ($key -eq 'debug') {
+      if ($config[$key] -eq $true) { $options += " -$key " }
     } else {
-      $options += "$config[$key] "
+      $options += " -$key "
+      if ($config[$key] -is [String] -and $config[$key] -ne 'role') {
+        $options += """$($config[$key])"" "
+      } else {
+        $options += "$config[$key] "
+      }
     }
   }
 }

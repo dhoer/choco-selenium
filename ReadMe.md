@@ -1,24 +1,48 @@
 ﻿# Selenium
 
-Install and configure selenium hub, node or standalone roles as a
-service.
+Installs and configures selenium roles standalone, hub, or node.
 
-The selenium-server-standalone.jar file is located in <Get-ToolsLocation>/selenium directory.
+The selenium-server-standalone.jar, *config.json, and *.cmd files are
+located in <Get-ToolsLocation>/selenium directory.
 
-Depends on nssm --pre version.
+## Prerequisites
 
-Other dependences
-
+Java, Browser(s), Browser WebDriver(s) must be installed prior to install.
 
 ## Quick Start
 
-Install standalone service that writes to log file
+### Standalone
 
-`choco install selenium --params "'/log:""C:\\ProgramData\\Selenium\\Windows\\Start Menu\\Programs\\Startup""'"`
+Install and configure standalone server to use chrome and write to a log file.
 
-Install hub service
+```
+$capabilites = @[
+  @{
+    browserName = "firefox"
+    maxInstances = 5
+    version = "55.0.3"
+    seleniumProtocol = "WebDriver
+  }
+]
+choco install jdk8 firefox selenium-gecko-driver
+choco install selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
+```
 
-`choco install selenium --params "'/role:hub'"`
+
+Start the standalone server by navigating to and clicking on Start > Selenium > Selenium Standalone.
+
+Verify server is available by opening http://localhost:4444/wd/hub/static/resource/hub.html.
+
+### Hub
+
+Install hub server
+
+```
+choco install jdk8
+choco install selenium --params "'/role:hub'"
+```
+
+### Node
 
 Install node service
 
