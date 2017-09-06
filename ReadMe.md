@@ -7,8 +7,12 @@ located in <Get-ToolsLocation>/selenium directory.
 
 ## Prerequisites
 
-Non-Sucking Service Manager (NSSM), Java, Browser(s), Browser
-WebDriver(s) must be installed prior to install.
+Java, Browser(s), Browser, WebDriver(s) must be installed prior to
+installation of selenium.
+
+## Dependencies
+
+This package depends on the Non-Sucking Service Manager (NSSM).
 
 ## Quick Start
 
@@ -29,6 +33,26 @@ choco install -y selenium --params "'/capabilities:$capabilities /log:""C:/tools
 ```
 
 ```
+choco install -y selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
+```
+
+Start the standalone server Start > Selenium > Selenium Standalone.
+Verify standalone server is available by opening http://localhost:4444/ and navigating to Selenium Standalone console.
+
+### Hub
+
+Install hub as a Windows service that will autostart on reboot
+
+```
+choco install -y nssm jdk8
+choco install -y selenium --params "'/role:hub /service /autostart'"
+```
+
+### Node
+
+Install node as a startup script that will autostart on logon
+
+```
 $capabilites = @(
   @{
     browserName      = "chrome"
@@ -46,26 +70,8 @@ $capabilites = @(
   }
 )
 choco install -y nssm jdk8 googlechrome selenium-chrome-driver
-choco install -y selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
+choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart'"
 ```
-
-Start the standalone server under Start > Selenium > Selenium Standalone.
-Verify standalone servier is available by opening http://localhost:4444/ and navigating to Selenium Standalone console.
-
-### Hub
-
-Install hub as a Windows service that will autostart on reboot
-
-```
-choco install -y nssm jdk8
-choco install -y selenium --params "'/role:hub /service /autostart'"
-```
-
-### Node
-
-Install node service
-
-`choco install selenium --params "'/role:node /hub:http://localhost:4444'"`
 
 ## Usage
 
