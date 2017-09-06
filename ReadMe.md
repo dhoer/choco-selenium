@@ -18,7 +18,8 @@ This package depends on the Non-Sucking Service Manager (NSSM).
 
 ### Standalone
 
-Install standalone server to use chrome and write to a log file.
+Install standalone server to use port 4445, have firefox capability,
+and write to a log file.
 
 ```
 $capabilities = @(
@@ -30,15 +31,12 @@ $capabilities = @(
 )
 choco install -y nssm --pre
 choco install -y jdk8 firefox selenium-gecko-driver
-choco install -y selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
-```
-
-```
-choco install -y selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
+choco install -y selenium --params "'/port:4445 /capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
 ```
 
 Start the standalone server Start > Selenium > Selenium Standalone.
-Verify standalone server is available by opening http://localhost:4444/ and navigating to Selenium Standalone console.
+Verify standalone server is available by opening http://localhost:4445/
+and navigating to Selenium Standalone console.
 
 ### Hub
 
@@ -51,7 +49,8 @@ choco install -y selenium --params "'/role:hub /service /autostart'"
 ```
 
 Selenium hub server should be started automatically.
-Verify hub server is available by opening http://localhost:4444/ and navigating to Selenium Grid Hub console.
+Verify hub server is available by opening http://localhost:4444/
+and navigating to Selenium Grid Hub console.
 
 ### Node
 
