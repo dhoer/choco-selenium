@@ -6,8 +6,8 @@ function Get-SeleniumConfigDefaults {
   if ($pp["port"] -eq $null -or $pp["port"] -eq '') {
     if ($pp["role"] -eq 'node') { $pp["port"] = 5555 } else { $pp["port"] = 4444 }
   }
-  if ($pp["service"] -eq $null -or $pp["service"] -eq '') { $pp["service"] = $true }
-  if ($pp["autostart"] -eq $null -or $pp["autostart"] -eq '') { $pp["autostart"] = $true }
+  if ($pp["service"] -eq $null -or $pp["service"] -eq '') { $pp["service"] = $false }
+  if ($pp["autostart"] -eq $null -or $pp["autostart"] -eq '') { $pp["autostart"] = $false }
   if ($pp["debug"] -eq $null -or $pp["debug"] -eq '') { $pp["debug"] = $false }
   if ($pp["browserTimeout"] -eq $null -or $pp["browserTimeout"] -eq '') { $pp["browserTimeout"] = 0 }
   if ($pp["enablePassThrough"] -eq $null -or $pp["enablePassThrough"] -eq '') { $pp["enablePassThrough"] = $true }

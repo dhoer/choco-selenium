@@ -7,7 +7,8 @@ located in <Get-ToolsLocation>/selenium directory.
 
 ## Prerequisites
 
-Java, Browser(s), Browser WebDriver(s) must be installed prior to install.
+Non-Sucking Service Manager (NSSM), Java, Browser(s), Browser
+WebDriver(s) must be installed prior to install.
 
 ## Quick Start
 
@@ -23,7 +24,7 @@ $capabilites = @(
     seleniumProtocol = "WebDriver"
   }
 )
-choco install -y jdk8 firefox selenium-gecko-driver
+choco install -y nssm jdk8 firefox selenium-gecko-driver
 choco install -y selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
 ```
 
@@ -44,8 +45,8 @@ $capabilites = @(
     }
   }
 )
-choco install jdk8 googlechrome selenium-chrome-driver
-choco install selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
+choco install -y nssm jdk8 googlechrome selenium-chrome-driver
+choco install -y selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
 ```
 
 Start the standalone server under Start > Selenium > Selenium Standalone.
@@ -53,11 +54,11 @@ Verify standalone servier is available by opening http://localhost:4444/ and nav
 
 ### Hub
 
-Install hub server
+Install hub as a Windows service that will autostart on reboot
 
 ```
-choco install jdk8
-choco install selenium --params "'/role:hub'"
+choco install -y nssm jdk8
+choco install -y selenium --params "'/role:hub /service /autostart'"
 ```
 
 ### Node
@@ -83,12 +84,14 @@ These parameters are available on all roles:
 - `/args` - Additional arguments to pass to Java, e.g., -Xms2G -Xmx2G.
     Default: `''`.
 - `/debug` - Enables LogLevel.FINE. Default: `false`.
-- `/service` - Create service. Hub role only. Default: `true`.
-- `/autostart` - Set hub service to start automatically on reboot. Set
-    standalone and node service to auto start on logon. Default: `true`.
-- `/username` - Both standalone and node require a username to
-    autostart on logon. If omitted, will default to
-    current user. Default `''`.
+- `/service` - Add as a Windows service instead of as a startup script.
+    Note that a Windows service can't drive a GUI, so it is recommend
+    for hub role and standalone/node roles using headless browsers.
+    Default: `false`.
+- `/autostart` - Set Windows services to start automatically on reboot
+    or set startup scripts to start on logon.  Default: `false`.
+- `/username` - Startup script require a username to autostart on logon.
+    If omitted, will default to current user. Default `''`.
 
 #### Standalone
 

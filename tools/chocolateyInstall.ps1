@@ -64,9 +64,16 @@ $cmd | Set-Content $cmdPath
 Write-Debug "Selenium command: $cmd"
 
 if ($pp["service"] -eq $true) {
-  if ($pp["autostart"] -eq $true) { $startupType = "Automatic" } else { $startupType = "Manual" }
-  $credentials = new-object -typename System.Management.Automation.PSCredential -argumentlist "NT AUTHORITY\LOCAL SYSTEM"
-  New-Service -BinaryPathName $cmdPath -Name $name -Credential $credentials -DisplayName "Selenium Hub Service" -StartupType $startupType
+  nssm install $name $cmd"
+  nssm set $name AppDirectory $seleniumDir
+  if ($pp["autostart"] -eq $true) {
+    nssm set $name Start SERVICE_AUTO_START
+  }
+  if ($pp["log"] -ne $null -and $pp["log"] -ne '') {
+    nssm set $name AppStdout $pp["log"]
+    nssm set $name AppStderr $pp["log"]
+  }
+  nssm start $name
 } else {
   $menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
   $shortcutArgs = @{
