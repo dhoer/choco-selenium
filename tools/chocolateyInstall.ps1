@@ -60,6 +60,10 @@ Get-ChocolateyWebFile $packageName $seleniumPath $url -checksum $checksum -check
     $config["capabilities"] = $pp["capabilities"]
   }
 
+Write-Debug "Selenium pp cap: $pp["capabilities"]"
+Write-Debug "Selenium config cap: $config["capabilities"]"
+
+
 $configJson = $config | ConvertTo-Json -Depth 99
 $configPath = "$seleniumDir\$($pp["role"])config.json"
 
