@@ -64,6 +64,7 @@ $cmd | Set-Content $cmdPath
 Write-Debug "Selenium command: $cmd"
 
 if ($pp["service"] -eq $true) {
+  nssm remove $name confirm > NUL 2>NUL
   nssm install $name java
   nssm set $name AppParameters -jar ""$seleniumPath"" $options
   nssm set $name AppDirectory $seleniumDir
