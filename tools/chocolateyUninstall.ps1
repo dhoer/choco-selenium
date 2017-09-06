@@ -37,6 +37,9 @@ if (Test-Path $seleniumDir) {
   }
 }
 
+$service = Get-WmiObject -Class Win32_Service -Filter "Name='$name'"
+$service | Remove-WmiObject
+
 $menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
 $shortcutDir = "$menuPrograms\Selenium"
 

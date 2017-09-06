@@ -63,6 +63,30 @@ $cmd | Set-Content $cmdPath
 
 Write-Debug "Selenium command: $cmd"
 
+if ($pp["service"] -eq $true) {
+  if ($pp["autostart"] -eq $true) { $startupType = "Automatic" } else { $startupType = "Manual" }
+  $credentials = new-object -typename System.Management.Automation.PSCredential -argumentlist "NT AUTHORITY\LOCAL SYSTEM"
+  New-Service -BinaryPathName $cmdPath -Name $name -Credential $credentials -DisplayName "Selenium Hub Service" -StartupType $startupType
+} else {
+  $menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
+  $shortcutArgs = @{
+    shortcutFilePath = "$menuPrograms\Selenium\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
+    targetPath       = $cmdPath
+    iconLocation     = "$toolsDir\icon.ico"
+  }
+  Install-ChocolateyShortcut @shortcutArgs
+
+  if ($pp["autostart"] -eq $true) {
+    $starup = [environment]::GetFolderPath([environment+specialfolder]::Programs)
+    $shortcutArgs = @{
+      shortcutFilePath = "$menuPrograms\Selenium\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
+      targetPath       = $cmdPath
+      iconLocation     = "$toolsDir\icon.ico"
+    }
+    Install-ChocolateyShortcut @shortcutArgs
+  }
+}
+
 $rules = Get-NetFirewallRule
 $par = @{
     DisplayName = "$name"
@@ -75,14 +99,3 @@ if (-not $rules.DisplayName.Contains($par.DisplayName)) {New-NetFirewallRule @pa
 
 Write-Debug "Selenium firewall: $par"
 
-$menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
-$shortcutArgs = @{
-  shortcutFilePath = "$menuPrograms\Selenium\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
-  targetPath       = $cmdPath
-  iconLocation     = "$toolsDir\icon.ico"
-}
-Install-ChocolateyShortcut @shortcutArgs
-
-if ($pp["autostart"] -eq $true) {
-  # nssm set $name Start SERVICE_AUTO_START
-}

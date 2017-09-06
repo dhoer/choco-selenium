@@ -34,6 +34,15 @@ $capabilites = @(
     maxInstances     = 5
     seleniumProtocol = "WebDriver"
   }
+  @{
+    alwaysMatch = @{
+      "moz:firefoxOptions" = @{
+        log = @{
+          level = "trace"
+        }
+      }
+    }
+  }
 )
 choco install jdk8 googlechrome selenium-chrome-driver
 choco install selenium --params "'/capabilities:$capabilities /log:""C:/tools/selenium/log/selenium-standalone.log""'"
@@ -69,23 +78,17 @@ These parameters are available on all roles:
 
 - `/role` - Options are `hub`, `node`, or `standalone`.
     Default: `standalone`.
-- `/logdir` - The log directory to write <role>.out and <role>.err log
-    files. If omitted, will log to STDOUT/STDERR. Default `''`.
-- `/args` - Arguments to pass to Java, e.g., -Xms2G -Xmx2G.
+- `/log` - The log filename to use for logging. If omitted, will log
+    to STDOUT. Default `''`.
+- `/args` - Additional arguments to pass to Java, e.g., -Xms2G -Xmx2G.
     Default: `''`.
 - `/debug` - Enables LogLevel.FINE. Default: `false`.
-- `/service` - Enable or disable hub service. Create or remove startup
-    script for standalone and node services.  Default: `enable`.
-- `/autostart` - Set hub service to auto start on reboot. Set standalone
-    and node service to autostart on reboot. Default: `true`.
-- `/username` - Role standalone and node require a username and
-    password for automatically logon. If omitted, will default to
+- `/service` - Create service. Hub role only. Default: `true`.
+- `/autostart` - Set hub service to start automatically on reboot. Set
+    standalone and node service to auto start on logon. Default: `true`.
+- `/username` - Both standalone and node require a username to
+    autostart on logon. If omitted, will default to
     current user. Default `''`.
-- `/password` - Role standalone and node require a username and
-    password for automatically logon. Note that Windows password is
-    stored unencrypted under windows registry:
-    `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
-    Default `''`.
 
 #### Standalone
 
@@ -182,17 +185,3 @@ These parameters are available on all roles:
 
 These parameters can be passed to the installer with the use of `--params`.
 For example: `--params "'/role:node /hub:http://localhost:4444'"`.
-
-
-
-@(
-  @{
-    alwaysMatch = @{
-      "moz:firefoxOptions" = @{
-        log = @{
-          level = "trace"
-        }
-      }
-    }
-  }
-)

@@ -6,6 +6,8 @@ function Get-SeleniumConfigDefaults {
   if ($pp["port"] -eq $null -or $pp["port"] -eq '') {
     if ($pp["role"] -eq 'node') { $pp["port"] = 5555 } else { $pp["port"] = 4444 }
   }
+  if ($pp["service"] -eq $null -or $pp["service"] -eq '') { $pp["service"] = $true }
+  if ($pp["autostart"] -eq $null -or $pp["autostart"] -eq '') { $pp["autostart"] = $true }
   if ($pp["debug"] -eq $null -or $pp["debug"] -eq '') { $pp["debug"] = $false }
   if ($pp["browserTimeout"] -eq $null -or $pp["browserTimeout"] -eq '') { $pp["browserTimeout"] = 0 }
   if ($pp["enablePassThrough"] -eq $null -or $pp["enablePassThrough"] -eq '') { $pp["enablePassThrough"] = $true }
@@ -26,7 +28,6 @@ function Get-SeleniumConfigDefaults {
   if ($pp["registerCycle"] -eq $null -or $pp["registerCycle"] -eq '') { $pp["registerCycle"] = 5000 }
   if ($pp["unregisterIfStillDownAfter"] -eq $null -or $pp["unregisterIfStillDownAfter"] -eq '') { $pp["unregisterIfStillDownAfter"] = 60000 }
   if ($pp["capabilities"] -eq $null -or $pp["capabilities"] -eq '') { $pp["capabilities"] = @() }
-  if ($pp["autostart"] -eq $null -or $pp["autostart"] -eq '') { $pp["autostart"] = $true }
 
   return $pp
 }
