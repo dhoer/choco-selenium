@@ -20,13 +20,14 @@ if (!(Test-Path $seleniumDir)) {
 
 if ($pp["role"] -eq 'node') {
   if ($pp["capabilitiesJson"] -eq $null -or $pp["capabilitiesJson"] -eq '') {
-    $pp["capabilitiesJson"] = "$toolsLocation\capabilities.json"
-    $capabilitiesPath = "$toolsDir\$($pp["role"])capabilities.json"
-    if (!(Test-Path $capabilitiesPath)) {
-      Copy-Item $capabilitiesPath $seleniumDir
+
+    $pp["capabilitiesJson"] = "$seleniumDir\$($pp["role"])capabilities.json"
+    $capabilitiesPath = "$toolsDir\capabilities.json"
+    if (!(Test-Path $pp["capabilitiesJson"])) {
+      Copy-Item $capabilitiesPath $pp["capabilitiesJson"]
     }
   }
-  $pp["capabilities"] = Get-Content -Raw -Path $pp["capabilitiesFile"] | ConvertFrom-Json
+  $pp["capabilities"] = Get-Content -Raw -Path $pp["$capabilitiesPath"] | ConvertFrom-Json
 }
 
 if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {
