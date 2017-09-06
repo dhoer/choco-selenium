@@ -28,15 +28,16 @@ $config = Get-SeleniumConfig($pp)
 
 Write-Debug "Selenium configuration: $config"
 
-$configPath = "$seleniumDir/$($pp["role"])config.json"
+$configPath = "$seleniumDir\$($pp["role"])config.json"
+
 if ($pp["role"] -ne 'standalone') {
   $config | ConvertTo-Json -Depth 10 | Set-Content $configPath
 }
 
 if ($pp["role"] -eq 'hub') {
-  $options = "-hubConfig ""$configPath"""
+  $options = "-role hub -hubConfig ""$configPath"""
 } elseif ($pp["role"] -eq 'node' ) {
-  $options = "-nodeConfig ""$configPath"""
+  $options = "-role node -nodeConfig ""$configPath"""
 } else { # standalone
   $keys = $config.keys
   foreach ($key in $keys) {
@@ -56,17 +57,12 @@ if ($pp["role"] -eq 'hub') {
   }
 }
 
-$cmd = "java $($pp["args"]) -jar ""$seleniumPath"" $options"
-$cmdPath = "$seleniumDir/$($pp["role"])start.cmd"
-# todo logrotate files if log passed Add-Content
-$cmd | Set-Content $cmdPath
-
+$cmdParams = "$($pp["args"]) -jar ""$seleniumPath"" $options"
+$cmd = "java $cmdParams"
 Write-Debug "Selenium command: $cmd"
 
 if ($pp["service"] -eq $true) {
-  nssm remove $name confirm > NUL 2>NUL
-  nssm install $name java
-  nssm set $name AppParameters -jar ""$seleniumPath"" $options
+  nssm install $name $cmd
   nssm set $name AppDirectory $seleniumDir
   if ($pp["autostart"] -eq $true) {
     nssm set $name Start SERVICE_AUTO_START
@@ -77,6 +73,15 @@ if ($pp["service"] -eq $true) {
   }
   nssm start $name
 } else {
+  $cmdPath = "$seleniumDir\$($pp["role"]).cmd"
+
+  if ($pp["log"] -ne $null -and $pp["log"] -ne '') {
+     # todo logrotate files if log passed Add-Content
+    $cmd | Set-Content $cmdPath
+  } else {
+    $cmd | Set-Content $cmdPath
+  }
+
   $menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
   $shortcutArgs = @{
     shortcutFilePath = "$menuPrograms\Selenium\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
