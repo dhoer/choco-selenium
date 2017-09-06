@@ -21,7 +21,7 @@ This package depends on the Non-Sucking Service Manager (NSSM).
 Install standalone server to use chrome and write to a log file.
 
 ```
-$capabilites = @(
+$capabilities = @(
   @{
     browserName      = "firefox"
     maxInstances     = 5
@@ -58,7 +58,7 @@ Verify hub server is available by opening http://localhost:4444/ and navigating 
 Install node as a startup script that will autostart on logon
 
 ```
-$capabilites = @(
+$capabilities = @(
   @{
     browserName      = "chrome"
     maxInstances     = 5
