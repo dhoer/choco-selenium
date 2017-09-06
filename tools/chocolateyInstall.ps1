@@ -41,14 +41,17 @@ if ($pp["role"] -eq 'hub') {
   $keys = $config.keys
   foreach ($key in $keys) {
     if ($key -eq 'debug') {
-      if ($config[$key] -eq $true) { $options += " -$key " }
+      if ($config[$key] -eq $true) { $options += "-$key " }
     } else {
-      $options += " -$key "
-      if ($config[$key] -is [String] -and $config[$key] -ne 'role') {
-        $options += """$($config[$key])"" "
+      $options += "-$key "
+      if ($config[$key] -is [String] -and $key -ne 'role') {
+        $options += """"
+        $options += $config[$key]
+        $options += """"
       } else {
-        $options += "$config[$key] "
+        $options += $config[$key]
       }
+      $options += " "
     }
   }
 }

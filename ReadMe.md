@@ -1,6 +1,6 @@
 ﻿# Selenium
 
-Installs and configures selenium roles standalone, hub, or node.
+Installs selenium standalone, hub, or node roles.
 
 The selenium-server-standalone.jar, *config.json, and *.cmd files are
 located in <Get-ToolsLocation>/selenium directory.
@@ -13,7 +13,7 @@ Java, Browser(s), Browser WebDriver(s) must be installed prior to install.
 
 ### Standalone
 
-Install and configure standalone server to use chrome and write to a log file.
+Install standalone server to use chrome and write to a log file.
 
 ```
 $capabilites = @(
