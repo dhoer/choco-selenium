@@ -32,7 +32,7 @@ if ($pp["role"] -eq 'node') {
 }
 
 if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {
-  New-Item -ItemType "file" -Path $pp["log"]
+  New-Item -ItemType "file" -Path $pp["log"] --Force
 }
 
 # https://chocolatey.org/docs/helpers-get-chocolatey-web-file
