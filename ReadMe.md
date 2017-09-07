@@ -58,7 +58,9 @@ support only chrome browser capabilities.
 ```
 choco install -y nssm --pre
 choco install -y jdk8 googlechrome selenium-chrome-driver
-$capabilities = @'
+# note that selenium-chrome-driver created C:\tools\selenium
+$capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
+@'
 [
   {
     "browserName": "chrome",
@@ -66,11 +68,8 @@ $capabilities = @'
     "seleniumProtocol": "WebDriver"
   }
 ]
-'@
-# note that selenium-chrome-driver created C:\tools\selenium
-$capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
-$capabilities > $capabilitiesJson
-choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:$capabilitiesJson'"
+'@ > $capabilitiesJson
+choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /capabilitiesJson:$capabilitiesJson /autostart'"
 ```
 
 Start the node server: Start > Selenium > Selenium Node.
