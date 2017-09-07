@@ -5,11 +5,11 @@ Installs selenium standalone, hub, or node server.
 The selenium-server-*.jar, *capabilites.json, *config.json, and *.cmd
 files are located in `<Get-ToolsLocation>/selenium` directory.
 
-Windows service is available for all roles, but is recommended only
-for hub unless you are testing with headless browsers.  The startup
-script requires logon, but it allows selenium access to drive the GUI
-browser. See AutoLogon section below for information on how to configure
-Windows to logon automatically on reboot.
+Windows service is available for all roles but is recommended only
+for hub role, unless you are testing with headless browsers.  The
+non-Windows service requires logon, but it allows selenium access to
+drive the GUI browser. See AutoLogon section below for information on
+how to configure Windows to logon automatically on reboot.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@ choco install -y jdk8 firefox selenium-gecko-driver googlechrome selenium-chrome
 choco install -y selenium --params "'/port:4445 /log:""C:/tools/selenium/log/selenium-standalone.log""'"
 ```
 
-Start the standalone server Start > Selenium > Selenium Standalone.
+Start the standalone server: Start > Selenium > Selenium Standalone.
 Verify standalone server is available by opening Selenium Standalone
 console http://localhost:4445/wd/hub/static/resource/hub.html.
 
@@ -71,7 +71,7 @@ $capabilities > $capabilitiesJson
 choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:$capabilitiesJson'"
 ```
 
-Start the node server Start > Selenium > Selenium Node.
+Start the node server: Start > Selenium > Selenium Node.
 Verify node server is available by opening Selenium Grid Hub console
 http://localhost:4444/grid/console and seeing the node attached.
 
