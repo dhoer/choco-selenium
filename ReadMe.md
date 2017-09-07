@@ -1,9 +1,9 @@
 ﻿# Selenium
 
-Installs selenium standalone, hub, or node roles.
+Installs selenium standalone, hub, or node service.
 
 The selenium-server-*.jar, *capabilites.json, *config.json, and *.cmd
-files are located in <Get-ToolsLocation>\selenium directory.
+files are located in `<Get-ToolsLocation>/selenium` directory.
 
 ## Prerequisites
 
@@ -61,13 +61,23 @@ $capabilities = @'
 '@
 $capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
 $capabilities > $capabilitiesJson
-choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:$capabilitiesJson'"
+choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:$capabilitiesJson /args:-Dwebdriver.chrome.driver=./chromedriver.exe'"
 ```
 
 Selenium node server should be started automatically.
 Verify node server is available by opening Selenium Grid Hub console
 http://localhost:4444/grid/console and seeing the node attached.
 
+### AutoLogin
+
+The autostart will start the services when you logon.  But to make that
+happen automatically, you need to install the autologon package and run
+`autologon <username> <domain> <password>` once to set it up.
+
+```
+choco install -y autologon
+autologon myuser mydomain mypassword
+```
 
 ## Usage
 
@@ -84,7 +94,7 @@ These parameters are available on all roles:
 - `/log` - The log filename to use for logging. If omitted, will log
     to STDOUT. Default `''`.
 - `/args` - Additional arguments to pass to Java, e.g.,
-    -Dwebdriver.chrome.driver=./chromedriver_2.25.exe.
+    -Dwebdriver.chrome.driver=./chromedriver.exe.
     Default: `''`.
 - `/debug` - Enables LogLevel.FINE. Default: `false`.
 - `/service` - Add as a Windows service instead of as a startup script.
