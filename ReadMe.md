@@ -61,7 +61,7 @@ $capabilities = @'
 '@
 $capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
 $capabilities > $capabilitiesJson
-choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:$capabilitiesJson /args:-Dwebdriver.chrome.driver=./chromedriver.exe'"
+choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:$capabilitiesJson'"
 ```
 
 Selenium node server should be started automatically.
