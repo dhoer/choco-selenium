@@ -29,7 +29,7 @@ choco install -y selenium --params "'/port:4445 /log:""C:/tools/selenium/log/sel
 
 Start the standalone server Start > Selenium > Selenium Standalone.
 Verify standalone server is available by opening Selenium Standalone
-console http://localhost:4445/.
+console http://localhost:4445/wd/hub/static/resource/hub.html.
 
 ### Hub
 
@@ -47,25 +47,29 @@ http://localhost:4444/grid/console.
 
 ### Node
 
-Install node as a startup script that will autostart on logon
+Install node as startup script that will autostart on logon and
+support only chrome browser capabilities.
 
 ```
-$capabilities =
-  @{
-    browserName      = "chrome"
-    maxInstances     = 5
-    seleniumProtocol = "WebDriver"
-  }
-)
-
 choco install -y nssm --pre
 choco install -y jdk8 googlechrome selenium-chrome-driver
-choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:'"
+$capabilities = @'
+[
+  {
+    "browserName": "chrome",
+    "maxInstances": 5,
+    "seleniumProtocol": "WebDriver"
+  }
+]
+'@
+$capabilitiesJson = "C:\tools\selenium\chromecapabilities.json"
+$capabilities > $capabilitiesJson
+choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:$capabilitiesJson'"
 ```
 
-Selenium hub server should be started automatically.
+Selenium node server should be started automatically.
 Verify node server is available by opening Selenium Grid Hub console
-http://localhost:4444/ seeing node attached.
+http://localhost:4444/grid/console and seeing the node attached.
 
 
 ## Usage
@@ -145,9 +149,15 @@ These parameters are available on all roles:
 
 #### Node
 
-- `/capabilitiesJson` - The JSON file containing capabilities of
-    browsers supported.
-    Default: `<Get-ToolsLocation>\selenium\<role>capabilities.json`.
+- `/capabilitiesJson` - The JSON file containing capabilities. A
+    capabilities.json is provided by default and contains
+    `[{"browserName": "firefox","maxInstances": 5,
+    "seleniumProtocol": "WebDriver"},{"browserName": "chrome",
+    "maxInstances": 5,"seleniumProtocol": "WebDriver"},{
+    "browserName": "internet explorer", "maxInstances": 1,
+    "seleniumProtocol": "WebDriver"}]`.  Use it as a template
+    to create a new one and pass in its file path.
+    Default: `'<Get-ToolsLocation>\selenium\capabilities.json'`.
 - `/hub` - The url that will be used to post the registration request.
     This option takes precedence over -hubHost and -hubPort options.
     Default: `http://localhost:4444`.
