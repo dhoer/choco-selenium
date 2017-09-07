@@ -21,7 +21,8 @@ installation of selenium.
 
 ### Standalone
 
-Install standalone server to use port 4445 and write to a log file.
+Install standalone server to use default capabilities, port 4445, and
+write to a log file.
 
 ```
 choco install -y nssm --pre
