@@ -68,7 +68,7 @@ Selenium node server should be started automatically.
 Verify node server is available by opening Selenium Grid Hub console
 http://localhost:4444/grid/console and seeing the node attached.
 
-### AutoLogin
+### AutoLogon
 
 The autostart will start the services when you logon.  But to make that
 happen automatically, you need to install the autologon package and run
