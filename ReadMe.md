@@ -76,7 +76,7 @@ happen automatically, you need to install the autologon package and run
 
 ```
 choco install -y autologon
-autologon myuser mydomain mypassword
+autologon Administrator WORKGROUP redacted
 ```
 
 ## Usage
