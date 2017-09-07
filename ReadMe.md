@@ -62,7 +62,7 @@ $capabilities = @'
   }
 ]
 '@
-$capabilitiesJson = "C:\tools\selenium\chromecapabilities.json"
+$capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
 $capabilities > $capabilitiesJson
 choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:$capabilitiesJson'"
 ```
@@ -155,8 +155,7 @@ These parameters are available on all roles:
     "seleniumProtocol": "WebDriver"},{"browserName": "chrome",
     "maxInstances": 5,"seleniumProtocol": "WebDriver"},{
     "browserName": "internet explorer", "maxInstances": 1,
-    "seleniumProtocol": "WebDriver"}]`.  Use it as a template
-    to create a new one and pass in its file path.
+    "seleniumProtocol": "WebDriver"}]`.
     Default: `'<Get-ToolsLocation>\selenium\capabilities.json'`.
 - `/hub` - The url that will be used to post the registration request.
     This option takes precedence over -hubHost and -hubPort options.
