@@ -7,12 +7,9 @@ files are located in <Get-ToolsLocation>\selenium directory.
 
 ## Prerequisites
 
-Java, Browser(s), Browser, WebDriver(s) must be installed prior to
+Non-Sucking Service Manager (NSSM) --pre version, Java,
+Browser(s), Browser WebDriver(s) must be installed prior to
 installation of selenium.
-
-## Dependencies
-
-This package depends on the Non-Sucking Service Manager (NSSM).
 
 ## Quick Start
 
@@ -86,7 +83,8 @@ These parameters are available on all roles:
     Default: `standalone`.
 - `/log` - The log filename to use for logging. If omitted, will log
     to STDOUT. Default `''`.
-- `/args` - Additional arguments to pass to Java, e.g., -Xms2G -Xmx2G.
+- `/args` - Additional arguments to pass to Java, e.g.,
+    -Dwebdriver.chrome.driver=./chromedriver_2.25.exe.
     Default: `''`.
 - `/debug` - Enables LogLevel.FINE. Default: `false`.
 - `/service` - Add as a Windows service instead of as a startup script.
