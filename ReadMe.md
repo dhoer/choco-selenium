@@ -66,6 +66,7 @@ $capabilities = @'
   }
 ]
 '@
+# note that selenium-chrome-driver created C:\tools\selenium
 $capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
 $capabilities > $capabilitiesJson
 choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /autostart /capabilitiesJson:$capabilitiesJson'"
