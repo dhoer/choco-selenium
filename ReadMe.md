@@ -1,6 +1,6 @@
 ﻿# Selenium
 
-Installs selenium standalone, hub, or node server.
+Installs and configures selenium standalone, hub, or node server.
 
 The selenium-server-*.jar, *capabilites.json, *config.json, and *.cmd
 files are located in `<Get-ToolsLocation>/selenium` directory.
@@ -13,9 +13,9 @@ how to configure Windows to logon automatically.
 
 ## Prerequisites
 
-Non-Sucking Service Manager (NSSM) --pre version, Java,
-Browser(s), Browser WebDriver(s) must be installed prior to
-installation of selenium.
+Java, Browser(s), Browser WebDriver(s) must be installed prior to
+installation of selenium. Non-Sucking Service Manager (NSSM) --pre
+version is required for Windows services.
 
 ## Quick Start
 
@@ -34,7 +34,7 @@ Start the standalone server: Start > Selenium > Selenium Standalone.
 Verify standalone server is available by opening Selenium Standalone
 console http://localhost:4445/wd/hub/static/resource/hub.html.
 
-Note that IE will require [additional configuration](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration).
+Note that [IE will require additional configuration](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration).
 
 ### Hub
 
@@ -56,9 +56,6 @@ Install node as startup script that will autostart on logon and
 support only chrome browser capabilities.
 
 ```
-choco install -y nssm --pre
-choco install -y jdk8 googlechrome selenium-chrome-driver
-# note that selenium-chrome-driver created C:\tools\selenium
 $capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
 @'
 [
@@ -68,7 +65,10 @@ $capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
     "seleniumProtocol": "WebDriver"
   }
 ]
-'@ > $capabilitiesJson
+'@ | New-Item $capabilitiesJson -Type file -Force
+
+choco install -y nssm --pre
+choco install -y jdk8 googlechrome selenium-chrome-driver
 choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /capabilitiesJson:$capabilitiesJson /autostart'"
 ```
 
