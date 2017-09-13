@@ -12,7 +12,7 @@ describe file("C:/tools/selenium/nodeconfig.json") do
   it { should be_file }
 end
 
-describe file("C:/tools/selenium/node.bat") do
+describe file("C:/tools/selenium/node.cmd") do
   it { should be_file }
 end
 
