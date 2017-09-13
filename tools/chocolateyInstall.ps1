@@ -70,7 +70,7 @@ if ($pp["role"] -eq 'hub') {
   }
 }
 
-$cmdParams = "$($pp["args"]) -jar ""$seleniumPath"" $options"
+$cmdParams = "$($pp["javaoptions"]) -jar ""$seleniumPath"" $options"
 $cmd = "java $cmdParams"
 
 Write-Debug "Selenium command: $cmd"
