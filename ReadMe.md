@@ -25,7 +25,6 @@ Install standalone server to use default capabilities, port 4445, and
 write to a log file.
 
 ```
-choco install -y nssm --pre
 choco install -y jdk8 firefox selenium-gecko-driver googlechrome selenium-chrome-driver selenium-ie-driver
 choco install -y selenium --params "'/port:4445 /log:""C:/tools/selenium/log/selenium-standalone.log""'"
 ```
@@ -67,7 +66,6 @@ $capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
 ]
 '@ | New-Item $capabilitiesJson -Type file -Force
 
-choco install -y nssm --pre
 choco install -y jdk8 googlechrome selenium-chrome-driver
 choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /capabilitiesJson:$capabilitiesJson /autostart'"
 ```
