@@ -1,4 +1,4 @@
-require 'rspec_helper'
+require 'spec_helper'
 
 describe 'chrome' do
   before(:all) do
