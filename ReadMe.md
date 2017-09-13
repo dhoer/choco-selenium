@@ -1,7 +1,6 @@
 ﻿# Selenium
 
-[![win](https://img.shields.io/appveyor/ci/dhoer/chef-selenium/master.svg)][win]
-[win]: https://ci.appveyor.com/project/dhoer/chef-selenium
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/dhoer/choco-selenium/master.svg)](https://ci.appveyor.com/project/dhoer/choco-selenium)
 
 Installs and configures selenium standalone, hub, or node server.
 
