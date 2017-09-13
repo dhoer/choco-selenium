@@ -6,9 +6,9 @@ install:
   - choco install chocolatey-core.extension
   - choco install -y nssm --pre
   - choco pack
-  - choco install -y selenium --params "'/role:hub /service /autostart /port:4446'" -s .
+  - choco install -y selenium --params "'/role:hub /service /autostart /port:4446'" -d -s .
   - choco install -y googlechrome selenium-chrome-driver
-  - choco install -y selenium --params "'/role:node /hub:http://localhost:4446 /port:5557 /capabilitiesJson:$capabilitiesJson /autostart'" -s . --force
+  - choco install -y selenium --params "'/role:node /hub:http://localhost:4446 /port:5557 /autostart'" -d -s . --force
   - ps: $MyProcess = Start-Process C:\tools\selenium\node.cmd -PassThru
 build: off
 
