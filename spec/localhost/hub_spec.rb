@@ -1,7 +1,15 @@
 require 'spec_helper'
 
-describe package('selenium') do
-  it { should be_installed }
+describe file('C:/tools/selenium') do
+  it { should be_directory }
+end
+
+describe file("C:/tools/selenium/selenium-server-hub.jar") do
+  it { should be_file }
+end
+
+describe file("C:/tools/selenium/hubconfig.json") do
+  it { should be_file }
 end
 
 describe service('SeleniumHub') do
