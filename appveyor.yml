@@ -9,14 +9,13 @@ install:
   - choco install -y selenium --params "'/role:hub /service /autostart /port:4446'" -s .
   - choco install -y googlechrome selenium-chrome-driver
   - choco install -y selenium --params "'/role:node /hub:http://localhost:4446 /port:5557 /capabilitiesJson:$capabilitiesJson /autostart'" -s . --force
-
+  - ps: $MyProcess = Start-Process C:\tools\selenium\node.cmd -PassThru
 build: off
 
 before_test:
   - ruby -v
   - gem -v
   - bundle -v
-  - START /B C:\tools\selenium\node.bat
 
 test_script:
   - bundle exec rake
