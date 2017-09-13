@@ -16,15 +16,11 @@ describe file("C:/tools/selenium/node.cmd") do
   it { should be_file }
 end
 
-describe file("C:/tools/selenium/custom-capabilities.json") do
+describe file("C:/Users/appveyor/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Selenium/Selenium Node.lnk") do
   it { should be_file }
 end
 
-describe file("C:/Users/Administrator/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Selenium/Selenium Node.lnk") do
-  it { should be_file }
-end
-
-describe file("C:/Users/Administrator/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/Selenium Node.lnk") do
+describe file("C:/Users/appveyor/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/Selenium Node.lnk") do
   it { should be_file }
 end
 
