@@ -1,6 +1,7 @@
 install:
   - set PATH=C:\Ruby23\bin;%PATH%
   - bundle install
+  - choco install chocolatey-core.extension
   - choco install -y nssm --pre
   - choco pack
   - choco install -y selenium --params "'/role:hub /service /autostart /port:4446'" -s .
