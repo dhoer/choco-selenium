@@ -14,8 +14,8 @@ how to configure Windows to logon automatically.
 ## Prerequisites
 
 Java, Browser(s), Browser WebDriver(s) must be installed prior to
-installation of selenium. Non-Sucking Service Manager (NSSM) --pre
-version is required for Windows services.
+using selenium. Non-Sucking Service Manager (NSSM) --pre
+version is required when using `/service` option.
 
 ## Quick Start
 
