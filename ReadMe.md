@@ -97,11 +97,11 @@ The following package parameters can be set:
 
 These parameters are available on all roles:
 
-- `/role` - Options are `hub`, `node`, or `standalone`.
+- `/role:` - Options are `hub`, `node`, or `standalone`.
     Default: `standalone`.
-- `/log` - The log filename to use for logging. If omitted, will log
+- `/log:` - The log filename to use for logging. If omitted, will log
     to STDOUT. Default `''`.
-- `/args` - Additional arguments to pass to Java, e.g.,
+- `/javaoptions:` - Additional options to pass to Java, e.g.,
     -Dwebdriver.chrome.driver=./chromedriver.exe.
     Default: `''`.
 - `/debug` - Enables LogLevel.FINE. Default: `false`.
@@ -111,20 +111,20 @@ These parameters are available on all roles:
     Default: `false`.
 - `/autostart` - Set Windows services to start automatically on reboot
     or set startup scripts to start on logon.  Default: `false`.
-- `/username` - Startup script require a username to autostart on logon.
+- `/username:` - Startup script require a username to autostart on logon.
     If omitted, will default to current user. Default `''`.
 
 #### Standalone
 
-- `/browserTimeout` - In seconds : number of seconds a browser session
+- `/browserTimeout:` - In seconds : number of seconds a browser session
     is allowed to hang while a WebDriver command is running (example:
     driver.get(url)). If the timeout is reached while a WebDriver
     command is still processing, the session will quit. Minimum value
     is 60. An unspecified, zero, or negative value means wait
     indefinitely. Default: `0`.
 - `/enablePassThrough` - Default: `true`.
-- `/port` - The port number the server will use. Default: `4444`.
-- `/timeout` - In seconds : Specifies the timeout before the server
+- `/port:` - The port number the server will use. Default: `4444`.
+- `/timeout:` - In seconds : Specifies the timeout before the server
     automatically kills a session that hasn't had any activity in the
     last X seconds. The test slot will then be released for another
     test to use. This is typically used to take care of client crashes.
@@ -133,39 +133,39 @@ These parameters are available on all roles:
 
 #### Hub
 
-- `/browserTimeout` - In seconds : number of seconds a browser session
+- `/browserTimeout:` - In seconds : number of seconds a browser session
     is allowed to hang while a WebDriver command is running (example:
     driver.get(url)). If the timeout is reached while a WebDriver
     command is still processing, the session will quit. Minimum value
     is 60. An unspecified, zero, or negative value means wait
     indefinitely. Default: `0`.
-- `/capabilityMatcher` -
+- `/capabilityMatcher:` -
     Default: `org.openqa.grid.internal.utils.DefaultCapabilityMatcher`.
-- `/cleanUpCycle` - In ms : specifies how often the hub will poll
+- `/cleanUpCycle:` - In ms : specifies how often the hub will poll
     running proxies for timed-out (i.e. hung) threads. Must also
     specify "timeout" option. Default: `5000`.
-- `/newSessionWaitTimeout` - Default: `-1`.
-- `/port` - The port number the server will use. Default: `4444`.
-- `/servlets` - List of default (hub or node) servlets to enable.
+- `/newSessionWaitTimeout:` - Default: `-1`.
+- `/port:` - The port number the server will use. Default: `4444`.
+- `/servlets:` - List of default (hub or node) servlets to enable.
     Advanced use cases only. Specify multiple servlets:
     `tld.company.ServletA,tld.company.ServletB`. The servlet must exist
     in the path: /grid/admin/ServletA /grid/admin/ServletB
     Default: `@()`.
 - `/throwOnCapabilityNotPresent` - Default: `true`.
-- `/timeout` - In seconds : Specifies the timeout before the server
+- `/timeout:` - In seconds : Specifies the timeout before the server
     automatically kills a session that hasn't had any activity in the
     last X seconds. The test slot will then be released for another
     test to use. This is typically used to take care of client crashes.
     For grid hub/node roles, cleanUpCycle must also be set.
     Default: `1800`.
-- `/withoutServlets` - List of default (hub or node) servlets to
+- `/withoutServlets:` - List of default (hub or node) servlets to
     disable. Advanced use cases only. Not all default servlets can be
     disabled. Specify multiple servlets:
     `[tld.company.ServletA,tld.company.ServletB]`. Default: `@()`.
 
 #### Node
 
-- `/capabilitiesJson` - The JSON file containing capabilities. A
+- `/capabilitiesJson:` - The JSON file containing capabilities. A
     capabilities.json is provided by default and contains
     `[{"browserName": "firefox","maxInstances": 5,
     "seleniumProtocol": "WebDriver"},{"browserName": "chrome",
@@ -173,34 +173,33 @@ These parameters are available on all roles:
     "browserName": "internet explorer", "maxInstances": 1,
     "seleniumProtocol": "WebDriver"}]`.
     Default: `'<Get-ToolsLocation>\selenium\capabilities.json'`.
-- `/hub` - The url that will be used to post the registration request.
+- `/hub:` - The url that will be used to post the registration request.
     This option takes precedence over -hubHost and -hubPort options.
     Default: `http://localhost:4444`.
-- `/downPollingLimit` - Node is marked as "down" if the node hasn't
-    responded after the number of checks specified in
-    `[downPollingLimit]`. Default: `2`.
-- `/maxSession` - Max number of tests that can run at the same
+- `/downPollingLimit:` - Node is marked as "down" if the node hasn't
+    responded after the number of checks specified. Default: `2`.
+- `/maxSession:` - Max number of tests that can run at the same
     time on the node, irrespective of the browser used. Default: `5`.
-- `/nodePolling` - In ms : specifies how often the hub will poll to see
+- `/nodePolling:` - In ms : specifies how often the hub will poll to see
     if the node is still responding. Default: `5000`.
-- `/nodeStatusCheckTimeout` - In ms : connection/socket timeout, used
+- `/nodeStatusCheckTimeout:` - In ms : connection/socket timeout, used
     for node "nodePolling" check. Default: `5000`.
-- `/port` - The port number the server will use. Default: `5555`.
-- `/proxy` - The class used to represent the node proxy.
+- `/port:` - The port number the server will use. Default: `5555`.
+- `/proxy:` - The class used to represent the node proxy.
     Default: `org.openqa.grid.selenium.proxy.DefaultRemoteProxy`
 - `/register` - If specified, node will attempt to re-register itself
     automatically with its known grid hub if the hub becomes
     unavailable. Default: `true`.
-- `/registerCycle` - In ms : specifies how often the node will try to
+- `/registerCycle:` - In ms : specifies how often the node will try to
     register itself again. Allows administrator to restart the hub
     without restarting (or risk orphaning) registered nodes. Must be
     specified with the "-register" option. Default: `5000`.
-- `/servlets` - List of default (hub or node) servlets to enable.
+- `/servlets:` - List of default (hub or node) servlets to enable.
     Advanced use cases only. Specify multiple servlets:
     `[tld.company.ServletA,tld.company.ServletB]`. The servlet must
     exist in the path: /grid/admin/ServletA /grid/admin/ServletB.
     Default: `@()`.
-- `/timeout` - In seconds : Specifies the timeout before the server
+- `/timeout:` - In seconds : Specifies the timeout before the server
     automatically kills a session that hasn't had any activity in the
     last X seconds. The test slot will then be released for another test
     to use. This is typically used to take care of client crashes. For
@@ -208,7 +207,7 @@ These parameters are available on all roles:
 - `/unregisterIfStillDownAfter` - In ms : if the node remains down for
     more than `unregisterIfStillDownAfter` ms, it will stop
     attempting to re-register from the hub. Default: `60000`.
-- `/withoutServlets` - List of default (hub or node) servlets to
+- `/withoutServlets:` - List of default (hub or node) servlets to
     disable. Advanced use cases only. Not all default servlets can be
     disabled. Specify multiple servlets:
     `@(tld.company.ServletA,tld.company.ServletB)`.
