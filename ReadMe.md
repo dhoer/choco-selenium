@@ -1,5 +1,8 @@
 ﻿# Selenium
 
+[![AppVeyor](https://img.shields.io/appveyor/ci/dhoer/choco-selenium/master.svg)][win]
+[win]: https://ci.appveyor.com/project/dhoer/choco-selenium
+
 Installs and configures selenium standalone, hub, or node server.
 
 The selenium-server-*.jar, *capabilites.json, *config.json, and *.cmd
