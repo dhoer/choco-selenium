@@ -1,3 +1,5 @@
+version: '{build}-{branch}'
+
 install:
   - set PATH=C:\Ruby23\bin;%PATH%
   - bundle install
@@ -6,7 +8,7 @@ install:
   - choco pack
   - choco install -y selenium --params "'/role:hub /service /autostart /port:4446'" -s .
   - choco install -y googlechrome selenium-chrome-driver
-  - choco install -y selenium --params "'/role:node /hub:http://localhost:4446 /port:5557 /capabilitiesJson:$capabilitiesJson /autostart'"
+  - choco install -y selenium --params "'/role:node /hub:http://localhost:4446 /port:5557 /capabilitiesJson:$capabilitiesJson /autostart'" -s . --force
 
 build: off
 
