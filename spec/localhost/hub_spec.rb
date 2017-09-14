@@ -4,7 +4,7 @@ describe file('C:/tools/selenium') do
   it { should be_directory }
 end
 
-describe file("C:/tools/selenium/selenium-server-hub.jar") do
+describe file("C:/tools/selenium/selenium-server-standalone.jar") do
   it { should be_file }
 end
 
@@ -12,7 +12,7 @@ describe file("C:/tools/selenium/hubconfig.json") do
   it { should be_file }
 end
 
-describe service('SeleniumHub') do
+describe service('Selenium Hub') do
   it { should be_enabled }
   it { should be_running }
 end

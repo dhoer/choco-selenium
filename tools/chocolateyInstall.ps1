@@ -11,11 +11,11 @@ $toolsLocation = Get-ToolsLocation
 $seleniumDir   = "$toolsLocation\selenium"
 
 $pp            = Get-SeleniumConfigDefaults
-$name          = "Selenium$((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
-$seleniumPath  = "$seleniumDir\selenium-server-$($pp["role"]).jar"
+$name          = "Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"]))"
+$seleniumPath  = "$seleniumDir\selenium-server-standalone.jar"
 
 if (!(Test-Path $seleniumDir)) {
-  New-Item $seleniumDir -ItemType directory
+  New-Item $seleniumDir -ItemType directory -Force
 }
 
 if ($pp["role"] -eq 'node') {
@@ -76,17 +76,17 @@ $cmd = "java $cmdParams"
 Write-Debug "Selenium command: $cmd"
 
 if ($pp["service"] -eq $true) {
-  nssm install $name java
-  nssm set $name AppDirectory $seleniumDir
-  nssm set $name AppParameters $cmdParams
+  nssm install "$name" java
+  nssm set "$name" AppDirectory $seleniumDir
+  nssm set "$name" AppParameters $cmdParams
   if ($pp["autostart"] -eq $true) {
-    nssm set $name Start SERVICE_AUTO_START
+    nssm set "$name" Start SERVICE_AUTO_START
   }
   if ($pp["log"] -ne $null -and $pp["log"] -ne '') {
-    nssm set $name AppStdout $pp["log"]
-    nssm set $name AppStderr $pp["log"]
+    nssm set "$name" AppStdout $pp["log"]
+    nssm set "$name" AppStderr $pp["log"]
   }
-  nssm start $name
+  nssm start "$name"
 } else {
   $cmdPath = "$seleniumDir\$($pp["role"]).cmd"
 
@@ -99,7 +99,7 @@ if ($pp["service"] -eq $true) {
 
   $menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
   $shortcutArgs = @{
-    shortcutFilePath = "$menuPrograms\Selenium\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
+    shortcutFilePath = "$menuPrograms\Selenium\$name.lnk"
     targetPath       = $cmdPath
     iconLocation     = "$toolsDir\icon.ico"
     workDirectory    = $seleniumDir
@@ -107,14 +107,13 @@ if ($pp["service"] -eq $true) {
   Install-ChocolateyShortcut @shortcutArgs
 
   if ($pp["autostart"] -eq $true) {
-    $startup = "$env:SystemDrive\Users\$($pp["username"])\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
-    $shortcutArgs = @{
-      shortcutFilePath = "$startup\Selenium $((Get-Culture).TextInfo.ToTitleCase($pp["role"])).lnk"
+    $startupArgs = @{
+      shortcutFilePath = "$menuPrograms\Startup\$name.lnk"
       targetPath       = $cmdPath
       iconLocation     = "$toolsDir\icon.ico"
       workDirectory    = $seleniumDir
     }
-    Install-ChocolateyShortcut @shortcutArgs
+    Install-ChocolateyShortcut @startupArgs
   }
 }
 
@@ -129,4 +128,3 @@ $par = @{
 if (-not $rules.DisplayName.Contains($par.DisplayName)) {New-NetFirewallRule @par}
 
 Write-Debug "Selenium firewall: $par"
-

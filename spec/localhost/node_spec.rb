@@ -4,7 +4,7 @@ describe file('C:/tools/selenium') do
   it { should be_directory }
 end
 
-describe file("C:/tools/selenium/selenium-server-node.jar") do
+describe file("C:/tools/selenium/selenium-server-standalone.jar") do
   it { should be_file }
 end
 
