@@ -2,7 +2,8 @@
 
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/dhoer/choco-selenium/master.svg)](https://ci.appveyor.com/project/dhoer/choco-selenium)
 
-Installs and configures selenium standalone, hub, or node server.
+Installs and configures selenium standalone, hub, or node server
+from https://github.com/SeleniumHQ/selenium/.
 
 The selenium-server-*.jar, *capabilites.json, *config.json, and *.cmd
 files are located in `<Get-ToolsLocation>/selenium` directory.

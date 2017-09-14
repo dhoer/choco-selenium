@@ -5,11 +5,12 @@
     <version>3.5.3</version>
     <title>Selenium</title>
     <authors>dhoer</authors>
-    <projectUrl>https://github.com/SeleniumHQ/selenium/</projectUrl>
+    <projectUrl>https://github.com/dhoer/choco-selenium</projectUrl>
     <tags>selenium hub node grid standalone</tags>
     <summary>Installs and Configures Selenium on Windows</summary>
     <description>
-Installs and configures selenium standalone, hub, or node server.
+Installs and configures selenium standalone, hub, or node server
+from https://github.com/SeleniumHQ/selenium/.
 
 The selenium-server-*.jar, *capabilites.json, *config.json, and *.cmd
 files are located in `<Get-ToolsLocation>/selenium` directory.
