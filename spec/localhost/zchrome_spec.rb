@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'chrome' do
+describe 'Google Chrome' do
   before(:all) do
     @selenium = Selenium::WebDriver.for(:remote, url: "http://localhost:4446/wd/hub", desired_capabilities: :chrome)
   end
