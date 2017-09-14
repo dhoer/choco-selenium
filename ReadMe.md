@@ -111,8 +111,6 @@ These parameters are available on all roles:
     Default: `false`.
 - `/autostart` - Set Windows services to start automatically on reboot
     or set startup scripts to start on logon.  Default: `false`.
-- `/username:` - Startup script require a username to autostart on logon.
-    If omitted, will default to current user. Default `''`.
 
 #### Standalone
 
