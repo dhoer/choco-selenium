@@ -1,5 +1,6 @@
 ﻿# Selenium
 
+[![Chocolatey](https://img.shields.io/chocolatey/dt/selenium.svg)](https://chocolatey.org/packages/Selenium)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/dhoer/choco-selenium/master.svg)](https://ci.appveyor.com/project/dhoer/choco-selenium)
 
 Installs and configures selenium standalone, hub, or node server
