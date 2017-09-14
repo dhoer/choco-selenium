@@ -7,6 +7,9 @@ Installs and configures selenium standalone, hub, or node server.
 The selenium-server-*.jar, *capabilites.json, *config.json, and *.cmd
 files are located in `<Get-ToolsLocation>/selenium` directory.
 
+A firewall rule is automatically created to allow traffic to server
+port.
+
 Windows service is available for all roles but unless you are testing
 with headless browsers, it is only recommended for hub role.  The
 non-Windows service requires logon, but it allows selenium access to
