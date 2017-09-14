@@ -11,7 +11,7 @@ describe 'chrome' do
 
   res = '1024 x 768'
 
-  it "Should return display resolution of #{res}" do
+  it "should return display resolution of #{res}" do
     @selenium.get 'http://www.whatismyscreenresolution.com/'
     element = @selenium.find_element(:id, 'resolutionNumber')
     expect(element.text).to eq(res)
