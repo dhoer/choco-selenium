@@ -3,16 +3,17 @@ require 'spec_helper'
 describe 'Mozilla Firefox' do
   before(:all) do
     @selenium = Selenium::WebDriver.for(:remote, url: "http://localhost:4446/wd/hub", desired_capabilities: :firefox)
-    @resolution = '1024 x 768'
   end
 
   after(:all) do
     @selenium.quit
   end
 
-  it "should return display resolution of #{@resolution}" do
+  res = '1024 x 768'
+
+  it "should return display resolution of #{res}" do
     @selenium.get 'http://www.whatismyscreenresolution.com/'
     element = @selenium.find_element(:id, 'resolutionNumber')
-    expect(element.text).to eq(@resolution)
+    expect(element.text).to eq(res)
   end
 end
