@@ -7,7 +7,10 @@ $startupDir    = "$menuPrograms\Startup"
 $names         = @("Selenium Standalone", "Selenium Hub", "Selenium Node")
 
 foreach ($name in $names) {
-	nssm remove "$name" confirm
+  $service = Get-WmiObject -Class Win32_Service -Filter "Name='$name'"
+	if ($service -ne $null) {
+    nssm remove "$name" confirm
+  }
 
   $rules = Get-NetFirewallRule
   if ($rules.DisplayName.Contains($name)) {Remove-NetFirewallRule -DisplayName $name}
