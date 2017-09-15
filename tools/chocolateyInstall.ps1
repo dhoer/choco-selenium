@@ -29,6 +29,7 @@ if ($pp["role"] -eq 'node') {
   # https://stackoverflow.com/a/38212718/4548096
   $pp["capabilities"] = Get-Content -Path $pp["capabilitiesJson"] | ConvertFrom-Json | % { $_ }
   if ($pp["capabilities"] -isnot [Array]) { $pp["capabilities"] = @($pp["capabilities"]) }
+  Browser-AutoVersion($capabilities)
 }
 
 if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {

@@ -70,3 +70,51 @@ function Get-SeleniumConfig ($pp) {
 
   return $config
 }
+
+function Get-ChromeVersion() {
+  $root   = 'HKLM:\SOFTWARE\Google\Update\Clients'
+  $root64 = 'HKLM:\SOFTWARE\Wow6432Node\Google\Update\Clients'
+  foreach ($r in $root,$root64) {
+    $gcb = gci $r -ea 0 | ? { (gp $_.PSPath).name -eq 'Google Chrome' }
+    if ($gcb) { return $gcb.GetValue('pv') }
+  }
+}
+
+function Get-FirefoxVersion() {
+  try {
+    return iex '&"$env:ProgramFiles\Mozilla Firefox\firefox.exe" -v | more' | %{ [regex]::matches($_, "Mozilla Firefox (.*)") } | %{ $_.Groups[1].Value }
+  } catch [System.SystemException] {
+    try {
+      return iex '&"$env:ProgramFiles(x86)\Mozilla Firefox\firefox.exe" -v | more' | %{ [regex]::matches($_, "Mozilla Firefox (.*)") } | %{ $_.Groups[1].Value }
+    } catch [System.SystemException] {
+      return ""
+    }
+  }
+}
+
+function Get-InternetExplorerVersion() {
+  $reg = 'HKLM\SOFTWARE\Microsoft\Internet Explorer'
+  try {
+    return (Get-ItemProperty -Path $reg -Name svcVersion).svcVersion
+  } catch [System.SystemException] {
+    try {
+      return (Get-ItemProperty -Path $reg -Name version).version
+    } catch [System.SystemException] {
+      return ""
+    }
+  }
+}
+
+function Browser-AutoVersion($capabilities) {
+  foreach ($browser in $capabilities) {
+  	if ($browser["version"] -eq 'autoversion') {
+  	  if ($browser["browserName"] -eq 'firefox') {
+  	    $browser["version"] = Get-FirefoxVersion
+  	  } elseif ($browser["browserName"] -eq 'chrome') {
+  	    $browser["version"] = Get-ChromeVersion
+  	  } elseif ($browser["browserName"] -eq 'internet explorer') {
+  	    $browser["version"] = Get-InternetExplorerVersion
+  	  }
+  	}
+  }
+}

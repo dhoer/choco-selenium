@@ -68,6 +68,7 @@ $capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
   {
     "browserName": "chrome",
     "maxInstances": 5,
+    "version": "autoversion",
     "seleniumProtocol": "WebDriver"
   }
 ]
@@ -80,6 +81,10 @@ choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /capa
 Start the node server: Start > Selenium > Selenium Node.
 Verify node server is available by opening Selenium Grid Hub console
 http://localhost:4444/grid/console and seeing the node attached.
+
+Note that for Firefox, Chrome, and Internet Explorer; when capability
+version is set to `"autoversion"`, the installer will attempt to
+automatically determine and set the version.
 
 ### AutoLogon
 
@@ -171,10 +176,14 @@ These parameters are available on all roles:
 - `/capabilitiesJson:` - The JSON file containing capabilities. A
     capabilities.json is provided by default and contains
     `[{"browserName": "firefox","maxInstances": 5,
-    "seleniumProtocol": "WebDriver"},{"browserName": "chrome",
-    "maxInstances": 5,"seleniumProtocol": "WebDriver"},{
-    "browserName": "internet explorer", "maxInstances": 1,
-    "seleniumProtocol": "WebDriver"}]`.
+    "version": "autoversion","seleniumProtocol": "WebDriver"},
+    {"browserName": "chrome","maxInstances": 5,
+    "version": "autoversion","seleniumProtocol": "WebDriver"},
+    {"browserName": "internet explorer", "maxInstances": 1,
+    "version": "autoversion","seleniumProtocol": "WebDriver"}]`.
+    For Firefox, Chrome, and Internet Explorer; when version is set to
+    `"autoversion"`, the installer will attempt to automatically
+    determine and set the version.
     Default: `'<Get-ToolsLocation>\selenium\capabilities.json'`.
 - `/hub:` - The url that will be used to post the registration request.
     This option takes precedence over -hubHost and -hubPort options.
