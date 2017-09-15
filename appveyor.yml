@@ -23,9 +23,11 @@ test_script:
 
 deploy:
   provider: NuGet
+  name: chocolatey
+  on:
+    appveyor_repo_tag: true
   server: https://push.chocolatey.org/
   api_key:
     secure: Se/0Rf8flvUC1PKr3UZc8zCDcUZQr2RSY6zwkzACgOExP3pFC8NRyk6XoZUZnX+t
   skip_symbols: true
-  symbol_server:           # remove to push symbols to SymbolSource.org
   artifact: /.*\.nupkg/
