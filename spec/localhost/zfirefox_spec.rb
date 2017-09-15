@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe 'Google Chrome' do
+describe 'Mozilla Firefox' do
   before(:all) do
-    @selenium = Selenium::WebDriver.for(:remote, url: "http://localhost:4446/wd/hub", desired_capabilities: :chrome)
+    @selenium = Selenium::WebDriver.for(:remote, url: "http://localhost:4446/wd/hub", desired_capabilities: :firefox)
     @resolution = '1024 x 768'
   end
 
