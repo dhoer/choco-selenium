@@ -9,7 +9,7 @@ describe 'Mozilla Firefox' do
     @selenium.quit
   end
 
-  res = '1024 x 7688'
+  res = '1024 x 768'
 
   it "should return display resolution of #{res}" do
     @selenium.get 'http://www.whatismyscreenresolution.com/'
