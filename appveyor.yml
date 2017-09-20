@@ -21,9 +21,13 @@ before_test:
 test_script:
   - bundle exec rake
 
+artifacts:
+  - path: '*.nupkg'
+    name: Selenium
+
 deploy:
   provider: NuGet
-  name: chocolatey
+  name: chocolatey.org
   on:
     appveyor_repo_tag: true
   server: https://push.chocolatey.org/
