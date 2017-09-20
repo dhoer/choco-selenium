@@ -87,13 +87,24 @@ if ($pp["service"] -eq $true) {
   if ($pp["log"]) {
     nssm set "$name" AppStdout $logPath
     nssm set "$name" AppStderr $logPath
+    nssm set "$name" AppRotateFiles 1
   }
   nssm start "$name"
 } else {
   $cmdPath = "$seleniumDir\$($pp["role"]).cmd"
 
   if ($pp["log"]) {
-    "$cmd > $logPath 2<&1" | Set-Content $cmdPath
+@"
+@echo off
+echo Starting $name...
+for /f %%a in ('powershell -Command "Get-Date -format yyyyMMddTHHmmss"') do set datetime=%%a
+if exist $logPath (
+  move /Y $logPath $seleniumDir\$($pp["role"])-%datetime%.log >nul
+  echo Rotated previous log
+)
+echo Logging to $logPath
+"@ | Set-Content $cmdPath
+    "$cmd > $logPath 2<&1" | Add-Content $cmdPath
   } else {
     $cmd | Set-Content $cmdPath
   }
