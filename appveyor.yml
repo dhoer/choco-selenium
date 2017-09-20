@@ -27,7 +27,6 @@ artifacts:
 
 deploy:
   provider: NuGet
-  name: chocolatey.org
   on:
     appveyor_repo_tag: true
   server: https://push.chocolatey.org/
