@@ -6,8 +6,9 @@
 Installs and configures selenium standalone, hub, or node server
 from https://github.com/SeleniumHQ/selenium/.
 
-The selenium-server-*.jar, *capabilites.json, *config.json, *.cmd, and
-*.log files are located in <Get-ToolsLocation>/selenium directory.
+The selenium-server-standalone.jar, *capabilites.json, *config.json,
+*.cmd, and *.log files are located in <Get-ToolsLocation>/selenium
+directory.
 
 A firewall rule is automatically created to allow traffic to server
 port.
