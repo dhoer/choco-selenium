@@ -12,6 +12,10 @@ describe file("C:/tools/selenium/hubconfig.json") do
   it { should be_file }
 end
 
+describe file("C:/tools/selenium/hub.log") do
+  it { should be_file }
+end
+
 describe service('Selenium Hub') do
   it { should be_enabled }
   it { should be_running }

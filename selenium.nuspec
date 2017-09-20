@@ -12,8 +12,8 @@
 Installs and configures selenium standalone, hub, or node server
 from https://github.com/SeleniumHQ/selenium/.
 
-The selenium-server-*.jar, *capabilites.json, *config.json, and *.cmd
-files are located in `&lt;Get-ToolsLocation&gt;/selenium` directory.
+The selenium-server-*.jar, *capabilites.json, *config.json, *.cmd, and
+*.log files are located in &lt;Get-ToolsLocation&gt;/selenium directory.
 
 A firewall rule is automatically created to allow traffic to server
 port.
@@ -24,8 +24,7 @@ non-Windows service requires logon, but it allows selenium access to
 drive the GUI browser. See AutoLogon section below for information on
 how to configure Windows to logon automatically.
 
-See https://github.com/dhoer/choco-selenium#selenium for more
-information about usage.
+See https://github.com/dhoer/choco-selenium#selenium for more information.
     </description>
   </metadata>
   <files>

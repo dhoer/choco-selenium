@@ -37,12 +37,6 @@ foreach ($name in $names) {
 
 wmic Path win32_process Where "CommandLine Like '%selenium-server-standalone.jar%'" Call Terminate
 
-if ($pp["log"] -ne $null -and $pp["log"] -ne '') {
-  If (Test-Path $pp["log"]) {
-    Remove-Item $pp["log"] -Force
-  }
-}
-
 if ($pp["capabilitiesJson"] -ne $null -and $pp["capabilitiesJson"] -ne '') {
   If (Test-Path $pp["capabilitiesJson"]) {
     Remove-Item $pp["capabilitiesJson"] -Force
@@ -58,7 +52,7 @@ if (Test-Path $seleniumDir) {
   get-childitem $seleniumDir -include *.cmd -recurse | foreach ($_) {remove-item $_.fullname}
   get-childitem $seleniumDir -include *config.json -recurse | foreach ($_) {remove-item $_.fullname}
   get-childitem $seleniumDir -include *capabilities*.json -recurse | foreach ($_) {remove-item $_.fullname}
-  get-childitem $seleniumDir -include *selenium*.log -recurse | foreach ($_) {remove-item $_.fullname}
+  get-childitem $seleniumDir -include *.log -recurse | foreach ($_) {remove-item $_.fullname}
 
   $directoryInfo = Get-ChildItem $seleniumDir | Measure-Object
   If ($directoryInfo.count -eq 0) {

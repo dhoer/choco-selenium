@@ -6,6 +6,7 @@ function Get-SeleniumConfigDefaults {
   if ($pp["port"] -eq $null -or $pp["port"] -eq '') {
     if ($pp["role"] -eq 'node') { $pp["port"] = 5555 } else { $pp["port"] = 4444 }
   }
+  if ($pp["log"] -eq $null -or $pp["log"] -eq '') { $pp["log"] = $false }
   if ($pp["service"] -eq $null -or $pp["service"] -eq '') { $pp["service"] = $false }
   if ($pp["autostart"] -eq $null -or $pp["autostart"] -eq '') { $pp["autostart"] = $false }
   if ($pp["debug"] -eq $null -or $pp["debug"] -eq '') { $pp["debug"] = $false }
@@ -42,7 +43,6 @@ function Get-SeleniumConfig ($pp) {
   $config["enablePassThrough"] = $pp["enablePassThrough"]
 
   if ($pp["jettyMaxThreads"] -ne $null -and $pp["jettyMaxThreads"] -ne '') { $config["jettyMaxThreads"] = $pp["jettyMaxThreads"] }
-  if ($pp["log"] -ne $null -and $pp["log"] -ne '') { $config["log"] = $pp["log"] }
 
   if ($pp["role"] -eq 'hub') {
     $config["newSessionWaitTimeout"] = $pp["newSessionWaitTimeout"]

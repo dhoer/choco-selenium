@@ -18,6 +18,11 @@ if (!(Test-Path $seleniumDir)) {
   New-Item $seleniumDir -ItemType directory -Force
 }
 
+if ($pp["log"]) {
+  $logPath  = "$seleniumDir\$($pp["role"]).log"
+  Write-Debug "Selenium log: $logPath"
+}
+
 if ($pp["role"] -eq 'node') {
   if ($pp["capabilitiesJson"] -eq $null -or $pp["capabilitiesJson"] -eq '') {
     $pp["capabilitiesJson"] = "$seleniumDir\capabilities.json"
@@ -30,10 +35,6 @@ if ($pp["role"] -eq 'node') {
   $pp["capabilities"] = (Get-Content -Path $pp["capabilitiesJson"] -Raw).Replace("`r`n","`n") | ConvertFrom-Json | % { $_ }
   if ($pp["capabilities"] -isnot [Array]) { $pp["capabilities"] = @($pp["capabilities"]) }
   Browser-AutoVersion($pp["capabilities"])
-}
-
-if ($pp["log"] -ne $null -and $pp["log"] -ne '' -and !(Test-Path $pp["log"])) {
-  New-Item -ItemType file -Path $pp["log"] -Force
 }
 
 # https://chocolatey.org/docs/helpers-get-chocolatey-web-file
@@ -83,17 +84,16 @@ if ($pp["service"] -eq $true) {
   if ($pp["autostart"] -eq $true) {
     nssm set "$name" Start SERVICE_AUTO_START
   }
-  if ($pp["log"] -ne $null -and $pp["log"] -ne '') {
-    nssm set "$name" AppStdout $pp["log"]
-    nssm set "$name" AppStderr $pp["log"]
+  if ($pp["log"]) {
+    nssm set "$name" AppStdout $logPath
+    nssm set "$name" AppStderr $logPath
   }
   nssm start "$name"
 } else {
   $cmdPath = "$seleniumDir\$($pp["role"]).cmd"
 
-  if ($pp["log"] -ne $null -and $pp["log"] -ne '') {
-     # todo logrotate files if log passed Add-Content
-    $cmd | Set-Content $cmdPath
+  if ($pp["log"]) {
+    "$cmd > $logPath 2<&1" | Set-Content $cmdPath
   } else {
     $cmd | Set-Content $cmdPath
   }

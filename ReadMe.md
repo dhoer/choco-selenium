@@ -6,8 +6,8 @@
 Installs and configures selenium standalone, hub, or node server
 from https://github.com/SeleniumHQ/selenium/.
 
-The selenium-server-*.jar, *capabilites.json, *config.json, and *.cmd
-files are located in `<Get-ToolsLocation>/selenium` directory.
+The selenium-server-*.jar, *capabilites.json, *config.json, *.cmd, and
+*.log files are located in <Get-ToolsLocation>/selenium directory.
 
 A firewall rule is automatically created to allow traffic to server
 port.
@@ -33,7 +33,7 @@ write to a log file.
 
 ```
 choco install -y jdk8 firefox selenium-gecko-driver googlechrome selenium-chrome-driver selenium-ie-driver
-choco install -y selenium --params "'/port:4445 /log:""C:/tools/selenium/log/selenium-standalone.log""'"
+choco install -y selenium --params "'/port:4445 /log'"
 ```
 
 Start the standalone server: Start > Selenium > Selenium Standalone.
@@ -109,16 +109,16 @@ These parameters are available on all roles:
 
 - `/role:` - Options are `hub`, `node`, or `standalone`.
     Default: `standalone`.
-- `/log:` - The log filename to use for logging. If omitted, will log
-    to STDOUT. Default `''`.
+- `/log` - Log to <Get-ToolsLocation>\selenium\<role>.log
+    instead of to STDOUT. Default `false`.
 - `/javaoptions:` - Additional options to pass to Java, e.g.,
     -Dwebdriver.chrome.driver=./chromedriver.exe.
     Default: `''`.
 - `/debug` - Enables LogLevel.FINE. Default: `false`.
 - `/service` - Add as a Windows service instead of as a startup script.
-    Note that a Windows service can't drive a GUI, so it is recommend
-    for hub role and standalone/node roles using headless browsers.
-    Default: `false`.
+    Note that a Windows service can't drive a GUI, so it is only
+    recommend for hub role and standalone/node roles using headless
+    browsers. Default: `false`.
 - `/autostart` - Set Windows services to start automatically on reboot
     or set startup scripts to start on logon.  Default: `false`.
 
@@ -225,5 +225,6 @@ These parameters are available on all roles:
     `@(tld.company.ServletA,tld.company.ServletB)`.
     Default: `@()`.
 
-These parameters can be passed to the installer with the use of `--params`.
-For example: `--params "'/role:node /hub:http://localhost:4444'"`.
+These parameters can be passed to the installer with the use of
+`--params`. For example:
+`--params "'/role:node /hub:http://localhost:4444'"`.

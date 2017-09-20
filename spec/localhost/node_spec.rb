@@ -16,6 +16,10 @@ describe file("C:/tools/selenium/node.cmd") do
   it { should be_file }
 end
 
+describe file("C:/tools/selenium/node.log") do
+  it { should be_file }
+end
+
 describe file("C:/Users/appveyor/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Selenium/Selenium Node.lnk") do
   it { should be_file }
 end
