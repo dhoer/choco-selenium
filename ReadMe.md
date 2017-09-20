@@ -7,7 +7,7 @@ Installs and configures selenium standalone, hub, or node server
 from https://github.com/SeleniumHQ/selenium/.
 
 The selenium-server-standalone.jar, *capabilites.json, *config.json,
-*.cmd, and *.log files are located in <Get-ToolsLocation>/selenium
+*.cmd, and *.log files are located in `<Get-ToolsLocation>/selenium`
 directory.
 
 A firewall rule is automatically created to allow traffic to server
@@ -110,7 +110,7 @@ These parameters are available on all roles:
 
 - `/role:` - Options are `hub`, `node`, or `standalone`.
     Default: `standalone`.
-- `/log` - Log to <Get-ToolsLocation>\selenium\<role>.log
+- `/log` - Log to `<Get-ToolsLocation>\selenium\<role>.log`
     instead of to STDOUT. Default `false`.
 - `/javaoptions:` - Additional options to pass to Java, e.g.,
     -Dwebdriver.chrome.driver=./chromedriver.exe.
