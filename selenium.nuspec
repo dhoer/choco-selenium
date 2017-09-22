@@ -6,7 +6,10 @@
     <title>Selenium</title>
     <authors>dhoer</authors>
     <projectUrl>https://github.com/dhoer/choco-selenium</projectUrl>
-    <tags>selenium hub node grid standalone</tags>
+    <iconUrl>https://raw.githubusercontent.com/dhoer/choco-selenium/master/tools/icon.ico</iconUrl>
+    <licenseUrl>https://github.com/dhoer/choco-selenium/blob/master/LICENSE</licenseUrl>
+    <packageSourceUrl>https://github.com/dhoer/choco-selenium</packageSourceUrl>
+    <tags>selenium grid hub node standalone</tags>
     <summary>Installs and Configures Selenium on Windows</summary>
     <description>
 Installs and configures selenium standalone, hub, or node server
@@ -27,6 +30,7 @@ how to configure Windows to logon automatically.
 
 See https://github.com/dhoer/choco-selenium#selenium for more information.
     </description>
+    <releaseNotes>https://github.com/dhoer/choco-selenium/releases</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
