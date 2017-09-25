@@ -95,7 +95,7 @@ happen automatically, you need to install the autologon package and run
 
 ```
 choco install -y autologon
-autologon Administrator WORKGROUP redacted
+autologon $env:username $env:userdomain redacted
 ```
 
 ## Usage
