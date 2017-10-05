@@ -4,8 +4,9 @@
     <id>selenium</id>
     <version>3.6.0</version>
     <title>Selenium</title>
-    <authors>dhoer</authors>
-    <projectUrl>https://github.com/dhoer/choco-selenium</projectUrl>
+    <authors>https://github.com/SeleniumHQ/selenium/blob/master/AUTHORS</authors>
+    <owners>dhoer</owners>
+    <projectUrl>http://www.seleniumhq.org/</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/dhoer/choco-selenium/master/tools/icon.ico</iconUrl>
     <licenseUrl>https://github.com/dhoer/choco-selenium/blob/master/LICENSE</licenseUrl>
     <packageSourceUrl>https://github.com/dhoer/choco-selenium</packageSourceUrl>
