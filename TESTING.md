@@ -1,7 +1,10 @@
 # Testing Selenium
 
-This Chocolatey package includes
-[serverspec](http://serverspec.org/) integration tests.
+This Chocolatey package uses
+[serverspec](http://serverspec.org/) and
+[selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings)
+for integration tests. Note that this requires Ruby language to be
+installed.
 
 Contributions to this Chocolatey package will only be accepted if all
 tests pass successfully.
@@ -12,9 +15,9 @@ Install the latest version of
 [Vagrant](http://www.vagrantup.com/downloads.html) and
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
-Clone the latest version from the repository.
+Clone the latest version from the repository:
 
-```bash
+```batch
 git clone git@github.com:dhoer/choco-selenium.git
 cd choco-selenium
 ```
@@ -24,7 +27,7 @@ cd choco-selenium
 Startup Vagrant Windows 2012r2 server and provision it, then reload to
 start the Selenium Grid service:
 
-```bash
+```batch
 vagrant up
 vagrant reload
 ```
@@ -36,32 +39,35 @@ visible from here:
 http://localhost:4446/grid/console
 ```
 
+The hub port is normally 4444, but the port was changed to 4446 to
+verify that you can change the port.
+
 ## Development
 
 By default, Vagrant shares your project directory (remember, that is
-the one with the Vagrantfile) to the C:/vagrant directory in your guest
-machine.
+the one with the Vagrantfile) to the `C:/vagrant` directory in your
+guest machine.
 
-Note that C:/Users/vagrant is a different directory from the synced
-C:/vagrant directory.
+Note that `C:/Users/vagrant` is a different directory from the synced
+`C:/vagrant` directory.
 
-If you make changes to in the project directory, you will need to force
-provision to run again in order to see those changes:
+If you make changes to in the project directory, you will need to
+provision again and reload in order to see those changes:
 
-```bash
+```batch
 vagrant provision
 vagrant reload
 ```
 
 ## Testing
 
-From the guest Windows box, run Powershell as administrator by
-right-clicking Powershell icon and selecting 'Run as Administrator`.
+From the guest Windows box, run Powershell as Administrator by
+right-clicking Powershell icon and selecting 'Run as Administrator'.
 
-Run serverspec integration tests, by installing required gems
-via bundler, and executing rake:
+Run serverspec and selenium-webdriver integration tests, by installing
+required gems via bundler gem and executing rake:
 
-```bash
+```batch
 cd C:\vagrant
 gem install bundler --no-document
 bundle update
