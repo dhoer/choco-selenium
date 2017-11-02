@@ -3,8 +3,8 @@
 This Chocolatey package uses [serverspec](http://serverspec.org/) and
 [selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings)
 for integration tests. Note that
-[Ruby language](https://www.ruby-lang.org/)
-is required and it is installed for you during provisioning.
+[Ruby language](https://www.ruby-lang.org/) is required for integration
+tests and it is installed for you during provisioning.
 
 Contributions to this Chocolatey package will only be accepted if all
 tests pass successfully.
@@ -17,7 +17,7 @@ Install the latest version of
 
 Clone the latest version from the repository:
 
-```bash
+```
 git clone git@github.com:dhoer/choco-selenium.git
 cd choco-selenium
 ```
@@ -27,7 +27,7 @@ cd choco-selenium
 Startup Vagrant Windows 2012r2 server and provision it, then reload to
 start the Selenium Grid service:
 
-```bash
+```
 vagrant up
 vagrant reload
 ```
@@ -54,7 +54,7 @@ Note that `C:/Users/vagrant` is a different directory from the synced
 If you make changes to in the project directory, you will need to
 provision again and reload in order to see those changes:
 
-```bash
+```
 vagrant provision
 vagrant reload
 ```
@@ -67,7 +67,7 @@ right-clicking Powershell icon and selecting 'Run as Administrator'.
 Run serverspec and selenium-webdriver integration tests, by installing
 required gems via bundler gem and executing rake:
 
-```powershell
+```
 cd C:\vagrant
 gem install bundler --no-document
 bundle update
