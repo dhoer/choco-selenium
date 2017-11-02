@@ -46,6 +46,9 @@ Vagrant.configure("2") do |config|
   # Example for VirtualBox:
   #
   config.vm.provider "virtualbox" do |vb|
+    vb.name = "Selenium"
+    vb.linked_clone = true
+
     # Display the VirtualBox GUI when booting the machine
     vb.gui = true
 
