@@ -24,7 +24,7 @@ cd choco-selenium
 
 ## Running
 
-Startup Vagrant Windows 2012r2 server, provision it, then reload to
+Startup Vagrant Windows 2012r2 server, provision it, and then reload to
 start the Selenium Grid service:
 
 ```
@@ -40,7 +40,7 @@ http://192.168.33.33:4446/grid/console
 ```
 
 The IP address is a private network, which allows host-only access to
-the machine.  This is important since the vagrant-provision-grid
+the machine.  This is important since the vagrant-provision-grid.ps1
 script disables Windows Update (updates during Selenium testing may
 cause test failures).
 
