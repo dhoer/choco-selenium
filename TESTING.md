@@ -24,7 +24,7 @@ cd choco-selenium
 
 ## Running
 
-Startup Vagrant Windows 2012r2 server and provision it, then reload to
+Startup Vagrant Windows 2012r2 server, provision it, then reload to
 start the Selenium Grid service:
 
 ```
@@ -32,12 +32,16 @@ vagrant up
 vagrant reload
 ```
 
-If provisioning and reload when ok, then Selenium Grid should be
+If provisioning and reload went ok, then Selenium Grid should be
 visible from here:
 
 ```
-http://localhost:4446/grid/console
+http://192.168.33.33:4446/grid/console
 ```
+
+The IP address is a private network, which allows host-only access to
+the machine.  This is important since provision script disables Windows
+Update.
 
 The hub port is normally 4444, but the port was changed to 4446 to
 verify that you can change the port.
