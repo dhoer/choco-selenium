@@ -3,9 +3,8 @@ Set-ExecutionPolicy Bypass; iex ((New-Object System.Net.WebClient).DownloadStrin
 
 # install selenium dependencies
 choco install -y nssm --pre
-choco install -y jdk8
 choco install -y googlechrome --ignorechecksum
-choco install -y firefoxesr selenium-gecko-driver selenium-ie-driver chromedriver
+choco install -y jdk8 firefoxesr selenium-gecko-driver selenium-chrome-driver selenium-ie-driver
 
 # install selenium grid
 choco pack C:\vagrant\selenium.nuspec --outputdirectory C:\vagrant
