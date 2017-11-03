@@ -13,11 +13,9 @@
     <tags>selenium grid hub node standalone</tags>
     <summary>Installs and Configures Selenium on Windows</summary>
     <description>
-Installs and configures selenium standalone, hub, or node server
-from https://github.com/SeleniumHQ/selenium/.
+Installs and configures selenium standalone, hub, or node server from https://github.com/SeleniumHQ/selenium/.
 
-Please [review the readme](https://github.com/dhoer/choco-selenium#selenium)
-before attempting to create a hub or node server.
+Please [review the readme](https://github.com/dhoer/choco-selenium#selenium) before attempting to create a hub or node server.
     </description>
     <releaseNotes>https://github.com/dhoer/choco-selenium/releases</releaseNotes>
   </metadata>
