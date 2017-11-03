@@ -40,11 +40,12 @@ http://192.168.33.33:4446/grid/console
 ```
 
 The IP address is a private network, which allows host-only access to
-the machine.  This is important since provision script disables Windows
-Update.
+the machine.  This is important since the vagrant-provision-grid
+script disables Windows Update (updates during Selenium testing may
+cause test failures).
 
 The hub port is normally 4444, but the port was changed to 4446 to
-verify that you can change the port.
+verify a user can change the port.
 
 ## Development
 
