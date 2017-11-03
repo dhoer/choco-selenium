@@ -56,7 +56,7 @@ guest machine.
 Note that `C:/Users/vagrant` is a different directory from the synced
 `C:/vagrant` directory.
 
-If you make changes to in the project directory, you will need to
+If you make changes in the project directory, you will need to
 provision again and reload in order to see those changes:
 
 ```
