@@ -7,8 +7,9 @@ Installs and configures selenium standalone, hub, or node server
 from https://github.com/SeleniumHQ/selenium/.
 
 A Vagrantfile is now available that creates a Selenium Grid with
-Chrome, Firefox, and Internet Explorer browsers. See TESTING.md for
-more information.
+Chrome, Firefox, and Internet Explorer browsers. See
+[TESTING.md](https://github.com/dhoer/choco-selenium/blob/master/TESTING.md)
+for more information.
 
 ## Prerequisites
 
