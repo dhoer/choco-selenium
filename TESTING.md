@@ -2,9 +2,9 @@
 
 This Chocolatey package uses [serverspec](http://serverspec.org/) and
 [selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings)
-for integration tests. Note that
-[Ruby language](https://www.ruby-lang.org/) is required for integration
-tests and it is installed for you during provisioning.
+for integration tests. [Ruby language](https://www.ruby-lang.org/) is
+required for integration testing and it is installed for you during
+provisioning.
 
 Contributions to this Chocolatey package will only be accepted if all
 tests pass successfully.
