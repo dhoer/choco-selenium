@@ -22,6 +22,13 @@ git clone git@github.com:dhoer/choco-selenium.git
 cd choco-selenium
 ```
 
+If vagrant was updated and throws errors, the vagrant plugins might
+need to be reinstalled:
+
+```
+vagrant plugin expunge --reinstall
+```
+
 ## Running
 
 Startup Vagrant Windows 2012r2 server, provision it, and then reload to
