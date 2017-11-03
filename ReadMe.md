@@ -90,6 +90,15 @@ choco install -y autologon
 autologon $env:username $env:userdomain redacted
 ```
 
+### IE Driver
+
+Internet Explorer will require
+[additional configuration](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration)
+for use with selenium.  An example of how to use Windows Registry to
+do these additional configurations is
+[available](https://github.com/dhoer/choco-selenium/blob/master/vagrant-provision-grid.ps1#L34-L93).
+
+
 ## Usage
 
 Windows service is available for all roles but unless you are testing
