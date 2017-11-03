@@ -6,18 +6,9 @@
 Installs and configures selenium standalone, hub, or node server
 from https://github.com/SeleniumHQ/selenium/.
 
-The selenium-server-standalone.jar, *capabilites.json, *config.json,
-*.cmd, and *.log files are located in `<Get-ToolsLocation>/selenium`
-directory.
-
-A firewall rule is automatically created to allow traffic to server
-port.
-
-Windows service is available for all roles but unless you are testing
-with headless browsers, it is only recommended for hub role.  The
-non-Windows service requires logon, but it allows selenium access to
-drive the GUI browser. See AutoLogon section below for information on
-how to configure Windows to logon automatically.
+A Vagrantfile is now available that creates a Selenium Grid with
+Chrome, Firefox, and Internet Explorer browsers. See TESTING.md for
+more information.
 
 ## Prerequisites
 
@@ -100,6 +91,20 @@ autologon $env:username $env:userdomain redacted
 ```
 
 ## Usage
+
+Windows service is available for all roles but unless you are testing
+with headless browsers, it is only recommended for hub role.  The
+non-Windows service requires logon, but it allows selenium access to
+drive the GUI browser. See
+[AutoLogon](https://github.com/dhoer/choco-selenium#autologon) section
+for information on how to configure Windows to logon automatically.
+
+The selenium-server-standalone.jar, *capabilites.json, *config.json,
+*.cmd, and *.log files are located in `<Get-ToolsLocation>/selenium`
+directory.
+
+A firewall rule is automatically created to allow traffic to server
+port.
 
 ### Package Parameters
 
