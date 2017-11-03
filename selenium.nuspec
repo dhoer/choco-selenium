@@ -13,23 +13,9 @@
     <tags>selenium grid hub node standalone</tags>
     <summary>Installs and Configures Selenium on Windows</summary>
     <description>
-Installs and configures selenium standalone, hub, or node server
-from https://github.com/SeleniumHQ/selenium/.
+Installs and configures selenium standalone, hub, or node server from https://github.com/SeleniumHQ/selenium/.
 
-The selenium-server-standalone.jar, *capabilites.json, *config.json,
-*.cmd, and *.log files are located in
-&lt;Get-ToolsLocation&gt;/selenium directory.
-
-A firewall rule is automatically created to allow traffic to server
-port.
-
-Windows service is available for all roles but unless you are testing
-with headless browsers, it is only recommended for hub role.  The
-non-Windows service requires logon, but it allows selenium access to
-drive the GUI browser. See AutoLogon section below for information on
-how to configure Windows to logon automatically.
-
-See https://github.com/dhoer/choco-selenium#selenium for more information.
+Please [review the readme](https://github.com/dhoer/choco-selenium#selenium) before attempting to create a hub or node server.
     </description>
     <releaseNotes>https://github.com/dhoer/choco-selenium/releases</releaseNotes>
   </metadata>
