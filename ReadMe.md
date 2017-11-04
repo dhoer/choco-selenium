@@ -7,8 +7,8 @@ Installs and configures selenium standalone, hub, or node server
 from https://github.com/SeleniumHQ/selenium/.
 
 A [Vagrantfile](https://github.com/dhoer/choco-selenium/blob/master/Vagrantfile)
-to provision a Selenium Grid with the latest Chrome,
-Firefox, and IE browsers and/or drivers is available. See
+to provision Selenium Grid on Windows 2012R2 with latest browsers and/or
+drivers for Chrome, Firefox, and IE is available. See
 [TESTING.md](https://github.com/dhoer/choco-selenium/blob/master/TESTING.md)
 for more information.
 
