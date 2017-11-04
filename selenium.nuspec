@@ -6,9 +6,13 @@
     <title>Selenium</title>
     <authors>https://github.com/SeleniumHQ/selenium/blob/master/AUTHORS</authors>
     <owners>dhoer</owners>
-    <projectUrl>http://www.seleniumhq.org/</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/dhoer/choco-selenium/master/tools/icon.ico</iconUrl>
+    <projectUrl>https://github.com/SeleniumHQ/selenium</projectUrl>
+    <docsUrl>http://www.seleniumhq.org</docsUrl>
+    <mailingListUrl>https://groups.google.com/forum/#!forum/selenium-users</mailingListUrl>
+    <bugTrackerUrl>https://github.com/SeleniumHQ/selenium/issues</bugTrackerUrl>
+    <iconUrl>https://cdn.rawgit.com/dhoer/choco-selenium/45014ecc/tools/icon.png</iconUrl>
     <licenseUrl>https://github.com/dhoer/choco-selenium/blob/master/LICENSE</licenseUrl>
+    <projectSourceUrl>https://github.com/dhoer/choco-selenium</projectSourceUrl>
     <packageSourceUrl>https://github.com/dhoer/choco-selenium</packageSourceUrl>
     <tags>selenium grid hub node standalone</tags>
     <summary>Installs and Configures Selenium on Windows</summary>
