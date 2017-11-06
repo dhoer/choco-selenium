@@ -20,6 +20,8 @@
 Installs and configures selenium standalone, hub, or node server from https://github.com/SeleniumHQ/selenium/.
 
 Please [review the readme](https://github.com/dhoer/choco-selenium#selenium) before attempting to create a hub or node server.
+
+DISCLAIMER: This package is not part of the official Selenium project.
     </description>
     <releaseNotes>https://github.com/dhoer/choco-selenium/releases</releaseNotes>
   </metadata>
