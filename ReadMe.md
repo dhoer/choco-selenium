@@ -12,6 +12,8 @@ drivers for Chrome, Firefox, and IE is available. See
 [TESTING.md](https://github.com/dhoer/choco-selenium/blob/master/TESTING.md)
 for more information.
 
+DISCLAIMER: This package is not part of the official Selenium project.
+
 ## Prerequisites
 
 Java, Browser(s), Browser WebDriver(s) must be installed prior to
