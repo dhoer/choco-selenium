@@ -34,8 +34,6 @@ Start the standalone server: Start > Selenium > Selenium Standalone.
 Verify standalone server is available by opening Selenium Standalone
 console http://localhost:4445/wd/hub/static/resource/hub.html.
 
-Note that [IE will require additional configuration](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration).
-
 ### Hub
 
 Install hub as a Windows service that will autostart on reboot
@@ -53,7 +51,8 @@ http://localhost:4444/grid/console.
 ### Node
 
 Install node as startup script that will autostart on logon and
-support only chrome browser capabilities.
+support only chrome browser capabilities instead of the
+[default capabilities](https://github.com/dhoer/choco-selenium/blob/master/tools/capabilities.json).
 
 ```
 $capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
