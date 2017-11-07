@@ -104,18 +104,18 @@ Registry to do these additional configurations is
 
 ## Usage
 
-Windows service is available but it is only recommended for hub role.
-The non-Windows service requires logon, but it allows selenium access
-to drive the GUI browser. See
+Windows service is available, but it is only recommended for the hub
+role. The non-Windows service requires a logon.  This is to allow
+selenium access to the GUI to drive the browser. See
 [AutoLogon](https://github.com/dhoer/choco-selenium#autologon) section
 for information on how to configure Windows to logon automatically.
 
-The selenium-server-standalone.jar, *capabilites.json, *config.json,
-*.cmd, and *.log files are typically located in the `C:/tools/selenium`
-directory.
+The files installed or generated (selenium-server-standalone.jar,
+*capabilites.json, *config.json, *.cmd, and *.log) are typically
+located  in the `C:/tools/selenium` directory.
 
-A firewall rule is automatically created to allow traffic to server
-port.
+A firewall rule is automatically created to allow traffic to the
+hub or node service port.
 
 ### Package Parameters
 
