@@ -16,9 +16,10 @@ DISCLAIMER: This package is not part of the official Selenium project.
 
 ## Prerequisites
 
-Java, Browser(s), Browser WebDriver(s) must be installed prior to
-installing selenium. Non-Sucking Service Manager (NSSM) --pre
-version is required when using `/service` option.
+- Java, Browser(s), and Browser WebDriver(s) must be installed prior to
+installing selenium
+- Non-Sucking Service Manager (NSSM) --pre version is required when
+using `/service` option
 
 ## Quick Start
 
@@ -101,13 +102,11 @@ for use with Selenium and IE Driver.  An example of how to use Windows
 Registry to do these additional configurations is
 [available](https://github.com/dhoer/choco-selenium/blob/master/vagrant-provision-grid.ps1#L34-L93).
 
-
 ## Usage
 
-Windows service is available for all roles but unless you are testing
-with headless browsers, it is only recommended for hub role.  The
-non-Windows service requires logon, but it allows selenium access to
-drive the GUI browser. See
+Windows service is available but it is only recommended for hub role.
+The non-Windows service requires logon, but it allows selenium access
+to drive the GUI browser. See
 [AutoLogon](https://github.com/dhoer/choco-selenium#autologon) section
 for information on how to configure Windows to logon automatically.
 
