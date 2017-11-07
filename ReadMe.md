@@ -26,7 +26,7 @@ using `/service` option
 ### Standalone
 
 Install standalone server to use default capabilities, port 4445, and
-write to a log file.
+write to a log file:
 
 ```
 choco install -y jdk8 firefox selenium-gecko-driver googlechrome selenium-chrome-driver selenium-ie-driver
@@ -39,7 +39,7 @@ console http://localhost:4445/wd/hub/static/resource/hub.html.
 
 ### Hub
 
-Install hub as a Windows service that will autostart on reboot
+Install hub as a Windows service that will autostart on reboot:
 
 ```
 choco install -y nssm --pre
@@ -55,7 +55,7 @@ http://localhost:4444/grid/console.
 
 Install node as startup script that will autostart on logon and
 support only chrome browser capabilities instead of the
-[default capabilities](https://github.com/dhoer/choco-selenium/blob/master/tools/capabilities.json).
+[default capabilities](https://github.com/dhoer/choco-selenium/blob/master/tools/capabilities.json):
 
 ```
 $capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
