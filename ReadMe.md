@@ -87,7 +87,7 @@ automatically determine and set the version.
 The autostart will start the non-Windows services when you logon.  But
 to make that happen automatically, you need to install the autologon
 package and run `autologon <username> <domain> <password>` once to set
-it up.
+it up:
 
 ```
 choco install -y autologon
