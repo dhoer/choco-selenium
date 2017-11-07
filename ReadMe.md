@@ -105,7 +105,7 @@ Registry to do these additional configurations is
 ## Usage
 
 Windows service is available, but it is only recommended for the hub
-role. The non-Windows service requires a logon.  This is to allow
+role. The non-Windows service requires a logon to allow
 selenium access to the GUI to drive the browser. See
 [AutoLogon](https://github.com/dhoer/choco-selenium#autologon) section
 for information on how to configure Windows to logon automatically.
