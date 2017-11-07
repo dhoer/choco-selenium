@@ -111,7 +111,7 @@ to drive the GUI browser. See
 for information on how to configure Windows to logon automatically.
 
 The selenium-server-standalone.jar, *capabilites.json, *config.json,
-*.cmd, and *.log files are located in `<Get-ToolsLocation>/selenium`
+*.cmd, and *.log files are typically located in the `C:/tools/selenium`
 directory.
 
 A firewall rule is automatically created to allow traffic to server
