@@ -135,8 +135,7 @@ These parameters are available on all roles:
 - `/debug` - Enables LogLevel.FINE. Default: `false`.
 - `/service` - Add as a Windows service instead of as a startup script.
     Note that a Windows service can't drive a GUI, so it is only
-    recommend for hub role and standalone/node roles using headless
-    browsers. Default: `false`.
+    recommended for the hub role. Default: `false`.
 - `/autostart` - Set Windows services to start automatically on reboot
     or set startup scripts to start on logon.  Default: `false`.
 
