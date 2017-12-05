@@ -4,8 +4,8 @@ $toolsDir = Split-Path $MyInvocation.MyCommand.Definition
 . $toolsDir\helpers.ps1
 
 $packageName   = $env:ChocolateyPackageName
-$url           = 'https://selenium-release.storage.googleapis.com/3.7/selenium-server-standalone-3.7.1.jar'
-$checksum      = 'b4a581ab35f2697618aa9c94721d7b2ca421c0a97dd96f974e341347263f09b6'
+$url           = 'https://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar'
+$checksum      = '2ca30da4a482688263b0eed5c73d1a4bbf3116316a1f2ffb96310a1643dbe663'
 $checksumType  = 'sha256'
 $toolsLocation = Get-ToolsLocation
 $seleniumDir   = "$toolsLocation\selenium"
