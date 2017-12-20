@@ -31,7 +31,8 @@ vagrant plugin expunge --reinstall
 
 ## Running
 
-Startup Vagrant Windows 2012r2 server, provision it, and then reload to
+Startup Vagrant Windows 2012r2 server, provision it (provision will
+occur automatically on first run), and then reload to
 start the Selenium Grid service:
 
 ```
@@ -73,15 +74,10 @@ vagrant reload
 
 ## Testing
 
-From the guest Windows box, run Powershell as Administrator by
-right-clicking Powershell icon and selecting 'Run as Administrator'.
-
-Run serverspec and selenium-webdriver integration tests, by installing
-required gems via bundler gem and executing rake:
+From the guest Windows box, open a Powershell window and run Ruby
+serverspec and selenium-webdriver tests via rake:
 
 ```
 cd C:\vagrant
-gem install bundler --no-document
-bundle update
 rake
 ```

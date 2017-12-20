@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
   # Example for VirtualBox:
   #
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "Selenium"
+    vb.name = "Selenium-Grid"
     vb.linked_clone = true
 
     # Display the VirtualBox GUI when booting the machine
@@ -63,4 +63,6 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", path: "vagrant-provision-grid.ps1"
+  config.vm.provision "shell", inline: "choco install -y ruby"
+  config.vm.provision "shell", inline: "gem install bundler --no-document; cd C:\\vagrant; bundle update"
 end
