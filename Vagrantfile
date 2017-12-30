@@ -12,7 +12,9 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "mwrock/Windows2012R2"
+  #config.vm.box = "mwrock/Windows2012R2"
+  config.vm.box = "StefanScherer/windows_10"
+  config.vm.box_version = "2017.12.14"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -63,6 +65,6 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", path: "vagrant-provision-grid.ps1"
-  config.vm.provision "shell", inline: "choco install -y ruby"
+  config.vm.provision "shell", inline: "choco install -y ruby --version 2.4.3.1"
   config.vm.provision "shell", inline: "gem install bundler --no-document; cd C:\\vagrant; bundle update"
 end

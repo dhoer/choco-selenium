@@ -105,6 +105,14 @@ function Get-InternetExplorerVersion() {
   }
 }
 
+function Get-MicrosoftEdgeVersion() {
+  try {
+    return (Get-AppXPackage *edge*).Version
+  } catch {
+    return ""
+  }
+}
+
 function Browser-AutoVersion($capabilities) {
   for ($i=0; $i -lt $capabilities.length; $i++) {
     if ($capabilities[$i].version -eq 'autoversion') {
@@ -114,6 +122,8 @@ function Browser-AutoVersion($capabilities) {
         $capabilities[$i].version = Get-ChromeVersion
       } elseif  ($capabilities[$i].browserName -eq 'internet explorer') {
         $capabilities[$i].version = Get-InternetExplorerVersion
+      } elseif  ($capabilities[$i].browserName -eq 'MicrosoftEdge') {
+        $capabilities[$i].version = Get-MicrosoftEdgeVersion
       }
     }
   }
