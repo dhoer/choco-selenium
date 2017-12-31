@@ -73,8 +73,8 @@ vagrant reload
 
 ## Testing
 
-From the guest Windows box, open a Powershell window and run Ruby
-serverspec and selenium-webdriver tests via rake:
+From the guest Windows box, open a PowerShell window and run Ruby
+serverspec and selenium-webdriver tests via `rake`:
 
 ```
 cd C:\vagrant

@@ -98,11 +98,10 @@ autologon $env:username $env:userdomain redacted
 
 Internet Explorer will require
 [additional configuration](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration)
-for use with Selenium and IE Driver.  A powershell example of these
-additional configurations is
-[available](https://github.com/dhoer/choco-selenium/blob/master/vagrant-provision-grid.ps1#L63-L137)
-and has been tested on Windows 2012R2 Server, Windows 10, and
-Windows 2016 Server.
+in order for the IE Driver to work. A PowerShell script
+[ie-configuration.ps1](https://github.com/dhoer/choco-selenium/blob/master/ie-configuration.ps1)
+is available to configure IE. This script has been tested on
+Windows 2012R2 Server, Windows 2016 Server, and Windows 10.
 
 ## Usage
 
