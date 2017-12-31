@@ -7,8 +7,8 @@ Installs and configures selenium standalone, hub, or node server
 from https://github.com/SeleniumHQ/selenium/.
 
 A [Vagrantfile](https://github.com/dhoer/choco-selenium/blob/master/Vagrantfile)
-to provision a Selenium-Grid on Windows 2012R2 with latest browsers
-and drivers for Chrome, Firefox, and IE is available. See
+to provision a Selenium-Grid on Windows 10 with latest browsers
+and drivers for Chrome, Edge, Firefox, and IE is available. See
 [TESTING.md](https://github.com/dhoer/choco-selenium/blob/master/TESTING.md)
 for more information.
 
@@ -98,9 +98,11 @@ autologon $env:username $env:userdomain redacted
 
 Internet Explorer will require
 [additional configuration](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration)
-for use with Selenium and IE Driver.  An example of how to use Windows
-Registry to do these additional configurations is
-[available](https://github.com/dhoer/choco-selenium/blob/master/vagrant-provision-grid.ps1#L34-L93).
+for use with Selenium and IE Driver.  A powershell example of these
+additional configurations is
+[available](https://github.com/dhoer/choco-selenium/blob/master/vagrant-provision-grid.ps1#L63-L137)
+and has been tested on Windows 2012R2 Server, Windows 10, and
+Windows 2016 Server.
 
 ## Usage
 

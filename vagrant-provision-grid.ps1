@@ -65,12 +65,14 @@ autologon $env:username $env:userdomain vagrant
 ##
 
 # disable Internet Explorer Enhanced Security Configuration (ESC) - http://support.microsoft.com/kb/933991
-If (Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}") {
-  Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Type DWord -Value 0
+If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}")) {
+  New-Item -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" -Force
 }
-If (Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}") {
-  Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Type DWord -Value 0
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Type DWord -Value 0
+If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}")) {
+  New-Item -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" -Force
 }
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Type DWord -Value 0
 If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_ESCZoneMap_IEHarden")) {
   New-Item -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_ESCZoneMap_IEHarden" -Force
 }
@@ -118,12 +120,21 @@ If (!(Test-Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\Main\Fea
 }
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE" -Name "iexplore.exe" -Type DWord -Value 0
 
-# configure IE Zoom level to be 100%
+# configure IE Zoom Level to be 100%
 If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_Zoom_ZoomFactor")) {
   New-Item -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_Zoom_ZoomFactor" -Force
 }
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_Zoom_ZoomFactor" -Name "Version" -Type String -Value "[System.Math]::Round((Get-Date -Date ((Get-Date).ToUniversalTime()) -UFormat %s))"
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_Zoom_ZoomFactor" -Name "StubPath" -Type String -Value 'reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Zoom" /v ZoomFactor /d 100_000 /t REG_DWORD /f'
+
+# disable IE First Run
+If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main")) {
+  New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" -Force
+}
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Type DWord -Value 1
+
+# allow IE Driver through Firewall
+New-NetFirewallRule -DisplayName "Command line server for the IE driver" -Direction Inbound -Program "C:\tools\selenium\iedriverserver.exe" -Action Allow
 
 
 ##
@@ -137,7 +148,7 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\
 
 
 ##
-# Disable defender - blocked access may cause test failure (Windows 10/Windows 2016 Server only)
+# Disable Windows Defender - defender may cause test failure (Windows 10/Windows 2016 Server only)
 ##
 
 If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender")) {
@@ -148,7 +159,7 @@ Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" 
 
 
 ##
-# Disable action center - notifications may cause test failure (Windows 10/Windows 2016 Server only)
+# Disable Action Center - notifications may cause test failure (Windows 10/Windows 2016 Server only)
 ##
 
 If (!(Test-Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
