@@ -1,42 +1,15 @@
 ##
-# Install Chocolatey - https://chocolatey.org
-##
-
-Set-ExecutionPolicy Bypass; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
-
-##
-# Install Selenium-Grid Dependencies
-##
-
-choco install -y nssm --pre
-choco install -y googlechrome --ignorechecksum
-choco install -y jdk8 firefox selenium-gecko-driver selenium-chrome-driver selenium-ie-driver
-
-
-##
-# Install Selenium-Grid
-##
-
-choco pack C:\vagrant\selenium.nuspec --outputdirectory C:\vagrant
-choco install -y selenium --params "'/role:hub /service /port:4446 /autostart /log'" -d -s C:\vagrant --force
-choco install -y selenium --params "'/role:node /hub:http://localhost:4446 /port:5557 /autostart /log'" -d -s C:\vagrant --force
-
-
-##
-# Configure Auto-Logon
-##
-
-choco install -y autologon
-autologon $env:username $env:userdomain vagrant
-
-
-##
 # IE Required Configuration - https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration
 ##
 
 # disable Internet Explorer Enhanced Security Configuration (ESC) - http://support.microsoft.com/kb/933991
+If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}")) {
+  New-Item -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" -Force
+}
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Type DWord -Value 0
+If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}")) {
+  New-Item -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" -Force
+}
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Type DWord -Value 0
 If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_ESCZoneMap_IEHarden")) {
   New-Item -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_ESCZoneMap_IEHarden" -Force
@@ -85,19 +58,18 @@ If (!(Test-Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\Main\Fea
 }
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE" -Name "iexplore.exe" -Type DWord -Value 0
 
-# configure IE Zoom level to be 100%
+# configure IE Zoom Level to be 100%
 If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_Zoom_ZoomFactor")) {
   New-Item -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_Zoom_ZoomFactor" -Force
 }
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_Zoom_ZoomFactor" -Name "Version" -Type String -Value "[System.Math]::Round((Get-Date -Date ((Get-Date).ToUniversalTime()) -UFormat %s))"
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_Zoom_ZoomFactor" -Name "StubPath" -Type String -Value 'reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Zoom" /v ZoomFactor /d 100_000 /t REG_DWORD /f'
 
-
-##
-# Disable autoupdate - updates during testing may cause test failure
-##
-
-If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU")) {
-  New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Force
+# disable IE First Run
+If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main")) {
+  New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" -Force
 }
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "NoAutoUpdate" -Type DWord -Value 1
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Type DWord -Value 1
+
+# allow IE Driver through Firewall
+New-NetFirewallRule -DisplayName "Command line server for the IE driver" -Direction Inbound -Program "C:\tools\selenium\iedriverserver.exe" -Action Allow

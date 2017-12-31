@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe 'Google Chrome' do
+describe 'Microsoft Edge' do
   before(:all) do
-    @driver = Selenium::WebDriver.for(:remote, url: "http://localhost:4446/wd/hub", desired_capabilities: :chrome)
+    @driver = Selenium::WebDriver.for(:remote, url: "http://localhost:4446/wd/hub", desired_capabilities: :edge)
     @wait = Selenium::WebDriver::Wait.new(:timeout => 10)
     @driver.get "http://google.com"
   end
@@ -18,4 +18,4 @@ describe 'Google Chrome' do
 
     @wait.until { @driver.title.downcase.start_with? 'cheese!' }
   end
-end
+end if File.exist?('C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe')

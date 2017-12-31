@@ -31,7 +31,7 @@ vagrant plugin expunge --reinstall
 
 ## Running
 
-Startup Vagrant Windows 2012r2 server, provision it (provision will
+Startup Vagrant Windows 10, provision it (provision will
 occur automatically on first run), and then reload to
 start the Selenium Grid service:
 
@@ -57,11 +57,10 @@ verify a user can change the port.
 
 ## Development
 
-By default, Vagrant shares your project directory (remember, that is
-the one with the Vagrantfile) to the `C:/vagrant` directory in your
-guest machine.
+By default, Vagrant shares your project directory (that is the one with
+the Vagrantfile) with the `C:/vagrant` directory in your guest machine.
 
-Note that `C:/Users/vagrant` is a different directory from the synced
+Note that `C:/Users/vagrant` is a different directory than the synced
 `C:/vagrant` directory.
 
 If you make changes in the project directory, you will need to
@@ -74,10 +73,13 @@ vagrant reload
 
 ## Testing
 
-From the guest Windows box, open a Powershell window and run Ruby
-serverspec and selenium-webdriver tests via rake:
+From the guest Windows box, open a PowerShell window and run Ruby
+serverspec and selenium-webdriver tests via `rake`:
 
 ```
 cd C:\vagrant
 rake
 ```
+
+Note that Vagrant installed Ruby and Ruby Gems required for testing
+during provisioning.

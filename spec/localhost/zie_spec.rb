@@ -2,18 +2,20 @@ require 'spec_helper'
 
 describe 'Internet Explorer' do
   before(:all) do
-    @selenium = Selenium::WebDriver.for(:remote, url: "http://localhost:4446/wd/hub", desired_capabilities: :ie)
+    @driver = Selenium::WebDriver.for(:remote, url: "http://localhost:4446/wd/hub", desired_capabilities: :ie)
+    @wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+    @driver.get "http://google.com"
   end
 
   after(:all) do
-    @selenium.quit
+    @driver.quit
   end
 
-  res = '1024 x 768'
+  it 'should Google Search for Cheese!' do
+    element = @driver.find_element :name => 'q'
+    element.send_keys 'Cheese!'
+    element.submit
 
-  it "should return display resolution of #{res}" do
-    @selenium.get 'http://www.whatismyscreenresolution.com/'
-    element = @selenium.find_element(:id, 'resolutionNumber')
-    expect(element.text).to eq(res)
+    @wait.until { @driver.title.downcase.start_with? 'cheese!' }
   end
 end
