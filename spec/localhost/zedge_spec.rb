@@ -16,4 +16,4 @@ describe 'Microsoft Edge' do
     element = @selenium.find_element(:id, 'resolutionNumber')
     expect(element.text).to eq(res)
   end
-end
+end if File.exist?('C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe')
