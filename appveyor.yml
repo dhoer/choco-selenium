@@ -21,6 +21,7 @@ before_test:
 
 test_script:
   - bundle exec rake
+  - mvn clean test -Dtest="ChromeTest,FirefoxTest,IETest"
 
 artifacts:
   - path: '*.nupkg'

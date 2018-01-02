@@ -81,5 +81,11 @@ cd C:\vagrant
 rake
 ```
 
-Note that Vagrant installed Ruby and Ruby Gems required for testing
+Note that vagrant installed Ruby and Ruby Gems required for testing
 during provisioning.
+
+Maven users can execute browser tests from host machine:
+
+```
+mvn clean test
+```
