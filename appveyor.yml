@@ -11,6 +11,7 @@ install:
   - choco install -y firefoxesr selenium-gecko-driver selenium-chrome-driver selenium-ie-driver
   - choco install -y selenium --params "'/role:node /hub:http://localhost:4446 /port:5557 /autostart /log'" -d -s . --force
   - ps: Start-Process C:\tools\selenium\node.cmd -PassThru
+  - choco install -y maven --force
 
 build: off
 
@@ -21,6 +22,7 @@ before_test:
 
 test_script:
   - bundle exec rake
+  - mvn clean test -Dtest="ChromeTest,FirefoxTest,IETest"
 
 artifacts:
   - path: '*.nupkg'

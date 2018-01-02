@@ -1,3 +1,4 @@
 *.nupkg
 .vagrant/
 Gemfile.lock
+target
