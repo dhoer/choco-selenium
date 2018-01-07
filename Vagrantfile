@@ -5,7 +5,6 @@ Vagrant.configure("2") do |config|
   config.vm.box = "StefanScherer/windows_10"
 
   config.vm.network "forwarded_port", guest: 4446, host: 4446
-  config.vm.network "private_network", ip: "192.168.33.33"
 
   config.vm.provider "virtualbox" do |vb|
     vb.name = "Selenium-Grid"
