@@ -44,16 +44,24 @@ If provisioning and reload went ok, then Selenium Grid should be
 visible from here:
 
 ```
+http://localhost:4446/grid/console
+```
+
+or here:
+
+```
 http://192.168.33.33:4446/grid/console
 ```
 
-The IP address is a private network, which allows host-only access to
-the machine.  This is important since the vagrant-provision-grid.ps1
-script disables Windows Update (updates during Selenium testing may
-cause test failures).
+This is the [private network](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_address_spaces)
+IP address.
 
 The hub port is normally 4444, but the port was changed to 4446 to
 verify a user can change the port.
+
+Also note that Vagrant Windows 10 selenium-grid.ps1 script disables
+Windows Update, Windows Defender, and Action Center because these can
+cause selenium test failures.
 
 ## Development
 
