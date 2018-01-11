@@ -25,8 +25,8 @@ using `/service` option
 
 ### Standalone
 
-Install standalone server to use default capabilities, use port 8888
-instead of default 4444, and write to a log file instead of stdout:
+Install standalone server using port 8888 instead of default 4444,
+and write to a log file instead of stdout:
 
 ```
 choco install -y jdk8 firefox selenium-gecko-driver googlechrome selenium-chrome-driver selenium-ie-driver
