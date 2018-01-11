@@ -25,17 +25,17 @@ using `/service` option
 
 ### Standalone
 
-Install standalone server to use default capabilities, port 4445, and
-write to a log file:
+Install standalone server to use default capabilities, use port 8888
+instead of default 4444, and write to a log file instead of stdout:
 
 ```
 choco install -y jdk8 firefox selenium-gecko-driver googlechrome selenium-chrome-driver selenium-ie-driver
-choco install -y selenium --params "'/port:4445 /log'"
+choco install -y selenium --params "'/port:8888 /log'"
 ```
 
 Start the standalone server: Start > Selenium > Selenium Standalone.
 Verify standalone server is available by opening Selenium Standalone
-console http://localhost:4445/wd/hub/static/resource/hub.html.
+console http://localhost:8888/wd/hub/static/resource/hub.html.
 
 ### Hub
 
