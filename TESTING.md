@@ -2,12 +2,13 @@
 
 This Chocolatey package uses [serverspec](http://serverspec.org/) and
 [selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings)
-for integration tests. [Ruby language](https://www.ruby-lang.org/) is
-required for integration testing and it is installed for you during
-provisioning.
+for acceptance tests. [Ruby language](https://www.ruby-lang.org/) is
+required for acceptance testing and it is installed for you during
+provisioning.  Maven tests are also available, but Maven is not
+installed during provisioning.
 
 Contributions to this Chocolatey package will only be accepted if all
-tests pass successfully.
+Ruby tests pass successfully.
 
 ## Set Up
 
@@ -46,9 +47,9 @@ visible from here: http://localhost:4446/grid/console.
 The hub port is normally 4444, but the port was changed to 4446 to
 verify a user can change the port.
 
-Note that Vagrant Windows 10 selenium-grid.ps1 script disabled
-Windows Update, Windows Defender, and Action Center because these can
-cause Selenium test failures.
+Note that selenium-grid.ps1 script disables Windows Update, Windows
+Defender, and Action Center because these can cause Selenium test
+failures.
 
 ## Development
 
