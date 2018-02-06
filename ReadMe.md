@@ -101,7 +101,7 @@ Internet Explorer will require
 in order for the IE Driver to work. A PowerShell script
 [ie-configuration.ps1](https://github.com/dhoer/choco-selenium/blob/master/ie-configuration.ps1)
 is available to configure IE. This script has been tested on
-Windows 2012R2 Server, Windows 2016 Server, and Windows 10.
+Windows Server 2012R2, Windows Server 2016, and Windows 10.
 
 ## Usage
 
