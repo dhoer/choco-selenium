@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>selenium</id>
-    <version>3.9.0</version>
+    <version>3.9.1</version>
     <title>Selenium</title>
     <authors>https://github.com/SeleniumHQ/selenium/blob/master/AUTHORS</authors>
     <owners>dhoer</owners>
@@ -10,7 +10,7 @@
     <docsUrl>http://www.seleniumhq.org/docs/</docsUrl>
     <mailingListUrl>https://groups.google.com/forum/#!forum/selenium-users</mailingListUrl>
     <bugTrackerUrl>https://github.com/SeleniumHQ/selenium/issues</bugTrackerUrl>
-    <iconUrl>https://cdn.rawgit.com/dhoer/choco-selenium/45014ecc/tools/icon.png</iconUrl>
+    <iconUrl>https://cdn.rawgit.com/dhoer/choco-selenium/292012c2/tools/icon.png</iconUrl>
     <licenseUrl>https://github.com/SeleniumHQ/selenium/blob/master/LICENSE</licenseUrl>
     <projectSourceUrl>https://github.com/SeleniumHQ/selenium</projectSourceUrl>
     <packageSourceUrl>https://github.com/dhoer/choco-selenium</packageSourceUrl>
@@ -19,7 +19,7 @@
     <description>
 Installs and configures selenium standalone, hub, or node server from https://github.com/SeleniumHQ/selenium/.
 
-Please [review the readme](https://github.com/dhoer/choco-selenium#selenium) before attempting to create a hub or node server.
+See https://github.com/dhoer/choco-selenium before attempting to create a hub or node server.
 
 DISCLAIMER: This package is not part of the official Selenium project.
     </description>
