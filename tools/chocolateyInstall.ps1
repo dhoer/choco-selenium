@@ -1,11 +1,11 @@
-﻿$ErrorActionPreference = 'Stop'; # stop on all errors
+$ErrorActionPreference = 'Stop'; # stop on all errors
 
 $toolsDir = Split-Path $MyInvocation.MyCommand.Definition
 . $toolsDir\helpers.ps1
 
 $packageName   = $env:ChocolateyPackageName
-$url           = 'https://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar'
-$checksum      = 'b2445dab8ee073412d90aa6483a52a6362f6b4f049b3d7c45288481577203440'
+$url           = 'https://selenium-release.storage.googleapis.com/3.10/selenium-server-standalone-3.10.0.jar'
+$checksum      = '281213c3041e1143ae23c92a831f1232073bcfba4799eb78c4d7fd7804a8224b'
 $checksumType  = 'sha256'
 $toolsLocation = Get-ToolsLocation
 $seleniumDir   = "$toolsLocation\selenium"
