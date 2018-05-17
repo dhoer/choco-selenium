@@ -109,7 +109,7 @@ echo Logging to $logPath
     $cmd | Set-Content $cmdPath
   }
 
-  $menuPrograms = [environment]::GetFolderPath([environment+specialfolder]::Programs)
+  $menuPrograms = [Environment]::GetFolderPath('Programs')
   $shortcutArgs = @{
     shortcutFilePath = "$menuPrograms\Selenium\$name.lnk"
     targetPath       = $cmdPath
