@@ -1,4 +1,4 @@
-version: '{build}-{branch}'
+version: '{branch}-{build}'
 
 install:
   - set PATH=C:\Ruby23\bin;%PATH%
