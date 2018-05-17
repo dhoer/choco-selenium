@@ -19,6 +19,13 @@ If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_E
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_ESCZoneMap_IEHarden" -Name "Version" -Type String -Value $TimeStamp
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_ESCZoneMap_IEHarden" -Name "StubPath" -Type String -Value 'reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap" /v IEHarden /d 0 /t REG_DWORD /f'
 
+# disable IE "You are about to view pages over a secure connection" prompt
+If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_WarnOnZoneCrossing")) {
+  New-Item -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_WarnOnZoneCrossing" -Force
+}
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_WarnOnZoneCrossing" -Name "Version" -Type String -Value $TimeStamp
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_WarnOnZoneCrossing" -Name "StubPath" -Type String -Value 'reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v WarnOnZoneCrossing /d 0 /t REG_DWORD /f'
+
 # enable protected mode for local internet zone - http://support.microsoft.com/kb/182569
 If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_Zone1_2500")) {
   New-Item -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\IE_Zone1_2500" -Force
@@ -72,6 +79,9 @@ If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main")) {
   New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" -Force
 }
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Type DWord -Value 1
+
+# disable IE "You are about to view pages over a secure connection" prompt
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" -Name "WarnOnZoneCrossing" -Type DWord -Value 0
 
 # allow IE Driver through Firewall
 New-NetFirewallRule -DisplayName "Command line server for the IE driver" -Direction Inbound -Program "C:\tools\selenium\iedriverserver.exe" -Action Allow
