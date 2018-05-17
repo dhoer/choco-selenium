@@ -1,7 +1,7 @@
 ﻿$pp            = Get-PackageParameters
 $toolsLocation = Get-ToolsLocation
 $seleniumDir   = "$toolsLocation\selenium"
-$menuPrograms  = [environment]::GetFolderPath([environment+specialfolder]::Programs)
+$menuPrograms  = [Environment]::GetFolderPath('Programs')
 $shortcutDir   = "$menuPrograms\Selenium"
 $startupDir    = "$menuPrograms\Startup"
 $names         = @("Selenium Standalone", "Selenium Hub", "Selenium Node")
