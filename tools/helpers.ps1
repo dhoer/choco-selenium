@@ -96,10 +96,12 @@ function Get-InternetExplorerVersion() {
   $reg = 'HKLM:\SOFTWARE\Microsoft\Internet Explorer'
   try {
     return (Get-ItemProperty -Path $reg -Name svcVersion).svcVersion
-  } catch {
+  }
+  catch {
     try {
       return (Get-ItemProperty -Path $reg -Name version).version
-    } catch {
+    }
+    catch {
       return ""
     }
   }
@@ -107,8 +109,9 @@ function Get-InternetExplorerVersion() {
 
 function Get-MicrosoftEdgeVersion() {
   try {
-    return (Get-AppXPackage *edge*).Version
-  } catch {
+    return Get-AppXPackage -Name *Edge* | Foreach Version
+  }
+  catch {
     return ""
   }
 }
