@@ -36,7 +36,7 @@ function Get-SeleniumConfig ($pp) {
   $config = @{}
 
   $config["role"] = $pp["role"]
-  $config["port"] = $pp["port"]
+  $config["port"] = [int]$pp["port"]
   $config["browserTimeout"] = $pp["browserTimeout"]
   $config["timeout"] = $pp["timeout"]
   $config["debug"] = $pp["debug"]
