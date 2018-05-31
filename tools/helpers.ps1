@@ -16,9 +16,7 @@ function Get-SeleniumConfigDefaults {
   if ($pp["capabilityMatcher"] -eq $null -or $pp["capabilityMatcher"] -eq '') { $pp["capabilityMatcher"] = 'org.openqa.grid.internal.utils.DefaultCapabilityMatcher' }
   if ($pp["cleanUpCycle"] -eq $null -or $pp["cleanUpCycle"] -eq '') { $pp["cleanUpCycle"] = 5000 }
   if ($pp["newSessionWaitTimeout"] -eq $null -or $pp["newSessionWaitTimeout"] -eq '') { $pp["newSessionWaitTimeout"] = -1 }
-  if ($pp["servlets"] -eq $null -or $pp["servlets"] -eq '') { $pp["servlets"] = @() }
   if ($pp["throwOnCapabilityNotPresent"] -eq $null -or $pp["throwOnCapabilityNotPresent"] -eq '') { $pp["throwOnCapabilityNotPresent"] = $true }
-  if ($pp["withoutServlets"] -eq $null -or $pp["withoutServlets"] -eq '') { $pp["withoutServlets"] = @() }
   if ($pp["hub"] -eq $null -or $pp["hub"] -eq '') { $pp["hub"] = 'http://localhost:4444' }
   if ($pp["downPollingLimit"] -eq $null -or $pp["downPollingLimit"] -eq '') { $pp["downPollingLimit"] = 2 }
   if ($pp["maxSession"] -eq $null -or $pp["maxSession"] -eq '') { $pp["maxSession"] = 5 }
@@ -36,7 +34,7 @@ function Get-SeleniumConfig ($pp) {
   $config = @{}
 
   $config["role"] = $pp["role"]
-  $config["port"] = $pp["port"]
+  $config["port"] = [int]$pp["port"]
   $config["browserTimeout"] = $pp["browserTimeout"]
   $config["timeout"] = $pp["timeout"]
   $config["debug"] = $pp["debug"]
@@ -50,9 +48,12 @@ function Get-SeleniumConfig ($pp) {
     $config["maxSession"] = $pp["maxSession"]
     $config["newSessionWaitTimeout"] = $pp["newSessionWaitTimeout"]
     $config["throwOnCapabilityNotPresent"] = $pp["throwOnCapabilityNotPresent"]
-    $config["servlets"] = $pp["servlets"]
-    $config["withoutServlets"] = $pp["withoutServlets"]
-
+    if ($pp["servlets"] -ne $null) {
+      $config["servlets"] = $pp["servlets"]
+    }
+    if ($pp["withoutServlets"] -ne $null) {
+      $config["withoutServlets"] = $pp["withoutServlets"]
+    }
     if ($pp["prioritizer"] -ne $null -and $pp["prioritizer"] -ne '') { $config["prioritizer"] = $pp["prioritizer"] }
   } elseif ($pp["role"] -eq 'node' ) {
     $config["cleanUpCycle"] = $pp["cleanUpCycle"]
