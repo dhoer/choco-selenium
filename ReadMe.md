@@ -106,7 +106,7 @@ Windows Server 2012R2, Windows Server 2016, and Windows 10.
 ### Screen Resolution
 
 If you need to set the screen resolution different from default, check
-out
+out the
 [screen-resolution](https://chocolatey.org/packages/screen-resolution)
 package.
 
@@ -229,7 +229,6 @@ These parameters are available on all roles:
     Advanced use cases only. Specify multiple servlets:
     `[tld.company.ServletA,tld.company.ServletB]`. The servlet must
     exist in the path: /grid/admin/ServletA /grid/admin/ServletB.
-    Default: `@()`.
 - `/timeout:` - In seconds : Specifies the timeout before the server
     automatically kills a session that hasn't had any activity in the
     last X seconds. The test slot will then be released for another test
@@ -242,7 +241,6 @@ These parameters are available on all roles:
     disable. Advanced use cases only. Not all default servlets can be
     disabled. Specify multiple servlets:
     `@(tld.company.ServletA,tld.company.ServletB)`.
-    Default: `@()`.
 
 These parameters can be passed to the installer with the use of
 `--params`. For example:
