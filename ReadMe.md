@@ -103,6 +103,14 @@ in order for the IE Driver to work. A PowerShell script
 is available to configure IE. This script has been tested on
 Windows Server 2012R2, Windows Server 2016, and Windows 10.
 
+### Screen Resolution
+
+If you need to set the screen resolution different from default, check
+out
+[screen-resolution](https://chocolatey.org/packages/screen-resolution)
+package.
+
+
 ## Usage
 
 Windows service is available, but it is only recommended for the hub
@@ -175,8 +183,7 @@ These parameters are available on all roles:
 - `/servlets:` - List of default (hub or node) servlets to enable.
     Advanced use cases only. Specify multiple servlets:
     `tld.company.ServletA,tld.company.ServletB`. The servlet must exist
-    in the path: /grid/admin/ServletA /grid/admin/ServletB
-    Default: `@()`.
+    in the path: /grid/admin/ServletA /grid/admin/ServletB.
 - `/throwOnCapabilityNotPresent` - Default: `true`.
 - `/timeout:` - In seconds : Specifies the timeout before the server
     automatically kills a session that hasn't had any activity in the
@@ -187,7 +194,7 @@ These parameters are available on all roles:
 - `/withoutServlets:` - List of default (hub or node) servlets to
     disable. Advanced use cases only. Not all default servlets can be
     disabled. Specify multiple servlets:
-    `[tld.company.ServletA,tld.company.ServletB]`. Default: `@()`.
+    `[tld.company.ServletA,tld.company.ServletB]`.
 
 #### Node
 
