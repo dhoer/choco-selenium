@@ -13,8 +13,8 @@ Vagrant.configure("2") do |config|
     vb.memory = "2048"
   end
 
-  config.vm.provision "shell", path: "selenium-grid.ps1"
-  config.vm.provision "shell", path: "ie-configuration.ps1"
-  config.vm.provision "shell", inline: "choco install -y ruby --version 2.4.3.1"
-  config.vm.provision "shell", inline: "gem install bundler --no-document; cd C:\\vagrant; bundle update"
+  config.vm.provision "selenium-grid", type: "shell", path: "selenium-grid.ps1"
+  config.vm.provision "ie-configuration", type: "shell", path: "ie-configuration.ps1"
+  config.vm.provision "ruby", type: "shell", inline: "choco install -y ruby --version 2.4.3.1"
+  config.vm.provision "bundler", type: "shell", inline: "gem install bundler --no-document; cd C:\\vagrant; bundle update"
 end
