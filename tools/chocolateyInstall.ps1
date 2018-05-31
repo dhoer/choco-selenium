@@ -45,9 +45,8 @@ $configPath = "$seleniumDir\$($pp["role"])config.json"
 
 if ($pp["role"] -ne 'standalone') {
    $config | ConvertTo-Json -Depth 99 | Set-Content $configPath
+   Write-Debug "Selenium configuration: $(type $configPath)"
 }
-
-Write-Debug "Selenium configuration: $(type $configPath)"
 
 if ($pp["role"] -eq 'hub') {
   $options = "-role hub -hubConfig ""$configPath"""
