@@ -2,3 +2,4 @@
 .vagrant/
 Gemfile.lock
 target
+log
