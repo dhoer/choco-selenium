@@ -29,7 +29,7 @@ Install standalone server using port 8888 instead of default 4444,
 and write to a log file instead of stdout:
 
 ```
-choco install -y jdk8 firefox selenium-gecko-driver googlechrome selenium-chrome-driver selenium-ie-driver
+choco install -y jdk10 firefox selenium-gecko-driver googlechrome selenium-chrome-driver selenium-ie-driver
 choco install -y selenium --params "'/port:8888 /log'"
 ```
 
@@ -43,7 +43,7 @@ Install hub as a Windows service that will autostart on reboot:
 
 ```
 choco install -y nssm --pre
-choco install -y jdk8
+choco install -y jdk10
 choco install -y selenium --params "'/role:hub /service /autostart'"
 ```
 
@@ -70,7 +70,7 @@ $capabilitiesJson = "C:\tools\selenium\chromeonlycapabilities.json"
 ]
 '@ | New-Item $capabilitiesJson -Type file -Force
 
-choco install -y jdk8 googlechrome selenium-chrome-driver
+choco install -y jdk10 googlechrome selenium-chrome-driver
 choco install -y selenium --params "'/role:node /hub:http://localhost:4444 /capabilitiesJson:$capabilitiesJson /autostart'"
 ```
 

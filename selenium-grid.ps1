@@ -11,7 +11,7 @@ Set-ExecutionPolicy Bypass; iex ((New-Object System.Net.WebClient).DownloadStrin
 
 choco install -y nssm --pre
 choco install -y googlechrome --ignorechecksum
-choco install -y jdk8 firefox selenium-gecko-driver selenium-chrome-driver selenium-ie-driver selenium-edge-driver
+choco install -y jdk10 firefox selenium-gecko-driver selenium-chrome-driver selenium-ie-driver selenium-edge-driver
 
 
 ##

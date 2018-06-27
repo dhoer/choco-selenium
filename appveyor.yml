@@ -23,6 +23,10 @@ test_script:
   - bundle exec rake
   - mvn clean test -Dtest="ChromeTest,FirefoxTest,IETest"
 
+on_finish:
+  - type C:\tools\selenium\hub.log
+  - type C:\tools\selenium\node.log
+
 artifacts:
   - path: '*.nupkg'
     name: Selenium
