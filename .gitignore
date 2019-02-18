@@ -2,3 +2,5 @@
 .vagrant/
 Gemfile.lock
 target
+.DS_Store
+*.iml
