@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>selenium</id>
-    <version>3.141.59</version>
+    <version>4.0.0</version>
     <title>Selenium</title>
     <authors>https://github.com/SeleniumHQ/selenium/blob/master/AUTHORS</authors>
     <owners>dhoer</owners>
@@ -17,7 +17,7 @@
     <tags>selenium grid hub node standalone</tags>
     <summary>Installs and Configures Selenium on Windows</summary>
     <description>
-Installs and configures selenium standalone, hub, or node server from https://github.com/SeleniumHQ/selenium/.
+Installs and configures selenium grid components from https://github.com/SeleniumHQ/selenium/.
 
 See https://github.com/dhoer/choco-selenium before attempting to create a hub or node server.
 

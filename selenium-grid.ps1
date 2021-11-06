@@ -11,7 +11,7 @@ Set-ExecutionPolicy Bypass; iex ((New-Object System.Net.WebClient).DownloadStrin
 
 choco install -y nssm --pre
 choco install -y googlechrome --ignorechecksum
-choco install -y jdk10 firefox selenium-gecko-driver selenium-chrome-driver selenium-ie-driver selenium-edge-driver
+choco install -y oracle17jdk firefox selenium-gecko-driver selenium-chrome-driver selenium-ie-driver selenium-edge-driver
 
 
 ##
@@ -19,37 +19,20 @@ choco install -y jdk10 firefox selenium-gecko-driver selenium-chrome-driver sele
 ##
 
 choco pack C:\vagrant\selenium.nuspec --outputdirectory C:\vagrant
-choco install -y selenium --params "'/role:hub /service /port:4446 /autostart /log'" -d -s C:\vagrant --force
-$capabilitiesJson = "C:\tools\selenium\tn8-capabilities.json"
+$config = "C:\tools\selenium\default-config.toml"
 @'
-[
-  {
-    "browserName": "firefox",
-    "maxInstances": 5,
-    "version": "autoversion",
-    "seleniumProtocol": "WebDriver"
-  },
-  {
-    "browserName": "chrome",
-    "maxInstances": 5,
-    "version": "autoversion",
-    "seleniumProtocol": "WebDriver"
-  },
-  {
-    "browserName": "internet explorer",
-    "maxInstances": 1,
-    "version": "autoversion",
-    "seleniumProtocol": "WebDriver"
-  },
-  {
-    "browserName": "MicrosoftEdge",
-    "maxInstances": 5,
-    "version": "autoversion",
-    "seleniumProtocol": "WebDriver"
-  }
-]
-'@ | New-Item $capabilitiesJson -Type file -Force
-choco install -y selenium --params "'/role:node /hub:http://localhost:4446 /capabilitiesJson:$capabilitiesJson /port:5557 /autostart /log'" -d -s C:\vagrant --force
+[server]
+port = 4444
+host = "localhost"
+allow-cors = true
+
+[node]
+port = 5555
+max-sessions = 5
+detect-drivers = true
+'@ | New-Item $config -Type file -Force
+choco install -y selenium --params "'/role:hub /config:$config /service /autostart'" -d -s C:\vagrant --force --debug
+choco install -y selenium --params "'/role:node /config:$config /autostart'" -d -s C:\vagrant --force --debug
 
 
 ##

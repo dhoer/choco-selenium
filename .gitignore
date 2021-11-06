@@ -4,3 +4,7 @@ Gemfile.lock
 target
 .DS_Store
 *.iml
+.classpath
+.project
+.settings/
+.vscode/

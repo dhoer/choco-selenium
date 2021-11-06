@@ -18,17 +18,13 @@ Install the latest version of
 
 Clone the latest version from the repository:
 
-```
-git clone git@github.com:dhoer/choco-selenium.git
-cd choco-selenium
-```
+    git clone git@github.com:dhoer/choco-selenium.git
+    cd choco-selenium
 
 If vagrant was updated and throws errors, the vagrant plugins might
 need to be reinstalled:
 
-```
-vagrant plugin expunge --reinstall
-```
+    vagrant plugin expunge --reinstall
 
 ## Running
 
@@ -36,10 +32,8 @@ Startup Vagrant Windows 10, provision it (provision will
 occur automatically on first run), and then reload to
 start the Selenium Grid service:
 
-```
-vagrant up
-vagrant reload
-```
+    vagrant up
+    vagrant reload
 
 If provisioning and reload went ok, then Selenium Grid should be
 visible from here: http://localhost:4446/grid/console.
@@ -62,26 +56,20 @@ Note that `C:/Users/vagrant` is a different directory than the synced
 If you make changes in the project directory, you will need to
 provision again and reload in order to see those changes:
 
-```
-vagrant provision
-vagrant reload
-```
+    vagrant provision
+    vagrant reload
 
 ## Testing
 
 From the guest Windows box, open a PowerShell window and run Ruby
 serverspec and selenium-webdriver tests via `rake`:
 
-```
-cd C:\vagrant
-rake
-```
+    cd C:\vagrant
+    rake
 
 Note that vagrant installed Ruby and Ruby Gems required for testing
 during provisioning.
 
 Maven users can execute browser tests from host machine:
 
-```
-mvn clean test
-```
+    mvn clean test
