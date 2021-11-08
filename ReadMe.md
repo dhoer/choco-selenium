@@ -125,8 +125,7 @@ The following package parameters can be set:
 - `/autostart` - Set Windows services to start automatically on reboot
     or set startup scripts to start on logon.  Default: `false`.
 - `/config:` - File containing [component configuration](https://www.selenium.dev/documentation/grid/configuring_components/).
-- `/firewallrule` - Add port to 
+- `/firewallrule` - Add port firewall rule.
 
-These parameters can be passed to the installer with the use of
-`--params`. For example:
-`--params "'/role:node'"`.
+These parameters can be passed to the installer with the use of `--params`. 
+For example: `--params "'/role:node'"`.
