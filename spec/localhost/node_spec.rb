@@ -4,11 +4,11 @@ describe file('C:/tools/selenium') do
   it { should be_directory }
 end
 
-describe file("C:/tools/selenium/selenium-server-standalone.jar") do
+describe file("C:/tools/selenium/selenium-server.jar") do
   it { should be_file }
 end
 
-describe file("C:/tools/selenium/nodeconfig.json") do
+describe file("C:/tools/selenium/node.toml") do
   it { should be_file }
 end
 
@@ -28,6 +28,6 @@ describe file("$HOME/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Start
   it { should be_file }
 end
 
-describe port(5557) do
+describe port(5556) do
   it { should be_listening }
 end

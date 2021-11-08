@@ -37,30 +37,10 @@ if ($pp["service"] -eq $true) {
   if ($pp["autostart"] -eq $true) {
     nssm set "$name" Start SERVICE_AUTO_START
   }
-  if ($pp["log"]) {
-    nssm set "$name" AppStdout $logPath
-    nssm set "$name" AppStderr $logPath
-    nssm set "$name" AppRotateFiles 1
-  }
   nssm start "$name"
 } else {
   $cmdPath = "$seleniumDir\$($pp["role"]).cmd"
-
-  if ($pp["log"]) {
-@"
-@echo off
-echo Starting $name...
-for /f %%a in ('powershell -Command "Get-Date -format yyyyMMddTHHmmss"') do set datetime=%%a
-if exist $logPath (
-  move /Y $logPath $seleniumDir\$($pp["role"])-%datetime%.log >nul
-  echo Rotated previous log
-)
-echo Logging to $logPath
-"@ | Set-Content $cmdPath
-    "$cmd > $logPath 2<&1" | Add-Content $cmdPath
-  } else {
-    $cmd | Set-Content $cmdPath
-  }
+  $cmd | Set-Content $cmdPath
 
   $menuPrograms = [Environment]::GetFolderPath('Programs')
   $shortcutArgs = @{
@@ -82,10 +62,13 @@ echo Logging to $logPath
   }
 }
 
+$configHash = Convert-TomlToHash($pp["config"])
+Write-Debug "Config hash: $configHash"
+
 $rules = Get-NetFirewallRule
 $par = @{
-    DisplayName = "$name"
-    LocalPort   = "4444"
+    DisplayName = $configHash["port"]
+    LocalPort   = "4446"
     Direction   = "Inbound"
     Protocol    = "TCP"
     Action      = "Allow"

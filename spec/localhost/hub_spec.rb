@@ -4,11 +4,11 @@ describe file('C:/tools/selenium') do
   it { should be_directory }
 end
 
-describe file("C:/tools/selenium/selenium-server-standalone.jar") do
+describe file("C:/tools/selenium/selenium-server.jar") do
   it { should be_file }
 end
 
-describe file("C:/tools/selenium/hubconfig.json") do
+describe file("C:/tools/selenium/hub.toml") do
   it { should be_file }
 end
 

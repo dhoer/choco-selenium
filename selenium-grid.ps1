@@ -19,21 +19,30 @@ choco install -y oracle17jdk firefox selenium-gecko-driver selenium-chrome-drive
 ##
 
 choco pack C:\vagrant\selenium.nuspec --outputdirectory C:\vagrant
-$config = "C:\tools\selenium\default-config.toml"
+$config = "C:\tools\selenium\hub.toml"
 @'
 [server]
-port = 4444
+port = 4446
 host = "localhost"
-allow-cors = true
 
-[node]
-port = 5555
-max-sessions = 5
-detect-drivers = true
+[logging]
+log-file = 'C:\\tools\selenium\hub.log'
 '@ | New-Item $config -Type file -Force
 choco install -y selenium --params "'/role:hub /config:$config /service /autostart'" -d -s C:\vagrant --force --debug
-choco install -y selenium --params "'/role:node /config:$config /autostart'" -d -s C:\vagrant --force --debug
 
+$config = "C:\tools\selenium\node.toml"
+@'
+[server]
+port = 5556
+host = "localhost"
+
+[node]
+detect-drivers = true
+
+[logging]
+log-file = 'C:\\tools\selenium\node.log'
+'@ | New-Item $config -Type file -Force
+choco install -y selenium --params "'/role:node /config:$config /autostart'" -d -s C:\vagrant --force --debug
 
 ##
 # Configure Auto-Logon

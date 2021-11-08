@@ -8,8 +8,11 @@ function Get-SeleniumConfigDefaults {
   if ($null -eq $pp["config"] -or '' -eq $pp["config"] ) {
     $pp["config"] = "$seleniumDir\$($pp["role"])-config.toml"
   }
-  if ($null -eq $pp["log"] -or '' -eq $pp["log"]) { $pp["log"] = $false }
   return $pp
+}
+
+function Convert-TomlToHash($toml) {
+  return Get-Content $toml | foreach-object -begin {$h=@{}} -process { $k = [regex]::split($_,'='); if(($k[0].CompareTo("") -ne 0) -and ($k[0].StartsWith("[") -ne $True)) { $h.Add($k[0], $k[1]) } }
 }
 
 function Get-ChromeVersion() {

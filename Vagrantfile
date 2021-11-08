@@ -10,6 +10,8 @@ Vagrant.configure("2") do |config|
     vb.name = "Selenium-Grid"
     vb.linked_clone = true
     vb.gui = true
+    # Scale to 300%
+    vb.customize ['setextradata', :id, 'GUI/ScaleFactor', '3']
     vb.memory = "2048"
   end
 
