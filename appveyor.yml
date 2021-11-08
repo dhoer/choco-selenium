@@ -1,18 +1,18 @@
 version: '{branch}-{build}'
 
 install:
-  - set PATH=C:\Ruby23\bin;%PATH%
+  - set PATH=C:\Ruby30\bin;%PATH%
   - bundle install
   - choco install chocolatey-core.extension
   - choco install -y nssm --pre
   - choco pack
-  - choco install -y selenium --params "'/role:hub /service /port:4446 /autostart /log'" -d -s .
+  - choco install -y selenium --params "'/role:hub /config:.\config-hub.toml /service /autostart'" -d -s . --force --debug
   - choco install -y googlechrome --ignorechecksum
   - choco install -y firefoxesr selenium-gecko-driver selenium-chrome-driver selenium-ie-driver
-  - choco install -y selenium --params "'/role:node /hub:http://localhost:4446 /port:5557 /autostart /log'" -d -s . --force
+  - choco install -y selenium --params "'/role:node /config:.\config-node.toml /autostart'" -d -s . --force --debug
   - ps: Start-Process C:\tools\selenium\node.cmd -PassThru
 
-build: off
+build: false
 
 before_test:
   - ruby -v

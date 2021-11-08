@@ -11,7 +11,7 @@ Set-ExecutionPolicy Bypass; iex ((New-Object System.Net.WebClient).DownloadStrin
 
 choco install -y nssm --pre
 choco install -y googlechrome --ignorechecksum
-choco install -y oracle17jdk firefox selenium-gecko-driver selenium-chrome-driver selenium-ie-driver selenium-edge-driver
+choco install -y oracle17jdk firefoxesr selenium-gecko-driver selenium-chrome-driver selenium-ie-driver selenium-edge-driver
 
 
 ##
@@ -19,30 +19,8 @@ choco install -y oracle17jdk firefox selenium-gecko-driver selenium-chrome-drive
 ##
 
 choco pack C:\vagrant\selenium.nuspec --outputdirectory C:\vagrant
-$config = "C:\tools\selenium\hub.toml"
-@'
-[server]
-port = 4446
-host = "localhost"
-
-[logging]
-log-file = 'C:\\tools\selenium\hub.log'
-'@ | New-Item $config -Type file -Force
-choco install -y selenium --params "'/role:hub /config:$config /service /autostart'" -d -s C:\vagrant --force --debug
-
-$config = "C:\tools\selenium\node.toml"
-@'
-[server]
-port = 5556
-host = "localhost"
-
-[node]
-detect-drivers = true
-
-[logging]
-log-file = 'C:\\tools\selenium\node.log'
-'@ | New-Item $config -Type file -Force
-choco install -y selenium --params "'/role:node /config:$config /autostart'" -d -s C:\vagrant --force --debug
+choco install -y selenium --params "'/role:hub /config:C:\\vagrant\config-hub.toml /service /autostart /firewallrule'" -d -s C:\vagrant --force --debug
+choco install -y selenium --params "'/role:node /config:C:\\vagrant\config-node.toml /autostart /firewallrule'" -d -s C:\vagrant --force --debug
 
 ##
 # Configure Auto-Logon

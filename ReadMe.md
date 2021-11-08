@@ -7,7 +7,7 @@ Installs and configures selenium grid roles:
 https://www.selenium.dev/documentation/grid/setting_up_your_own_grid/.
 
 A [Vagrantfile](https://github.com/dhoer/choco-selenium/blob/master/Vagrantfile)
-to provision a Selenium-Grid on Windows 11 with latest browsers
+to provision a Selenium-Grid on Windows 10 with latest browsers
 and drivers for Chrome, Edge, Firefox, and IE is available. See
 [TESTING.md](https://github.com/dhoer/choco-selenium/blob/master/TESTING.md)
 for more information.
@@ -25,22 +25,21 @@ using `/service` option
 
 ### Standalone
 
-Install standalone server using port 8888 instead of default 4444,
-and write to a log file instead of stdout:
+Install standalone server:
 
     choco install -y jdk10 firefox selenium-gecko-driver googlechrome selenium-chrome-driver selenium-ie-driver
-    choco install -y selenium --params "'/port:8888 /log'"
+    choco install -y selenium
 
 Start the standalone server: Start > Selenium > Selenium Standalone.
 Verify standalone server is available by opening Selenium Standalone
-console http://localhost:8888/wd/hub/static/resource/hub.html.
+console http://localhost:4444/wd/hub/static/resource/hub.html.
 
 ### Hub
 
 Install hub as a Windows service that will autostart on reboot:
 
     choco install -y nssm --pre
-    choco install -y jdk10
+    choco install -y oracle17jdk
     choco install -y selenium --params "'/role:hub /service /autostart'"
 
 Selenium hub server should be started automatically.
@@ -61,16 +60,13 @@ support drivers browser capabilities instead of the
     max-sessions = 5
     '@ | New-Item $config -Type file -Force
 
-    choco install -y jdk10 googlechrome selenium-chrome-driver
+    choco install -y oracle17jdk googlechrome selenium-chrome-driver
     choco install -y selenium --params "'/role:node /config:$config /autostart'"
 
 Start the node server: Start > Selenium > Selenium Node.
 Verify node server is available by opening Selenium Grid Hub console
 http://localhost:4444/grid/console and seeing the node attached.
 
-Note that for Firefox, Chrome, and Internet Explorer; when capability
-version is set to `"autoversion"`, the installer will attempt to
-automatically determine and set the version.
 
 ### AutoLogon
 
@@ -81,7 +77,7 @@ it up:
 
 ```
 choco install -y autologon
-autologon $env:username $env:userdomain redacted
+autologon $env:username $env:userdomain password
 ```
 
 ### IE Driver
@@ -128,12 +124,9 @@ The following package parameters can be set:
     recommended for the hub role. Default: `false`.
 - `/autostart` - Set Windows services to start automatically on reboot
     or set startup scripts to start on logon.  Default: `false`.
-- `/config:` - File containing [component configuration](https://www.selenium.dev/documentation/grid/configuring_components/). 
-    A [capabilities.toml](https://github.com/dhoer/choco-selenium/blob/master/tools/capabilities.toml) file
-    is provided by default for Chrome, Edge, Firefox, and Internet
-    Explorer.  The version is set to `"autoversion"`, so the installer
-    will attempt to automatically determine and set the version.
+- `/config:` - File containing [component configuration](https://www.selenium.dev/documentation/grid/configuring_components/).
+- `/firewallrule` - Add port to 
 
 These parameters can be passed to the installer with the use of
 `--params`. For example:
-`--params "'/role:node /hub:http://localhost:4444'"`.
+`--params "'/role:node'"`.

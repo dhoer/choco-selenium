@@ -1,0 +1,6 @@
+[server]
+port = 4446
+host = "localhost"
+
+[logging]
+log-file = 'C:\\tools\selenium\hub.log'

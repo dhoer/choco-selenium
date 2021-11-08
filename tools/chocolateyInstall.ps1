@@ -18,14 +18,14 @@ if (!(Test-Path $seleniumDir)) {
   New-Item $seleniumDir -ItemType directory -Force
 }
 
-if (!(Test-Path $pp["config"])) {
-  Copy-Item "$toolsDir\config.toml" $pp["config"]
-}
-
 # https://chocolatey.org/docs/helpers-get-chocolatey-web-file
 Get-ChocolateyWebFile $packageName $seleniumPath $url -checksum $checksum -checksumType $checksumType
 
-$options = "$($pp["role"]) --config ""$($pp["config"])"""
+$options = "$($pp["role"])"
+if ($null -ne $pp["config"] -or '' -ne $pp["config"] ) {
+  $options = $options + " --config ""$($pp["config"])"""
+}
+
 $cmdParams = "$($pp["javaoptions"]) -jar ""$seleniumPath"" $options"
 $cmd = "java $cmdParams"
 Write-Debug "Selenium command: $cmd"
@@ -62,17 +62,17 @@ if ($pp["service"] -eq $true) {
   }
 }
 
-$configHash = Convert-TomlToHash($pp["config"])
-Write-Debug "Config hash: $configHash"
+if ($pp["firewallrule"] -eq $true) {
+  $port = Get-SeleniumPort
+  $rules = Get-NetFirewallRule
+  $par = @{
+      DisplayName = $name
+      LocalPort   = $port
+      Direction   = "Inbound"
+      Protocol    = "TCP"
+      Action      = "Allow"
+  }
+  if (-not $rules.DisplayName.Contains($par.DisplayName)) {New-NetFirewallRule @par}
 
-$rules = Get-NetFirewallRule
-$par = @{
-    DisplayName = $configHash["port"]
-    LocalPort   = "4446"
-    Direction   = "Inbound"
-    Protocol    = "TCP"
-    Action      = "Allow"
+  Write-Debug "Selenium firewall: $par"
 }
-if (-not $rules.DisplayName.Contains($par.DisplayName)) {New-NetFirewallRule @par}
-
-Write-Debug "Selenium firewall: $par"
