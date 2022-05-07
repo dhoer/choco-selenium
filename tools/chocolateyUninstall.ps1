@@ -37,7 +37,7 @@ foreach ($name in $names) {
 
 wmic Path win32_process Where "CommandLine Like '%selenium-server.jar%'" Call Terminate
 
-if (null -ne $pp["capabilitiesJson"and $pp["capabilitiesJson"] -ne '') {
+if (null -ne $pp["capabilitiesJson"] and $pp["capabilitiesJson"] -ne '') {
   If (Test-Path $pp["capabilitiesJson"]) {
     Remove-Item $pp["capabilitiesJson"] -Force
   }

@@ -62,17 +62,17 @@ if ($pp["service"] -eq $true) {
   }
 }
 
-if ($pp["firewallrule"] -eq $true) {
-  $port = Get-SeleniumPort
-  $rules = Get-NetFirewallRule
-  $par = @{
-      DisplayName = $name
-      LocalPort   = $port
-      Direction   = "Inbound"
-      Protocol    = "TCP"
-      Action      = "Allow"
-  }
-  if (-not $rules.DisplayName.Contains($par.DisplayName)) {New-NetFirewallRule @par}
+# if ($pp["firewallrule"] -eq $true) {
+#   $port = Get-SeleniumPort
+#   $rules = Get-NetFirewallRule
+#   $par = @{
+#       DisplayName = $name
+#       LocalPort   = $port
+#       Direction   = "Inbound"
+#       Protocol    = "TCP"
+#       Action      = "Allow"
+#   }
+#   if (-not $rules.DisplayName.Contains($par.DisplayName)) {New-NetFirewallRule @par}
 
-  Write-Debug "Selenium firewall: $par"
-}
+#   Write-Debug "Selenium firewall: $par"
+# }
