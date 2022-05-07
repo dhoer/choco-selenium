@@ -10,9 +10,14 @@ Set-ExecutionPolicy Bypass; iex ((New-Object System.Net.WebClient).DownloadStrin
 ##
 
 choco install -y nssm --pre
-choco install -y googlechrome --ignorechecksum
-choco install -y oracle17jdk firefoxesr selenium-gecko-driver selenium-chrome-driver selenium-ie-driver selenium-edge-driver
+# choco install -y googlechrome --ignorechecksum
+choco install -y oraclejdk --version 17.0.1
+# choco install -y firefoxesr selenium-gecko-driver selenium-chrome-driver selenium-ie-driver selenium-edge-driver
 
+##
+# Allow Java JDK to be called
+##
+New-NetFirewallRule -DisplayName "Oracle Java(TM) JDK" -Direction Inbound -Program "C:\program files\java\jdk-17.0.1\bin\java.exe" -Action Allow -Enabled True
 
 ##
 # Install Selenium-Grid
@@ -20,14 +25,13 @@ choco install -y oracle17jdk firefoxesr selenium-gecko-driver selenium-chrome-dr
 
 choco pack C:\vagrant\selenium.nuspec --outputdirectory C:\vagrant
 choco install -y selenium --params "'/role:hub /config:C:\\vagrant\config-hub.toml /service /autostart /firewallrule'" -d -s C:\vagrant --force --debug
-choco install -y selenium --params "'/role:node /config:C:\\vagrant\config-node.toml /autostart /firewallrule'" -d -s C:\vagrant --force --debug
+# choco install -y selenium --params "'/role:node /config:C:\\vagrant\config-node.toml /autostart /firewallrule'" -d -s C:\vagrant --force --debug
 
 ##
 # Configure Auto-Logon
 ##
-
-choco install -y autologon
-autologon $env:username $env:userdomain vagrant
+# choco install -y autologon
+# autologon $env:username $env:userdomain vagrant
 
 
 ##

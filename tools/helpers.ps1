@@ -8,17 +8,42 @@ function Get-SeleniumConfigDefaults {
   return $pp
 }
 
-function Convert-TomlToHash($toml) {
-  return Get-Content $toml | foreach-object -begin {$h=@{}} -process { $k = [regex]::split($_,'='); if(($k[0].CompareTo("") -ne 0) -and ($k[0].StartsWith("[") -ne $True)) { $h.Add($k[0], $k[1]) } }
+function Convert-TomlToHash($file) {
+  Write-Debug "Config: $file"
+  $config = [ordered] @{}
+  If (Test-Path $file) { 
+    # Parse the lines of input file "file.ini"
+    switch -Regex -File $file {
+
+      '^\[(.+?)\]\s*$' { # section header
+        $config[$Matches[1]] = [ordered] @{} # initialize nested ordered hash for section
+      }
+
+      '^\s*([^=]+)=\s*(.*)$' {  # property-value pair
+
+        # Simple support for string and integer values.
+        $key, $val = $Matches[1].Trim(), $Matches[2].Trim()
+        if ($val -like '"*"') { $val = $val -replace '"' }
+        else                  { $val = [int] $val }
+
+        # Add new entry, to the most recently added ([-1]) section hashtable.
+        $config[-1].Add($key, $val)
+      }
+
+    }
+  }
+  Write-Debug ("Hash: " + $config | Out-String)
+  return $config
 }
 
 function Get-SeleniumPort {
   $port = 0
-  if ($null -ne $pp["config"] -or '' -ne $pp["config"] ) {
+  if (-Not($null -eq $pp["config"] -or '' -eq $pp["config"])) {
     $configHash = Convert-TomlToHash($pp["config"])
-    Write-Debug "Config hash: $configHash"
-    if ($null -ne $configHash["port"] -or '' -ne $configHash["port"] ) {
-      $port = $configHash["port"]
+    if (-Not($null -eq $configHash -or '' -eq $configHash)) {
+      if (-Not($null -eq $configHash["port"] -or '' -eq $configHash["port"])) {
+        $port = $configHash["port"]
+      }
     }
   }
   if ($port -eq 0) {
@@ -28,5 +53,6 @@ function Get-SeleniumPort {
       $port = 4444
     }
   }
+  Write-Debug "Port: $port"
   return $port
 }

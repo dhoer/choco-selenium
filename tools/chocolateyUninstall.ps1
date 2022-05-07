@@ -8,7 +8,7 @@ $names         = @("Selenium Standalone", "Selenium Hub", "Selenium Node")
 
 foreach ($name in $names) {
   $service = Get-WmiObject -Class Win32_Service -Filter "Name='$name'"
-	if ($service -ne $null) {
+	if ($null -ne $service) {
     nssm remove "$name" confirm
   }
 
@@ -35,9 +35,9 @@ foreach ($name in $names) {
   }
 }
 
-wmic Path win32_process Where "CommandLine Like '%selenium-server-standalone.jar%'" Call Terminate
+wmic Path win32_process Where "CommandLine Like '%selenium-server.jar%'" Call Terminate
 
-if ($pp["capabilitiesJson"] -ne $null -and $pp["capabilitiesJson"] -ne '') {
+if (null -ne $pp["capabilitiesJson"and $pp["capabilitiesJson"] -ne '') {
   If (Test-Path $pp["capabilitiesJson"]) {
     Remove-Item $pp["capabilitiesJson"] -Force
   }

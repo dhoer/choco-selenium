@@ -1,7 +1,21 @@
-﻿# Selenium
+﻿# Selenium 4
 
 [![Chocolatey](https://img.shields.io/chocolatey/dt/selenium.svg)](https://chocolatey.org/packages/Selenium)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/dhoer/choco-selenium/master.svg)](https://ci.appveyor.com/project/dhoer/choco-selenium)
+
+Selenium 4 is a total rewrite and will require updating your Chocolatey install script.
+[Selenium 3](https://github.com/dhoer/choco-selenium/tree/3) is still available.
+
+Here are the major changes:
+
+- configuration - Capabilities json has been replaced by [toml configuration](https://www.selenium.dev/documentation/grid/configuration/toml_options/).
+- logging - Logging is now incorporated in toml configuration.
+- ie driver - The script to configure ie is no longer included and has been moved to its own repository: https://github.com/dhoer/selenium-iedriverserver-config.
+
+Caveats 
+
+- toml - Since there is no module in powershell to convert toml to hashtable, there are limitations on what format is acceptable. There is no support for spaces around the equals sign, nor support for quotes around strings.
+- nssm - The non-sucking service manager is still used by this installer. I have concerns about the pre-release version not being updated since 2017 and virus scanners flagging it. But Chocolatey still supports it and and I don't see any better alternatives.   
 
 Installs and configures selenium grid roles:
 https://www.selenium.dev/documentation/grid/setting_up_your_own_grid/.
@@ -48,16 +62,14 @@ http://localhost:4444/grid/console.
 
 ### Node
 
-Install node as startup script that will autostart on logon and
-support drivers browser capabilities instead of the
-[default capabilities](https://github.com/dhoer/choco-selenium/blob/master/tools/capabilities.toml):
+Install node as startup script that will autostart on logon and have chrome capabilities:
 
     $config = "C:\tools\selenium\chromeonly.toml"
     @'
     [node]
-    grid-url = localhost:4444
-    drivers = ["chrome""]
-    max-sessions = 5
+    grid-url=localhost:4444
+    drivers=["chrome""]
+    max-sessions=5
     '@ | New-Item $config -Type file -Force
 
     choco install -y oracle17jdk googlechrome selenium-chrome-driver
@@ -75,19 +87,17 @@ to make that happen automatically, you need to install the autologon
 package and run `autologon <username> <domain> <password>` once to set
 it up:
 
-```
-choco install -y autologon
-autologon $env:username $env:userdomain password
-```
+    choco install -y autologon
+    autologon $env:username $env:userdomain password
 
 ### IE Driver
 
 Internet Explorer will require
 [additional configuration](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration)
-in order for the IE Driver to work. A PowerShell script
-[ie-configuration.ps1](https://github.com/dhoer/choco-selenium/blob/master/ie-configuration.ps1)
-is available to configure IE. This script has been tested on
-Windows Server 2016, and Windows 10/11.
+in order for the IE Driver to work. 
+A [PowerShell script](https://github.com/dhoer/selenium-iedriverserver-config) 
+is available to configure IE. 
+This script has been tested on Windows Server 2016, and Windows 10/11.
 
 ### Screen Resolution
 
@@ -106,9 +116,6 @@ selenium access to the GUI to drive the browser. See
 for information on how to configure Windows to logon automatically.
 
 Chocolatey will install files under `C:/tools/selenium` directory.
-
-A firewall rule is automatically created to allow traffic to the
-hub or node service port.
 
 ### Package Parameters
 

@@ -1,9 +1,9 @@
 [server]
-port = 5556
-host = "localhost"
+port=5556
+host=localhost
 
 [node]
-detect-drivers = true
+detect-drivers=true
 
 [logging]
-log-file = 'C:\\tools\selenium\node.log'
+log-file=C:\\tools\selenium\node.log
