@@ -8,10 +8,6 @@ describe file("C:/tools/selenium/selenium-server.jar") do
   it { should be_file }
 end
 
-describe file("C:/tools/selenium/node.toml") do
-  it { should be_file }
-end
-
 describe file("C:/tools/selenium/node.cmd") do
   it { should be_file }
 end
@@ -21,10 +17,6 @@ describe file("C:/tools/selenium/node.log") do
 end
 
 describe file("$HOME/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Selenium/Selenium Node.lnk") do
-  it { should be_file }
-end
-
-describe file("$HOME/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/Selenium Node.lnk") do
   it { should be_file }
 end
 

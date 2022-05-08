@@ -8,10 +8,6 @@ describe file("C:/tools/selenium/selenium-server.jar") do
   it { should be_file }
 end
 
-describe file("C:/tools/selenium/hub.toml") do
-  it { should be_file }
-end
-
 describe file("C:/tools/selenium/hub.log") do
   it { should be_file }
 end

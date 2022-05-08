@@ -44,35 +44,20 @@ if ($pp["service"] -eq $true) {
 
   $menuPrograms = [Environment]::GetFolderPath('Programs')
   $shortcutArgs = @{
-    shortcutFilePath = "$menuPrograms\Selenium\$name.lnk"
-    targetPath       = $cmdPath
-    iconLocation     = "$toolsDir\icon.ico"
-    workDirectory    = $seleniumDir
+    ShortcutFilePath = "$menuPrograms\Selenium\$name.lnk"
+    TargetPath       = "$cmdPath"
+    IconLocation     = "$toolsDir\icon.ico"
+    WorkingDirectory = "$seleniumDir"
   }
   Install-ChocolateyShortcut @shortcutArgs
 
   if ($pp["autostart"] -eq $true) {
     $startupArgs = @{
-      shortcutFilePath = "$menuPrograms\Startup\$name.lnk"
-      targetPath       = $cmdPath
-      iconLocation     = "$toolsDir\icon.ico"
-      workDirectory    = $seleniumDir
+      ShortcutFilePath = "$menuPrograms\Startup\$name.lnk"
+      TargetPath       = "$cmdPath"
+      IconLocation     = "$toolsDir\icon.ico"
+      WorkingDirectory = "$seleniumDir"
     }
     Install-ChocolateyShortcut @startupArgs
   }
 }
-
-# if ($pp["firewallrule"] -eq $true) {
-#   $port = Get-SeleniumPort
-#   $rules = Get-NetFirewallRule
-#   $par = @{
-#       DisplayName = $name
-#       LocalPort   = $port
-#       Direction   = "Inbound"
-#       Protocol    = "TCP"
-#       Action      = "Allow"
-#   }
-#   if (-not $rules.DisplayName.Contains($par.DisplayName)) {New-NetFirewallRule @par}
-
-#   Write-Debug "Selenium firewall: $par"
-# }
