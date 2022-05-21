@@ -9,12 +9,13 @@ install:
   # - choco install -y nssm --pre
   - choco pack
   - choco install -y selenium --params "'/role:hub /config:.\config-hub.toml /service /autostart'" -d -s . --force --debug
+  - ps: Start-Service -Name "Selenium Hub"
   # - choco install -y googlechrome --ignorechecksum
   - choco install -y firefoxesr selenium-gecko-driver 
   # - choco install -y selenium-chrome-driver 
   # - choco install -y selenium-ie-driver
   - choco install -y selenium --params "'/role:node /config:.\config-node.toml /autostart'" -d -s . --force --debug
-  - ps: Start-Service -Name "Selenium Hub"
+
   - ps: Start-Process C:\tools\selenium\node.cmd -PassThru
 
 build: false
