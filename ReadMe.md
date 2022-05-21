@@ -5,8 +5,8 @@
 
 Chocolatey Selenium was designed to bring up a Windows [Selenium Grid](https://www.selenium.dev/documentation/grid/setting_up_your_own_grid/) in the cloud with minimal effort. 
 
-Use with [Chocolatey Screen Resolution]() to build a grid at various screen resolutions.
-
+Supports GUI (non-headless) testing for legacy IE browser and for edge cases that might not be handled by headless on other browsers.  Use with [Chocolatey Screen Resolution](https://chocolatey.org/packages/screen-resolution) to build a grid at various screen resolutions.
+with
 This has been tested with Chrome, Firefox, Edge and IE browsers.
 
 DISCLAIMER: This package is not part of the official Selenium project.
@@ -15,20 +15,21 @@ DISCLAIMER: This package is not part of the official Selenium project.
 
 Selenium 4 is a total rewrite and will require updating your Chocolatey scripts when migrating from Selenium 3.
 
-Here are the major changes:
+[Selenium 3](https://github.com/dhoer/choco-selenium/tree/3) is still available. Pin the install version if you want to stay on 3: 
+
+    choco install selenium --version 3.141.59
+
+Here are the major changes relating to Selenium 4:
 
 - Configuration - Capabilities json has been replaced by [TOML configuration options](https://www.selenium.dev/documentation/grid/configuration/toml_options/).
 - Logging - Logging configuration is now incorporated in the TOML configuration.
-- Firewall Rules - Firewall rules to add inbound port firewall rule have been removed.
+- Firewall Rules - Code to automatically add inbound port firewall rules has been removed.
 - IE Configuration - The PowerShell script to configure IE to work with [IE Driver Server](https://www.selenium.dev/documentation/ie_driver_server/) is no longer included and has been moved to its own repository: https://github.com/dhoer/selenium-iedriverserver-config.
 
 Caveats
 
-- NSSM - The non-sucking service manager is still used by this installer. Concerns have been raised about the pre-release version not being updated since 2017 and that some virus scanners flag NSSM as a virus. But Chocolatey still supports it and there does not seem to be any simple alternatives at this time.
-
-[Selenium 3](https://github.com/dhoer/choco-selenium/tree/3) is still available. So be sure to pin the version to stay on 3: 
-
-    choco install selenium --version 3.141.59
+- Non-Sucking Service Manager (NSSM) - NSSM is still used by this installer when using `/service` option. Concerns have been raised about the pre-release version not being updated since 2017 and that some virus scanners flag NSSM as a virus. But Chocolatey still supports it and there does not seem to be any simple alternatives. A PR supporting an alternative that can reliably install, upgrade, and uninstall services would be welcome.
+- Chocolatey Selenium Drivers - While Chocolatey Selenium Firefox Driver is still being actively maintained; Chrome, IE, and Edge are not.
     
 ## Prerequisites
 
@@ -36,6 +37,7 @@ Caveats
 installing selenium
 - Non-Sucking Service Manager (NSSM) --pre version is required when
 using `/service` option
+- Firewall rules will need to be added to allow inbound traffic to Java and service.
 
 ## Quick Start
 

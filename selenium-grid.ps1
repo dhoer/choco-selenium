@@ -42,17 +42,9 @@ choco install -y oraclejdk --version 17.0.1
 New-NetFirewallRule -DisplayName "Oracle Java(TM) JDK" -Direction Inbound -Program "C:\program files\java\jdk-17.0.1\bin\java.exe" -Action Allow -Enabled True
 
 ##
-# Install Selenium-Grid
+# Setup Firefox Capability
 ##
-choco pack C:\vagrant\selenium.nuspec --outputdirectory C:\vagrant
-choco install -y selenium --params "'/role:hub /config:C:\\vagrant\config-hub.toml /service /autostart'" -d -s C:\vagrant --force --debug
-choco install -y selenium --params "'/role:node /config:C:\\vagrant\config-node.toml /autostart'" -d -s C:\vagrant --force --debug
-
-##
-# Configure Auto-Logon
-##
-choco install -y autologon
-autologon $env:username $env:userdomain vagrant
+choco install -y firefoxesr selenium-gecko-driver
 
 ##
 # Setup Google Chrome Capability
@@ -68,14 +60,25 @@ Invoke-WebRequest -Uri https://msedgedriver.azureedge.net/101.0.1210.39/edgedriv
 Expand-Archive -LiteralPath C:\tools\selenium\edgedriver_win64.zip -DestinationPath C:\tools\selenium
 
 ##
-# Setup Firefox Capability
-##
-choco install -y firefoxesr selenium-gecko-driver
-
-##
 # Setup and Configure IE Capability
 ##
 Invoke-WebRequest -Uri https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.0.0/IEDriverServer_Win32_4.0.0.zip -OutFile C:\tools\selenium\IEDriverServer_Win32_4.0.0.zip
 Expand-Archive -LiteralPath C:\tools\selenium\IEDriverServer_Win32_4.0.0.zip -DestinationPath C:\tools\selenium
+# $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
+# $newpath = "$oldpath;C:\tools\selenium"
+# Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
 # [Environment]::SetEnvironmentVariable("PATH", $Env:PATH + ";C:\tools\selenium\", [EnvironmentVariableTarget]::Machine)
 Set-ExecutionPolicy Bypass; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/dhoer/selenium-iedriverserver-config/main/selenium-iedriverserver-config.ps1'))
+
+##
+# Install Selenium-Grid
+##
+choco pack C:\vagrant\selenium.nuspec --outputdirectory C:\vagrant
+choco install -y selenium --params "'/role:hub /config:C:\\vagrant\config-hub.toml /service /autostart'" -d -s C:\vagrant --force --debug
+choco install -y selenium --params "'/role:node /config:C:\\vagrant\config-node.toml /autostart'" -d -s C:\vagrant --force --debug
+
+##
+# Configure Auto-Logon
+##
+choco install -y autologon
+autologon $env:username $env:userdomain vagrant
