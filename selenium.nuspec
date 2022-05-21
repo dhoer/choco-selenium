@@ -19,7 +19,7 @@
     <description>
 Installs and configures selenium grid components from https://github.com/SeleniumHQ/selenium/.
 
-See https://github.com/dhoer/choco-selenium before attempting to create a hub or node server.
+See https://github.com/dhoer/choco-selenium before attempting to create selenium grid components.
 
 DISCLAIMER: This package is not part of the official Selenium project.
     </description>

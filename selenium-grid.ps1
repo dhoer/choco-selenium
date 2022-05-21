@@ -33,7 +33,6 @@ Set-ExecutionPolicy Bypass; Invoke-Expression ((New-Object System.Net.WebClient)
 ##
 # Install Selenium-Grid Dependencies
 ##
-choco install -y nssm --pre
 choco install -y oraclejdk --version 17.0.1
 
 ##
