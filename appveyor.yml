@@ -1,5 +1,7 @@
 version: '{branch}-{build}'
 
+image: Visual Studio 2019
+
 install:
   # - set PATH=C:\Ruby31-x64\bin;%PATH%
   - bundle install
