@@ -31,13 +31,20 @@ $cmd = "java $cmdParams"
 Write-Debug "Selenium command: $cmd"
 
 if ($pp["service"] -eq $true) {
-  nssm install "$name" java
-  nssm set "$name" AppDirectory $seleniumDir
-  nssm set "$name" AppParameters $cmdParams
   if ($pp["autostart"] -eq $true) {
-    nssm set "$name" Start SERVICE_AUTO_START
+    $startuptype = 'Automatic'
+  } else {
+    $startuptype = 'Manual'
   }
-  nssm start "$name"
+  $params = @{
+    Name = "$name"
+    BinaryPathName = '$cmd'
+    DependsOn = "NetLogon"
+    DisplayName = "$name"
+    StartupType = "$startuptype"
+    Description = "$name"
+  }
+  New-Service @params
 } else {
   $cmdPath = "$seleniumDir\$($pp["role"]).cmd"
   $cmd | Set-Content $cmdPath
