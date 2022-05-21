@@ -40,9 +40,7 @@ if ($pp["service"] -eq $true) {
     Name = "$name"
     BinaryPathName = '$cmd'
     DependsOn = "NetLogon"
-    DisplayName = "$name"
     StartupType = "$startuptype"
-    Description = "$name"
   }
   New-Service @params
 } else {
